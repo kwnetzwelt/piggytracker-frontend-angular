@@ -1,18 +1,30 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { APP_INITIALIZER } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-//material
-import { MatSliderModule } from '@angular/material/slider';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
+
+//piggytracker
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
 import { EntriesComponent } from './entries/entries.component';
 import { TargetsComponent } from './targets/targets.component';
 import { WastrelsComponent } from './wastrels/wastrels.component';
 import { GoogleAuthButtonComponent } from './google-auth-button/google-auth-button.component';
+
+import { AuthService } from './auth.service';
+
+//material
+import { MatSliderModule } from '@angular/material/slider';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { LogService } from './log.service';
+import { ConfigService } from './config.service';
 
 @NgModule({
   declarations: [
@@ -21,17 +33,32 @@ import { GoogleAuthButtonComponent } from './google-auth-button/google-auth-butt
     EntriesComponent,
     TargetsComponent,
     WastrelsComponent,
-    GoogleAuthButtonComponent
+    GoogleAuthButtonComponent,
+
   ],
   imports: [
+
     BrowserModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     BrowserAnimationsModule,
+    AppRoutingModule,
+    HttpClientModule,
+
     //material
     MatSliderModule,
-    AppRoutingModule
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
   ],
-  providers: [],
+  providers: [{
+    provide: APP_INITIALIZER,
+    useFactory: ConfigService.load,
+    deps: [
+      HttpClient,
+      ConfigService
+    ],
+    multi: true
+  }, AuthService, LogService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -4,6 +4,7 @@
   "newProjectRoot": "projects",
   "projects": {
     "piggytracker-frontend-angular": {
+
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -14,6 +15,7 @@
       "sourceRoot": "src",
       "prefix": "app",
       "architect": {
+
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
@@ -70,6 +72,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
+            "port": 3000,
             "browserTarget": "piggytracker-frontend-angular:build"
           },
           "configurations": {
