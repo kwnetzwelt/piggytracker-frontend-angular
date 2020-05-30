@@ -29,6 +29,7 @@ import { ConfigService } from './config.service';
 //additional
 import {BottomNavModule} from 'ngx-bottom-nav';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { AvatarComponent } from './avatar/avatar.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     TargetsComponent,
     WastrelsComponent,
     GoogleAuthButtonComponent,
+    AvatarComponent,
 
   ],
   imports: [

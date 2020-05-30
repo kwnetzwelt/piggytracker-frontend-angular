@@ -3,7 +3,7 @@
       <button *ngIf="isLoggedIn" mat-icon-button><mat-icon>menu</mat-icon></button>
       <span class="spacer">{{title}}</span>
       <button mat-button *ngIf="!isLoggedIn" mat-icon-button (click)="handleLoginClicked()">Login</button>
-      <button mat-button *ngIf="isLoggedIn" mat-icon-button (click)="handleLogoutClicked()">Logout</button>
+      <button mat-button *ngIf="isLoggedIn" mat-icon-button (click)="handleLogoutClicked()"><app-avatar [name]="username" [src]="avatarUrl" ></app-avatar></button>
     </mat-toolbar-row>
   </mat-toolbar>
 

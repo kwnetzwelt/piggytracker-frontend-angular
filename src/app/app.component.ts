@@ -9,6 +9,8 @@ import { LogService } from './log.service';
 export class AppComponent {
   title = 'piggytracker';
   isLoggedIn = false;
+  username: String = "";
+  avatarUrl: String = undefined;
 
   navLinks = [
     {
@@ -34,6 +36,12 @@ export class AppComponent {
   async ngOnInit(){
     this.authService.getLoggedIn.subscribe((v) =>{
       this.isLoggedIn = v;
+      if(v)
+      {
+        const profile = this.authService.user.getBasicProfile();
+        this.username = profile.getName();
+        this.avatarUrl = profile.getImageUrl();
+      }
       this.logService.log("app.component " + v);
     });
     await this.authService.restoreLoginState();

@@ -12,7 +12,7 @@ export class AuthService {
   private gapiSetup: boolean = false; // marks if the gapi library has been loaded
   private authInstance: gapi.auth2.GoogleAuth;
   private error: string;
-  private user: gapi.auth2.GoogleUser;
+  public user: gapi.auth2.GoogleUser;
 
 
   private loggedInSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
@@ -40,8 +40,8 @@ export class AuthService {
   async restoreLoginState(){
     if (await this.checkIfUserAuthenticated()) {
       this.log.log("User Authentication restored. ");
-      this.setLoggedIn(true);
       this.user = this.authInstance.currentUser.get();
+      this.setLoggedIn(true);
     }else
     {
       this.log.log("User Authentication not restored. ");
