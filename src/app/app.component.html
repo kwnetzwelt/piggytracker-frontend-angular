@@ -1,12 +1,14 @@
-<mat-toolbar color="primary" class="mat-elevation-z4">
-  <mat-toolbar-row>
-    <button *ngIf="isLoggedIn" mat-icon-button><mat-icon>menu</mat-icon></button>
-    <span class="spacer">{{title}}</span>
-    <button mat-button *ngIf="!isLoggedIn" mat-icon-button (click)="handleLoginClicked()">Login</button>
-    <button mat-button *ngIf="isLoggedIn" mat-icon-button (click)="handleLogoutClicked()">Logout</button>
-  </mat-toolbar-row>
-</mat-toolbar>
+  <mat-toolbar color="primary" class="mat-elevation-z4 sticky-top">
+    <mat-toolbar-row>
+      <button *ngIf="isLoggedIn" mat-icon-button><mat-icon>menu</mat-icon></button>
+      <span class="spacer">{{title}}</span>
+      <button mat-button *ngIf="!isLoggedIn" mat-icon-button (click)="handleLoginClicked()">Login</button>
+      <button mat-button *ngIf="isLoggedIn" mat-icon-button (click)="handleLogoutClicked()">Logout</button>
+    </mat-toolbar-row>
+  </mat-toolbar>
 
-<router-outlet></router-outlet>
+<div class="main">
+  <router-outlet ></router-outlet>
+</div>
 
-<mat-slider min="1" max="100" step="1" value="1"></mat-slider>
+  <ngx-bottom-nav [items]="navLinks" class="mat-elevation-z4 sticky-bottom bg-light-grey"></ngx-bottom-nav>

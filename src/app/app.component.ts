@@ -9,6 +9,26 @@ import { LogService } from './log.service';
 export class AppComponent {
   title = 'piggytracker';
   isLoggedIn = false;
+
+  navLinks = [
+    {
+      routerLink: '/entries',
+      label: "Entries",
+      icon: "receipt"
+    },
+    {
+      routerLink: '/targets',
+      label: "Targets",
+      icon: "account_balance"
+    },
+    {
+      routerLink: '/wastrels',
+      label: "Wastrels",
+      icon: "monetization_on"
+    },
+  ];
+
+
   constructor(private authService: AuthService, private logService: LogService) { }
 
   async ngOnInit(){

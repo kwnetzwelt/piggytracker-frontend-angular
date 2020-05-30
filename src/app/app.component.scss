@@ -4,3 +4,20 @@
   flex: 1 1 auto;
   text-align: center;
 }
+.sticky-top {
+  position: fixed;
+  top: 0;
+  z-index: 1100;
+}
+.sticky-bottom {
+  position: fixed;
+  bottom: 0;
+}
+.main {
+  position: relative;
+  margin-top: 56px;
+  margin-bottom: 60px;
+}
+.bg-light-grey {
+  background-color: #eee;
+}

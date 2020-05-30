@@ -26,6 +26,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { LogService } from './log.service';
 import { ConfigService } from './config.service';
 
+//additional
+import {BottomNavModule} from 'ngx-bottom-nav';
+import { FlexLayoutModule } from '@angular/flex-layout';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,6 +53,10 @@ import { ConfigService } from './config.service';
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
+
+    //additional
+    BottomNavModule,
+    FlexLayoutModule
   ],
   providers: [{
     provide: APP_INITIALIZER,

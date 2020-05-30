@@ -1,4 +1,6 @@
 @import '~@angular/material/theming';
+@import '~ngx-bottom-nav/theming'; // <-- include SASS lib file
+
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
@@ -22,3 +24,4 @@ $candy-app-theme: mat-light-theme($candy-app-primary, $candy-app-accent, $candy-
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include angular-material-theme($candy-app-theme);
+@include ngx-bottom-nav-theme($theme); // <-- include the bottom nav theme
