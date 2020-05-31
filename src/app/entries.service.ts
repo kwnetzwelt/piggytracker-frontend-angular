@@ -17,7 +17,7 @@ export class EntriesService {
     this.authService.getLoggedIn.subscribe((v) => {
       this.logService.log("logged in! getting entries");
       if(v)
-        this.getEntriesFromServer(2,1);
+        this.getEntriesFromServer(1,1); // fetch each entry individually TODO: User perPage in the future
     });
   }
 
