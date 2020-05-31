@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { EntriesService } from '../entries.service';
 
 @Component({
   selector: 'app-entries',
@@ -8,7 +9,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 })
 export class EntriesComponent implements OnInit {
 
-  constructor() { }
+  constructor(public entriesService: EntriesService) { }
 
   ngOnInit(): void {
   }

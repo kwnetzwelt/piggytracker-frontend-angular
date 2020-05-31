@@ -30,6 +30,7 @@ import { ConfigService } from './config.service';
 import {BottomNavModule} from 'ngx-bottom-nav';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AvatarComponent } from './avatar/avatar.component';
+import { EntriesService } from './entries.service';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,7 @@ import { AvatarComponent } from './avatar/avatar.component';
       ConfigService
     ],
     multi: true
-  }, AuthService, LogService],
+  }, AuthService, LogService, EntriesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

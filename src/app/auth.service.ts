@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject } from 'rxjs';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { LogService } from './log.service';
 import { ConfigService } from './config.service';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,7 @@ export class AuthService {
   private gapiSetup: boolean = false; // marks if the gapi library has been loaded
   private authInstance: gapi.auth2.GoogleAuth;
   private error: string;
+  private tokenResponse: TokenResponse;
   public user: gapi.auth2.GoogleUser;
 
 
@@ -21,11 +23,15 @@ export class AuthService {
     this.loggedInSubject.next(value);
   }
 
-  constructor(private http: HttpClient, private log:LogService, private config: ConfigService) {
+  constructor(private http: HttpClient, private logService:LogService, private configService: ConfigService) {
 
 
   }
 
+  getAuthHeader(): HttpHeaders {
+    console.log( JSON.stringify( this.tokenResponse.token));
+    return new HttpHeaders({"Authorization": "bearer " + this.tokenResponse.token });
+  }
   logout(): void
   {
     this.authInstance.signOut();
@@ -34,17 +40,26 @@ export class AuthService {
 
   login(username: string, password: string)
   {
-    return this.http.post<any>(this.config.baseUrl + "/login", {username, password})
+    return this.http.post<any>(this.configService.baseUrl + "/login", {username, password})
   }
 
   async restoreLoginState(){
     if (await this.checkIfUserAuthenticated()) {
-      this.log.log("User Authentication restored. ");
+      this.logService.log("User Authentication restored. ");
       this.user = this.authInstance.currentUser.get();
-      this.setLoggedIn(true);
+      this.tokenResponse = this.restoreTokenResponse();
+      if(!this.tokenResponse)
+      {
+        // init stage 2
+        this.stage2();
+      }else
+      {
+        this.logService.log("restore: "+ this.tokenResponse);
+        this.setLoggedIn(true);
+      }
     }else
     {
-      this.log.log("User Authentication not restored. ");
+      this.logService.log("User Authentication not restored. ");
     }
   }
 
@@ -63,11 +78,27 @@ export class AuthService {
     // loaded and that we can call gapi.init
     return pload.then(async () => {
       await gapi.auth2
-        .init({ client_id: this.config.googleClientId })
+        .init({ client_id: this.configService.googleClientId })
         .then(auth => {
           this.gapiSetup = true;
           this.authInstance = auth;
         });
+    });
+  }
+  stage2()
+  {
+    this.logService.log("Stage2");
+    let stage2 = this.http.post<TokenResponse>(this.configService.baseUrl + "/google/tokensignin", {
+      idtoken: this.user.getAuthResponse().id_token,
+      avatarUrl:this.user.getBasicProfile().getImageUrl(),
+    },{headers:{
+      contentType: 'application/x-www-form-urlencoded'
+    }}).pipe(catchError(this.handleError<TokenResponse>('authError')));
+    stage2.subscribe((result) => {
+      this.logService.log("Stage2 complete");
+      this.storeTokenResponse(result);
+      this.logService.log("store: "+ result.token);
+      this.setLoggedIn(true);
     });
   }
   async authenticate(): Promise<gapi.auth2.GoogleUser> {
@@ -81,7 +112,7 @@ export class AuthService {
       await this.authInstance.signIn().then(
         user => {
           this.user = user;
-          this.setLoggedIn(true);
+          this.stage2();
         },
         error => {
           this.error = error;
@@ -89,6 +120,23 @@ export class AuthService {
         });
     });
   }
+
+  restoreTokenResponse(): TokenResponse
+  {
+    var storedValue = localStorage.getItem("tokenResponse");
+    if(storedValue)
+      return JSON.parse(storedValue) as TokenResponse;
+    return null;
+  }
+
+  storeTokenResponse(response: TokenResponse): void
+  {
+    if(response)
+      localStorage.setItem("tokenResponse", JSON.stringify(response));
+    else
+      localStorage.removeItem("tokenResponse");
+  }
+
   async checkIfUserAuthenticated(): Promise<boolean> {
     // Initialize gapi if not done yet
     if (!this.gapiSetup) {
@@ -97,4 +145,40 @@ export class AuthService {
 
     return this.authInstance.isSignedIn.get();
   }
+
+    /**
+   * Handle Http operation that failed.
+   * Let the app continue.
+   * @param operation - name of the operation that failed
+   * @param result - optional value to return as the observable result
+   */
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+
+      // TODO: send the error to remote logging infrastructure
+      console.error(error); // log to console instead
+
+      // TODO: better job of transforming error for user consumption
+      this.logService.log(`${operation} failed: ${error.message}`);
+
+      // Let the app keep running by returning an empty result.
+      return of(result as T);
+    };
+  }
+}
+
+export interface UserProfile
+{
+  fullname: string,
+  username: string,
+  groupId: string,
+  groupName: string,
+  avatarUrl: string,
+  id: string
+}
+export interface TokenResponse
+{
+  message: string,
+  token: string,
+  userProfile: UserProfile,
 }
