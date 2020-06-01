@@ -1,3 +1,5 @@
-<div>
-  <div *ngFor="let entry of this.entriesService.entries">{{entry.value}}</div>
-</div>
+<cdk-virtual-scroll-viewport itemSize="10" class="example-viewport">
+  <ng-container *cdkVirtualFor="let entry of this.entries" class="example-item">
+    <app-listentry [entry]="entry"></app-listentry>
+  </ng-container>
+</cdk-virtual-scroll-viewport>

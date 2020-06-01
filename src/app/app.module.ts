@@ -15,22 +15,23 @@ import { EntriesComponent } from './entries/entries.component';
 import { TargetsComponent } from './targets/targets.component';
 import { WastrelsComponent } from './wastrels/wastrels.component';
 import { GoogleAuthButtonComponent } from './google-auth-button/google-auth-button.component';
-
 import { AuthService } from './auth.service';
+import { LogService } from './log.service';
+import { ConfigService } from './config.service';
 
 //material
 import { MatSliderModule } from '@angular/material/slider';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { LogService } from './log.service';
-import { ConfigService } from './config.service';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 //additional
 import {BottomNavModule} from 'ngx-bottom-nav';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AvatarComponent } from './avatar/avatar.component';
 import { EntriesService } from './entries.service';
+import { ListentryComponent } from './listentry/listentry.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { EntriesService } from './entries.service';
     WastrelsComponent,
     GoogleAuthButtonComponent,
     AvatarComponent,
+    ListentryComponent,
 
   ],
   imports: [
@@ -56,10 +58,11 @@ import { EntriesService } from './entries.service';
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
+    ScrollingModule,
 
     //additional
     BottomNavModule,
-    FlexLayoutModule
+    FlexLayoutModule,
   ],
   providers: [{
     provide: APP_INITIALIZER,
