@@ -17,6 +17,7 @@ export class AuthService {
   public user: gapi.auth2.GoogleUser;
 
 
+
   private loggedInSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
   getLoggedIn = this.loggedInSubject.asObservable();
   private setLoggedIn = (value: boolean) => {
@@ -26,6 +27,9 @@ export class AuthService {
   constructor(private http: HttpClient, private logService:LogService, private configService: ConfigService) {
 
 
+  }
+  getUserProfile(): UserProfile {
+    return this.tokenResponse.userProfile;
   }
 
   getAuthHeader(): HttpHeaders {

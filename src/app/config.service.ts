@@ -11,12 +11,14 @@ export class ConfigService {
   public baseUrl = "";
   public apiEndpoint = "";
   public googleClientId = "";
+  public staticAssets = "";
 
   public initWithValues(other: ConfigService)
   {
     this.baseUrl = other.baseUrl;
     this.apiEndpoint = other.apiEndpoint;
     this.googleClientId = other.googleClientId;
+    this.staticAssets = other.staticAssets;
   }
 
   constructor() { }

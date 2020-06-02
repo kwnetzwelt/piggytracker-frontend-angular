@@ -18,6 +18,9 @@ import { GoogleAuthButtonComponent } from './google-auth-button/google-auth-butt
 import { AuthService } from './auth.service';
 import { LogService } from './log.service';
 import { ConfigService } from './config.service';
+import { RemuneratorPipe } from './remunerator.pipe';
+import { InitialsPipe } from './initials.pipe';
+import { CategoryPipe } from './category.pipe';
 
 //material
 import { MatSliderModule } from '@angular/material/slider';
@@ -25,6 +28,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ScrollingModule } from '@angular/cdk/scrolling';
+import { MatDividerModule} from '@angular/material/divider';
+import { MatChipsModule} from '@angular/material/chips/';
 
 //additional
 import {BottomNavModule} from 'ngx-bottom-nav';
@@ -32,6 +37,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { AvatarComponent } from './avatar/avatar.component';
 import { EntriesService } from './entries.service';
 import { ListentryComponent } from './listentry/listentry.component';
+import { RemuneratorComponent } from './remunerator/remunerator.component';
+import { CategoryComponent } from './category/category.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +50,11 @@ import { ListentryComponent } from './listentry/listentry.component';
     GoogleAuthButtonComponent,
     AvatarComponent,
     ListentryComponent,
+    RemuneratorComponent,
+    CategoryComponent,
+    RemuneratorPipe,
+    InitialsPipe,
+    CategoryPipe,
 
   ],
   imports: [
@@ -59,6 +71,8 @@ import { ListentryComponent } from './listentry/listentry.component';
     MatButtonModule,
     MatIconModule,
     ScrollingModule,
+    MatDividerModule,
+    MatChipsModule,
 
     //additional
     BottomNavModule,

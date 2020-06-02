@@ -1,5 +1,11 @@
 <div>
-  {{entry.remunerator}}
+  <app-avatar [name]="entry.remunerator | initials" [src]="entry.remunerator | remunerator"></app-avatar>
+
+  <mat-chip *ngIf="entry.category">
+    {{ entry.category | category }}
+  </mat-chip>
+
   {{entry.date}}
   {{entry.value}}
 </div>
+<mat-divider></mat-divider>
