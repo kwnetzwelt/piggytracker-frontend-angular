@@ -1,6 +1,15 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { APP_INITIALIZER } from '@angular/core';
+import { NgModule, APP_INITIALIZER, LOCALE_ID } from '@angular/core';
+import de from '@angular/common/locales/de';
+import en from '@angular/common/locales/en';
+import es from '@angular/common/locales/es';
+import fr from '@angular/common/locales/fr';
+import { registerLocaleData } from '@angular/common';
+
+registerLocaleData(de);
+registerLocaleData(en);
+registerLocaleData(es);
+registerLocaleData(fr);
 
 import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -78,7 +87,9 @@ import { CategoryComponent } from './category/category.component';
     BottomNavModule,
     FlexLayoutModule,
   ],
-  providers: [{
+  providers: [
+    { provide: LOCALE_ID, deps: [ConfigService], useFactory: (configService: ConfigService) => { return configService.locale; } },
+    {
     provide: APP_INITIALIZER,
     useFactory: ConfigService.load,
     deps: [

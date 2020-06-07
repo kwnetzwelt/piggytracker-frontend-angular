@@ -1,0 +1,58 @@
+@media (orientation: landscape) {
+  .column {
+
+  }
+  .entry {
+  }
+  .remunerator
+  {
+    width: 15%;
+  }
+
+  .date {
+    width: 15%;
+  }
+
+  .value {
+    width: 20%;
+  }
+
+  .category
+  {
+    width: 20%;
+  }
+
+  .info {
+    width: 30%;
+  }
+}
+
+@media (orientation: portrait) {
+  .column {
+   padding-left: 5px;
+  }
+  .entry {
+  }
+  .remunerator
+  {
+    width: 48px;
+  }
+
+  .date {
+
+  }
+
+  .value {
+    width: 60px;
+    text-align: right;
+  }
+
+  .category
+  {
+
+  }
+
+  .info {
+    display: none;
+  }
+}

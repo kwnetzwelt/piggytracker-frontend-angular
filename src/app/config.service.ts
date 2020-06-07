@@ -8,6 +8,8 @@ import { map, catchError } from 'rxjs/operators';
 })
 export class ConfigService {
 
+  public locale = "";
+  public currency = "";
   public baseUrl = "";
   public apiEndpoint = "";
   public googleClientId = "";
@@ -19,6 +21,8 @@ export class ConfigService {
     this.apiEndpoint = other.apiEndpoint;
     this.googleClientId = other.googleClientId;
     this.staticAssets = other.staticAssets;
+    this.locale = other.locale;
+    this.currency = other.currency;
   }
 
   constructor() { }

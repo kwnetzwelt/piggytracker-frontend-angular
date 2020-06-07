@@ -1,11 +1,27 @@
-<div>
-  <app-avatar [name]="entry.remunerator | initials" [src]="entry.remunerator | remunerator"></app-avatar>
+<div fxFill  fxLayout="row" fxLayoutAlign="space-evenly center"  class="entry">
 
-  <mat-chip *ngIf="entry.category">
-    {{ entry.category | category }}
-  </mat-chip>
+  <app-avatar class="column remunerator" [name]="entry.remunerator | initials" [src]="entry.remunerator | remunerator"
+    fxFlex="nogrow"
+  ></app-avatar>
 
-  {{entry.date}}
-  {{entry.value}}
+
+  <div class="column date" fxFlex="nogrow">
+    {{entry.date | date}}
+  </div>
+
+  <div class="column value" fxFlex="20">
+    {{entry.value | currency:configService.currency:"symbol"}}
+  </div>
+
+  <mat-chip-list class="column category" fxFlex>
+    <mat-chip *ngIf="entry.category">
+      <app-avatar [small]="true" [name]="entry.category" [src]="entry.category | category"></app-avatar>
+      {{ entry.category }}
+    </mat-chip>
+  </mat-chip-list>
+
+  <div class="column info">
+    {{ entry.info }}
+  </div>
 </div>
 <mat-divider></mat-divider>

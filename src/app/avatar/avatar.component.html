@@ -1,4 +1,4 @@
 
 
-<p class="avatar" *ngIf="!src">{{ name }}</p>
-<img class="avatar" *ngIf="src" [src]="src" />
+<p [class.small]="small" class="avatar" *ngIf="!src">{{ name }}</p>
+<img [class.small]="small" class="avatar" *ngIf="src" [src]="src" />

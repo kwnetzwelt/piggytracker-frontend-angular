@@ -11,6 +11,8 @@ export class AvatarComponent implements OnInit {
   @Input() src: string = undefined;
   @Input() name: string = undefined;
 
+  @Input() small: boolean = false;
+
   constructor() { }
 
   ngOnInit(): void {
