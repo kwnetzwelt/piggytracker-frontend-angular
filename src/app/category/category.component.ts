@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Entry } from '../api.service';
 
 @Component({
   selector: 'app-category',
@@ -7,7 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class CategoryComponent implements OnInit {
 
-  @Input() name: string = undefined;
+  @Input() entry: Entry = null;
   constructor() { }
 
   ngOnInit(): void {

@@ -1,7 +1,7 @@
 @import "~src/styles.scss";
 
 $size: 40px !default;
-.avatar {
+.main {
   height: $size;
   width: $size;
   border-radius: 50%;
@@ -14,7 +14,7 @@ $size: 40px !default;
   color: #333;
 }
 
-.avatar.small {
+.main.small {
   height: $size * 0.5;
   width: $size * 0.5;
   border-radius: 50%;
@@ -25,4 +25,30 @@ $size: 40px !default;
   object-fit: cover;
   background-color: #eee;
   color: #333;
+}
+
+
+img.avatar {
+  color: transparent;
+  z-index: 999;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  text-align: center;
+  text-indent: 10000px;
+  position: relative;
+  z-index: 2;
+}
+div.text {
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  font-weight: 500;
+}
+.main {
+  position: relative;
 }

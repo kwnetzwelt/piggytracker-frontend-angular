@@ -1,4 +1,4 @@
-
-
-<p [class.small]="small" class="avatar" *ngIf="!src">{{ name }}</p>
-<img [class.small]="small" class="avatar" *ngIf="src" [src]="src" />
+<div [class.small]="small" class="main">
+  <img [class.small]="small" class="avatar" *ngIf="src" [src]="src" onerror="this.style.display='none'"  />
+  <div [class.small]="small" class="text">{{ name | initials }}</div>
+</div>
