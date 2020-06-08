@@ -10,7 +10,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent },
   {path: 'entries', component: EntriesComponent},
   {path: 'targets', component: TargetsComponent},
-  {path: 'wastrels', component: WastrelsComponent},
+  {path: 'ranking', component: WastrelsComponent},
   {path: '', component: WelcomeComponent}
 ];
 

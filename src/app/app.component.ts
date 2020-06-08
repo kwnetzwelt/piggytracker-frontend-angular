@@ -26,8 +26,8 @@ export class AppComponent {
       icon: "account_balance"
     },
     {
-      routerLink: '/wastrels',
-      label: "Wastrels",
+      routerLink: '/ranking',
+      label: "Ranking",
       icon: "monetization_on"
     },
   ];
