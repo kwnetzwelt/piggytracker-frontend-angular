@@ -39,6 +39,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatDividerModule} from '@angular/material/divider';
 import { MatChipsModule} from '@angular/material/chips/';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 //additional
 import {BottomNavModule} from 'ngx-bottom-nav';
@@ -86,6 +87,7 @@ import { VersionComponent } from './version/version.component';
     ScrollingModule,
     MatDividerModule,
     MatChipsModule,
+    MatSidenavModule,
 
     //additional
     BottomNavModule,

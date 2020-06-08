@@ -35,7 +35,9 @@ export class AppComponent {
 
   constructor(private authService: AuthService, private logService: LogService) { }
 
+  public opened: boolean;
   async ngOnInit(){
+
     this.authService.getLoggedIn.subscribe((v) =>{
       this.isLoggedIn = v;
       if(v)
