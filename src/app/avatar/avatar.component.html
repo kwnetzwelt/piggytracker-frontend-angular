@@ -1,4 +1,4 @@
-<div [class.small]="small" class="main">
+<div [class.small]="small" class="main" style="background-color: {{name | stringToColor}}; color: {{name | stringToForegroundColor}} ;">
   <img [class.small]="small" class="avatar" *ngIf="src" [src]="src" onerror="this.style.display='none'"  />
   <div [class.small]="small" class="text">{{ name | initials }}</div>
 </div>

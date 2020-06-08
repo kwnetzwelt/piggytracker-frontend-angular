@@ -30,6 +30,7 @@ import { ConfigService } from './config.service';
 import { RemuneratorPipe } from './remunerator.pipe';
 import { InitialsPipe } from './initials.pipe';
 import { CategoryPipe } from './category.pipe';
+import { StringToColorPipe, StringToForegroundColorPipe } from './stringToColor.pipe';
 
 //material
 import { MatSliderModule } from '@angular/material/slider';
@@ -67,6 +68,8 @@ import { VersionComponent } from './version/version.component';
     RemuneratorPipe,
     InitialsPipe,
     CategoryPipe,
+    StringToColorPipe,
+    StringToForegroundColorPipe,
     WelcomeComponent,
     VersionComponent,
 
