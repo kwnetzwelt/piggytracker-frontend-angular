@@ -48,6 +48,8 @@ import { EntriesService } from './entries.service';
 import { ListentryComponent } from './listentry/listentry.component';
 import { RemuneratorComponent } from './remunerator/remunerator.component';
 import { CategoryComponent } from './category/category.component';
+import { WelcomeComponent } from './welcome/welcome.component';
+import { VersionComponent } from './version/version.component';
 
 @NgModule({
   declarations: [
@@ -64,6 +66,8 @@ import { CategoryComponent } from './category/category.component';
     RemuneratorPipe,
     InitialsPipe,
     CategoryPipe,
+    WelcomeComponent,
+    VersionComponent,
 
   ],
   imports: [
