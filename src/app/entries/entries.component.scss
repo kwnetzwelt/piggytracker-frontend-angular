@@ -1,9 +1,14 @@
 .example-viewport {
-  height: calc(100vh - 120px);
+  height: calc(100vh - 105px);
   width: 100vw;
 
 }
 
 .example-item {
   height: 80px;
+}
+.add-entry-button {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
 }
