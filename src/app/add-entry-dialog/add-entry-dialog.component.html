@@ -1,0 +1,24 @@
+<div class="mat-title">Add Entry</div>
+<form class="example-form">
+  <mat-form-field class="full-width">
+    <mat-label>Date of purchase</mat-label>
+    <input matInput type="date" name="date" [(ngModel)]="data.date">
+    <mat-icon matSuffix>date_range</mat-icon>
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>Spending</mat-label>
+    <input matInput type="currency" name="value" [(ngModel)]="data.value">
+    <mat-icon matSuffix>monetization_on</mat-icon>
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-label>Category</mat-label>
+    <mat-select [(ngModel)]="data.category" name="category">
+      <mat-select-trigger>
+        <app-category [entry]="data"></app-category>
+      </mat-select-trigger>
+      <mat-option *ngFor="let category of entrysService.categories" [value]="category">
+        {{category}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</form>

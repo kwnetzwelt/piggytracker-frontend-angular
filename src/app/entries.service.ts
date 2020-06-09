@@ -13,6 +13,7 @@ export class EntriesService {
 
   private perPage: number = 20;
   public entries: Entry[] = [];
+  public categories: string[] = [];
 
   constructor(private authService: AuthService, private logService: LogService, private apiService: ApiService) {
     this.authService.getLoggedIn.subscribe((v) => {
@@ -31,15 +32,24 @@ export class EntriesService {
   private onEntryChangedSubject: BehaviorSubject<Entry> = new BehaviorSubject(null);
   onEntryChanged = this.onEntryChangedSubject.asObservable();
 
+
+  private addEntry(element: Entry): void {
+    this.entries.push(element);
+    // ensure we have this category in our list
+    if(!this.categories.some(e => e === element.category))
+      this.categories.push(element.category);
+
+    this.onEntryAddedSubject.next(element);
+  }
   private getEntriesFromServer(perPage: number, page: number)
   {
     this.apiService.getEntries(perPage,page).subscribe((e) => {
       if(e)
       {
         this.logService.log("Adding entries ...");
+
         e.data.forEach(element => {
-          this.entries.push(element);
-          this.onEntryAddedSubject.next(element);
+          this.addEntry(element);
         });
         this.logService.log(this.entries.length);
         if(e.total > (perPage * page))

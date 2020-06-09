@@ -1,6 +1,6 @@
 <cdk-virtual-scroll-viewport itemSize="64" class="example-viewport">
   <ng-container *cdkVirtualFor="let entry of this.entries" class="example-item">
-    <app-listentry [entry]="entry"></app-listentry>
+    <app-listentry [entry]="entry" (click)="openEditDialog(entry)"></app-listentry>
   </ng-container>
 </cdk-virtual-scroll-viewport>
-<button class="add-entry-button" color="primary" mat-fab><mat-icon>add</mat-icon></button>
+<button class="add-entry-button" color="primary" mat-fab (click)="openAddDialog()"><mat-icon>add</mat-icon></button>

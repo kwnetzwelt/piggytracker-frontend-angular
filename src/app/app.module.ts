@@ -42,10 +42,16 @@ import { MatDividerModule} from '@angular/material/divider';
 import { MatChipsModule} from '@angular/material/chips/';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
+
 
 //additional
 import {BottomNavModule} from 'ngx-bottom-nav';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule } from '@angular/forms';
 import { AvatarComponent } from './avatar/avatar.component';
 import { EntriesService } from './entries.service';
 import { ListentryComponent } from './listentry/listentry.component';
@@ -53,6 +59,7 @@ import { RemuneratorComponent } from './remunerator/remunerator.component';
 import { CategoryComponent } from './category/category.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { VersionComponent } from './version/version.component';
+import { AddEntryDialogComponent } from './add-entry-dialog/add-entry-dialog.component';
 
 @NgModule({
   declarations: [
@@ -73,6 +80,7 @@ import { VersionComponent } from './version/version.component';
     StringToForegroundColorPipe,
     WelcomeComponent,
     VersionComponent,
+    AddEntryDialogComponent,
 
   ],
   imports: [
@@ -93,10 +101,19 @@ import { VersionComponent } from './version/version.component';
     MatChipsModule,
     MatSidenavModule,
     MatTabsModule,
+    MatBottomSheetModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatSelectModule,
 
     //additional
     BottomNavModule,
     FlexLayoutModule,
+    FormsModule,
+  ],
+
+  entryComponents: [
+    AddEntryDialogComponent
   ],
   providers: [
     { provide: LOCALE_ID, deps: [ConfigService], useFactory: (configService: ConfigService) => { return configService.locale; } },
