@@ -10,6 +10,7 @@
     <input matInput type="currency" name="value" [(ngModel)]="data.value">
     <mat-icon matSuffix>monetization_on</mat-icon>
   </mat-form-field>
+
   <mat-form-field class="full-width">
     <mat-label>Category</mat-label>
     <mat-select [(ngModel)]="data.category" name="category">
@@ -21,4 +22,49 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
+
+  <mat-form-field class="full-width">
+    <mat-label>Info</mat-label>
+    <textarea matInput [(ngModel)]="data.info" name="info" cdkTextareaAutosize></textarea>
+  </mat-form-field>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      More
+    </mat-expansion-panel-header>
+
+
+    <mat-form-field class="full-width">
+      <mat-label>Remunerator</mat-label>
+      <mat-select [(ngModel)]="data.remunerator" name="remunerator">
+        <mat-select-trigger>
+          <app-remunerator [entry]="data"></app-remunerator>
+        </mat-select-trigger>
+        <mat-option *ngFor="let remunerator of entrysService.remunerators" [value]="remunerator">
+          {{remunerator}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field class="full-width">
+      <mat-label>Remunerator</mat-label>
+      <input matInput type="text" name="remunerator-manual" [(ngModel)]="data.remunerator">
+      <mat-icon matSuffix>face</mat-icon>
+    </mat-form-field>
+
+
+    <mat-form-field class="full-width">
+      <mat-label>Category</mat-label>
+      <input matInput type="text" name="category-manual" [(ngModel)]="data.category">
+      <mat-icon matSuffix>check_circle_outline</mat-icon>
+    </mat-form-field>
+
+  </mat-expansion-panel>
+
+  <div mat-dialog-actions class="actions">
+    <button mat-raised-button (click)="delete()" color="warn">Delete</button>
+    <span fxFlex="grow"></span>
+    <button mat-raised-button (click)="cancel()">Cancel</button>
+
+    <button mat-raised-button (click)="ok()" cdkFocusInitial color="primary">Ok</button>
+  </div>
 </form>

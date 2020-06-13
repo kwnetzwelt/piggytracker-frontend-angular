@@ -14,6 +14,7 @@ export class EntriesService {
   private perPage: number = 20;
   public entries: Entry[] = [];
   public categories: string[] = [];
+  public remunerators: string[] = [];
 
   constructor(private authService: AuthService, private logService: LogService, private apiService: ApiService) {
     this.authService.getLoggedIn.subscribe((v) => {
@@ -38,6 +39,10 @@ export class EntriesService {
     // ensure we have this category in our list
     if(!this.categories.some(e => e === element.category))
       this.categories.push(element.category);
+
+    // ensure we have this remunerator in out list
+    if(!this.remunerators.some(e => e === element.remunerator))
+      this.remunerators.push(element.remunerator);
 
     this.onEntryAddedSubject.next(element);
   }

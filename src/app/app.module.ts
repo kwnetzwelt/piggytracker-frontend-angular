@@ -46,6 +46,8 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 
 //additional
@@ -105,6 +107,8 @@ import { AddEntryDialogComponent } from './add-entry-dialog/add-entry-dialog.com
     MatInputModule,
     MatFormFieldModule,
     MatSelectModule,
+    MatExpansionModule,
+    MatAutocompleteModule,
 
     //additional
     BottomNavModule,

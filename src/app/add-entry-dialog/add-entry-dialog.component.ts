@@ -19,6 +19,16 @@ export class AddEntryDialogComponent {
       this.data = {} as Entry;
   }
 
+  public delete(): void {
+    this.bottomSheetRef.dismiss(0);
+  }
+
+  public ok(): void {
+    this.bottomSheetRef.dismiss(0);
+  }
+  public cancel(): void {
+    this.bottomSheetRef.dismiss(0);
+  }
   ngOnInit(): void {
   }
 
