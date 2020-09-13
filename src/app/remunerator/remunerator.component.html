@@ -1,6 +1,6 @@
 
 <mat-chip-list>
-  <mat-chip *ngIf="entry.remunerator">
+  <mat-chip *ngIf="entry?.remunerator">
     <app-avatar [small]="true" [name]="entry.remunerator" [src]="entry.remunerator | remunerator" class="remunerator avatar"></app-avatar>
     {{ entry.remunerator }}
   </mat-chip>

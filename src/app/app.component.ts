@@ -1,59 +1,69 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from './auth.service';
 import { LogService } from './log.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
   title = 'piggytracker';
   isLoggedIn = false;
-  username: String = "";
-  avatarUrl: String = undefined;
+  username = '';
+  avatarUrl: string = undefined;
+  public opened: boolean;
 
   navLinks = [
     {
       routerLink: '/entries',
-      label: "Entries",
-      icon: "receipt"
+      label: 'Entries',
+      icon: 'receipt'
     },
     {
       routerLink: '/targets',
-      label: "Targets",
-      icon: "account_balance"
+      label: 'Targets',
+      icon: 'account_balance'
     },
     {
       routerLink: '/ranking',
-      label: "Ranking",
-      icon: "monetization_on"
+      label: 'Ranking',
+      icon: 'monetization_on'
     },
   ];
 
 
-  constructor(private authService: AuthService, private logService: LogService) { }
+  constructor(
+    private authService: AuthService,
+    private logService: LogService,
+    private router: Router,
+  ) { }
 
-  public opened: boolean;
-  async ngOnInit(){
+  async ngOnInit() {
 
-    this.authService.getLoggedIn.subscribe((v) =>{
+    this.authService.getLoggedIn.subscribe((v) => {
       this.isLoggedIn = v;
-      if(v)
-      {
+      if (v) {
         const profile = this.authService.user.getBasicProfile();
         this.username = profile.getName();
         this.avatarUrl = profile.getImageUrl();
       }
-      this.logService.log("app.component " + v);
+      this.logService.log('app.component ' + v);
     });
     await this.authService.restoreLoginState();
   }
-  handleLoginClicked(){
-    this.authService.authenticate();
+
+  handleLoginClicked(provider: string) {
+    if (provider === 'g') {
+      this.authService.authenticate(provider);
+    } else {
+      this.router.navigate(['/login']);
+    }
   }
-  handleLogoutClicked(){
+
+  handleLogoutClicked() {
     this.authService.logout();
   }
 }

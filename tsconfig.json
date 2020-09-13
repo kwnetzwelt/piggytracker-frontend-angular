@@ -16,7 +16,7 @@
       "es2018",
       "dom"
     ],
-    "types": ["node"]
+    "types": ["gapi", "gapi.auth2"]
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

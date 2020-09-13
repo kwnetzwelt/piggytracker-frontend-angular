@@ -1,5 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { EntriesComponent } from './entries.component';
 
 describe('EntriesComponent', () => {
@@ -8,9 +10,13 @@ describe('EntriesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EntriesComponent ]
-    })
-    .compileComponents();
+      declarations: [
+        EntriesComponent,
+      ], imports: [
+        HttpClientTestingModule,
+        MatBottomSheetModule,
+      ]
+    }).compileComponents();
   }));
 
   beforeEach(() => {

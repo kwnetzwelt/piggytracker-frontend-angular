@@ -30,3 +30,21 @@ $piggytracker-app-theme: mat-light-theme($piggytracker-app-primary, $piggytracke
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include angular-material-theme($piggytracker-app-theme);
+
+.flex-container {
+  display:flex;
+}
+
+.flex-item {
+  flex-grow: 0;
+  flex-shrink: 1;
+  flex-basis: auto
+}
+
+.flex-container-vcenter {
+  align-items: center;
+}
+
+.flex-container-hcenter {
+  justify-content: center;
+}

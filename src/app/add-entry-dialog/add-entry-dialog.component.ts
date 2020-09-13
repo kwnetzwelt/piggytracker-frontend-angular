@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 
-import {MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA} from '@angular/material/bottom-sheet';
+import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 import { Entry } from '../api.service';
 import { isFormattedError } from '@angular/compiler';
 import { EntriesService } from '../entries.service';
@@ -13,9 +13,9 @@ import { EntriesService } from '../entries.service';
 export class AddEntryDialogComponent {
 
   constructor(@Inject(MAT_BOTTOM_SHEET_DATA) public data: Entry,
-  public entrysService: EntriesService,
-  private bottomSheetRef: MatBottomSheetRef<AddEntryDialogComponent>) {
-    if(this.data === null)
+    public entrysService: EntriesService,
+    private bottomSheetRef: MatBottomSheetRef<AddEntryDialogComponent>) {
+    if (this.data === null)
       this.data = {} as Entry;
   }
 

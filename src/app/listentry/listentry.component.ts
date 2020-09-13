@@ -10,7 +10,7 @@ import { ConfigService } from '../config.service';
 export class ListentryComponent implements OnInit {
 
   @Input() public entry: Entry;
-  constructor(public configService:ConfigService) { }
+  constructor(public configService: ConfigService) { }
 
   ngOnInit(): void {
   }
