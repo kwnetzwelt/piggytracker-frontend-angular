@@ -8,12 +8,13 @@ import { config } from 'rxjs';
 export class InitialsPipe implements PipeTransform {
 
 
-  transform(value: string): string{
+  transform(value: string): string {
 
-    var initials = value.split(' ');
-    if(initials.length >= 2)
-      return initials[0].charAt(0).toUpperCase() + initials[initials.length-1].charAt(0).toUpperCase();
-    else
-      return value.charAt(0).toUpperCase();
+    const initials = value?.split(' ') ?? '';
+    if (initials.length >= 2) {
+      return initials[0].charAt(0).toUpperCase() + initials[initials.length - 1].charAt(0).toUpperCase();
+    } else {
+      return value?.charAt(0).toUpperCase() ?? '';
+    }
   }
 }

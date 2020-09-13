@@ -17,7 +17,7 @@ import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 
-//piggytracker
+// piggytracker
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
 import { EntriesComponent } from './entries/entries.component';
@@ -32,14 +32,14 @@ import { InitialsPipe } from './initials.pipe';
 import { CategoryPipe } from './category.pipe';
 import { StringToColorPipe, StringToForegroundColorPipe } from './stringToColor.pipe';
 
-//material
+// material
 import { MatSliderModule } from '@angular/material/slider';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ScrollingModule } from '@angular/cdk/scrolling';
-import { MatDividerModule} from '@angular/material/divider';
-import { MatChipsModule} from '@angular/material/chips/';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatChipsModule } from '@angular/material/chips/';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
@@ -48,10 +48,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatMenuModule } from '@angular/material/menu';
 
-
-//additional
-import {BottomNavModule} from 'ngx-bottom-nav';
+// additional
+import { BottomNavModule } from 'ngx-bottom-nav';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { AvatarComponent } from './avatar/avatar.component';
@@ -93,7 +93,7 @@ import { AddEntryDialogComponent } from './add-entry-dialog/add-entry-dialog.com
     AppRoutingModule,
     HttpClientModule,
 
-    //material
+    // material
     MatSliderModule,
     MatToolbarModule,
     MatButtonModule,
@@ -109,8 +109,9 @@ import { AddEntryDialogComponent } from './add-entry-dialog/add-entry-dialog.com
     MatSelectModule,
     MatExpansionModule,
     MatAutocompleteModule,
+    MatMenuModule,
 
-    //additional
+    // additional
     BottomNavModule,
     FlexLayoutModule,
     FormsModule,
@@ -120,16 +121,16 @@ import { AddEntryDialogComponent } from './add-entry-dialog/add-entry-dialog.com
     AddEntryDialogComponent
   ],
   providers: [
-    { provide: LOCALE_ID, deps: [ConfigService], useFactory: (configService: ConfigService) => { return configService.locale; } },
+    { provide: LOCALE_ID, deps: [ConfigService], useFactory: (configService: ConfigService) => configService.locale },
     {
-    provide: APP_INITIALIZER,
-    useFactory: ConfigService.load,
-    deps: [
-      HttpClient,
-      ConfigService
-    ],
-    multi: true
-  }, AuthService, LogService, EntriesService],
+      provide: APP_INITIALIZER,
+      useFactory: ConfigService.load,
+      deps: [
+        HttpClient,
+        ConfigService
+      ],
+      multi: true
+    }, AuthService, LogService, EntriesService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

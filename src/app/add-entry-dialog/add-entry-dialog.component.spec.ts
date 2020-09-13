@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { AddEntryDialogComponent } from './add-entry-dialog.component';
+import { MAT_BOTTOM_SHEET_DATA, MatBottomSheetModule, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 
 describe('AddEntryDialogComponent', () => {
   let component: AddEntryDialogComponent;
@@ -8,9 +10,18 @@ describe('AddEntryDialogComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddEntryDialogComponent ]
+      declarations: [
+        AddEntryDialogComponent,
+      ],
+      providers: [
+        { provide: MAT_BOTTOM_SHEET_DATA, useValue: null },
+        { provide: MatBottomSheetRef, useValue: {} },
+      ], imports: [
+        HttpClientTestingModule,
+        MatBottomSheetModule,
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

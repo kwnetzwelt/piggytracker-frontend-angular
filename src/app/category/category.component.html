@@ -1,5 +1,5 @@
 <mat-chip-list>
-  <mat-chip *ngIf="entry.category">
+  <mat-chip *ngIf="entry?.category">
     <app-avatar [small]="true" [name]="entry.category" [src]="entry.category | category" class="category avatar"></app-avatar>
     {{ entry.category }}
   </mat-chip>

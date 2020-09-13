@@ -1,22 +1,20 @@
-<div fxFill  fxLayout="row" fxLayoutAlign="space-evenly center"  class="entry">
+<div fxFill fxLayout="row" fxLayoutAlign="space-evenly center" class="entry">
 
-  <app-avatar class="column remunerator" [name]="entry.remunerator" [src]="entry.remunerator | remunerator"
-    fxFlex="nogrow"
-  ></app-avatar>
-
+  <app-avatar class="column remunerator" [name]="entry?.remunerator" [src]="entry?.remunerator | remunerator"
+    fxFlex="nogrow"></app-avatar>
 
   <div class="column date" fxFlex="nogrow">
-    {{entry.date | date}}
+    {{entry?.date | date}}
   </div>
 
   <div class="column value" fxFlex="19">
-    {{entry.value | currency:configService.currency:"symbol"}}
+    {{entry?.value | currency:configService.currency:"symbol"}}
   </div>
 
   <app-category [entry]="entry" fxFlex class="column category"></app-category>
 
   <div class="column info">
-    {{ entry.info }}
+    {{ entry?.info }}
   </div>
 </div>
 <mat-divider></mat-divider>

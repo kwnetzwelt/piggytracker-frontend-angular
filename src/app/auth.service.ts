@@ -10,13 +10,10 @@ import { catchError } from 'rxjs/operators';
 })
 export class AuthService {
 
-  private gapiSetup: boolean = false; // marks if the gapi library has been loaded
+  private gapiSetup = false; // marks if the gapi library has been loaded
   private authInstance: gapi.auth2.GoogleAuth;
-  private error: string;
   private tokenResponse: TokenResponse;
   public user: gapi.auth2.GoogleUser;
-
-
 
   private loggedInSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
   getLoggedIn = this.loggedInSubject.asObservable();
@@ -24,52 +21,46 @@ export class AuthService {
     this.loggedInSubject.next(value);
   }
 
-  constructor(private http: HttpClient, private logService:LogService, private configService: ConfigService) {
+  constructor(
+    private http: HttpClient,
+    private logService: LogService,
+    private configService: ConfigService
+  ) { }
 
-
-  }
   getUserProfile(): UserProfile {
-    return this.tokenResponse.userProfile;
+    return this.tokenResponse?.userProfile;
   }
 
   getAuthHeader(): HttpHeaders {
-    console.log( JSON.stringify( this.tokenResponse.token));
-    return new HttpHeaders({"Authorization": "bearer " + this.tokenResponse.token });
+    console.log(JSON.stringify(this.tokenResponse.token));
+    return new HttpHeaders({ Authorization: 'bearer ' + this.tokenResponse.token });
   }
-  logout(): void
-  {
+
+  logout(): void {
     this.authInstance.signOut();
     this.setLoggedIn(false);
   }
 
-  login(username: string, password: string)
-  {
-    return this.http.post<any>(this.configService.baseUrl + "/login", {username, password})
+  login(username: string, password: string) {
+    return this.http.post<any>(this.configService.baseUrl + '/login', { username, password })
   }
 
-  async restoreLoginState(){
+  async restoreLoginState() {
     if (await this.checkIfUserAuthenticated()) {
-      this.logService.log("User Authentication restored. ");
+      this.logService.log('User Authentication restored. ');
       this.user = this.authInstance.currentUser.get();
       this.tokenResponse = this.restoreTokenResponse();
-      if(!this.tokenResponse)
-      {
+      if (!this.tokenResponse) {
         // init stage 2
         this.stage2();
-      }else
-      {
-        this.logService.log("restore: "+ this.tokenResponse);
+      } else {
+        this.logService.log('restore: ' + this.tokenResponse);
         this.setLoggedIn(true);
       }
-    }else
-    {
-      this.logService.log("User Authentication not restored. ");
+    } else {
+      this.logService.log('User Authentication not restored. ');
     }
   }
-
-
-
-
 
   async initGoogleAuth(): Promise<void> {
     //  Create a new Promise where the resolve
@@ -89,23 +80,36 @@ export class AuthService {
         });
     });
   }
-  stage2()
-  {
-    this.logService.log("Stage2");
-    let stage2 = this.http.post<TokenResponse>(this.configService.baseUrl + "/google/tokensignin", {
+
+  stage2() {
+    this.logService.log('Stage2');
+    let stage2 = this.http.post<TokenResponse>(this.configService.baseUrl + '/google/tokensignin', {
       idtoken: this.user.getAuthResponse().id_token,
-      avatarUrl:this.user.getBasicProfile().getImageUrl(),
-    },{headers:{
-      contentType: 'application/x-www-form-urlencoded'
-    }}).pipe(catchError(this.handleError<TokenResponse>('authError')));
+      avatarUrl: this.user.getBasicProfile().getImageUrl(),
+    }, {
+      headers: {
+        contentType: 'application/x-www-form-urlencoded'
+      }
+    }).pipe(catchError(this.handleError<TokenResponse>('authError')));
     stage2.subscribe((result) => {
-      this.logService.log("Stage2 complete");
-      this.storeTokenResponse(result);
-      this.logService.log("store: "+ result.token);
-      this.setLoggedIn(true);
+      this.logService.log('Stage2 complete');
+      this.stage3(result);
     });
   }
-  async authenticate(): Promise<gapi.auth2.GoogleUser> {
+
+  stage3(result: TokenResponse) {
+    this.storeTokenResponse(result);
+    this.logService.log('store: ' + result.token);
+    this.setLoggedIn(true);
+  }
+
+  async authenticate(provider: string): Promise<void> {
+    if (provider === 'sso') {
+      return new Promise(() => {
+        console.log('sso');
+      });
+    }
+
     // Initialize gapi if not done yet
     if (!this.gapiSetup) {
       await this.initGoogleAuth();
@@ -119,26 +123,25 @@ export class AuthService {
           this.stage2();
         },
         error => {
-          this.error = error;
           this.setLoggedIn(false);
         });
     });
   }
 
-  restoreTokenResponse(): TokenResponse
-  {
-    var storedValue = localStorage.getItem("tokenResponse");
-    if(storedValue)
+  restoreTokenResponse(): TokenResponse {
+    const storedValue = localStorage.getItem('tokenResponse');
+    if (storedValue) {
       return JSON.parse(storedValue) as TokenResponse;
+    }
     return null;
   }
 
-  storeTokenResponse(response: TokenResponse): void
-  {
-    if(response)
-      localStorage.setItem("tokenResponse", JSON.stringify(response));
-    else
-      localStorage.removeItem("tokenResponse");
+  storeTokenResponse(response: TokenResponse): void {
+    if (response) {
+      localStorage.setItem('tokenResponse', JSON.stringify(response));
+    } else {
+      localStorage.removeItem('tokenResponse');
+    }
   }
 
   async checkIfUserAuthenticated(): Promise<boolean> {
@@ -150,7 +153,11 @@ export class AuthService {
     return this.authInstance.isSignedIn.get();
   }
 
-    /**
+  async getSsoInitializationUrl() {
+    this.http.get('http://localhost:4000/auth/sso').subscribe(console.log);
+  }
+
+  /**
    * Handle Http operation that failed.
    * Let the app continue.
    * @param operation - name of the operation that failed
@@ -171,17 +178,16 @@ export class AuthService {
   }
 }
 
-export interface UserProfile
-{
-  fullname: string,
-  username: string,
-  groupId: string,
-  groupName: string,
-  avatarUrl: string,
-  id: string
+export interface UserProfile {
+  fullname: string;
+  username: string;
+  groupId: string;
+  groupName: string;
+  avatarUrl: string;
+  id: string;
 }
-export interface TokenResponse
-{
+
+export interface TokenResponse {
   message: string,
   token: string,
   userProfile: UserProfile,

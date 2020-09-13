@@ -12,7 +12,16 @@
       <mat-toolbar-row>
         <button *ngIf="isLoggedIn" mat-icon-button (click)="sidenav.toggle()"><mat-icon>menu</mat-icon></button>
         <span class="spacer">{{title}}</span>
-        <button mat-button *ngIf="!isLoggedIn" mat-icon-button (click)="handleLoginClicked()">Login</button>
+        <button mat-button *ngIf="!isLoggedIn" mat-icon-button (click)="handleLoginClicked('g')">Login</button>
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="More">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item *ngIf="!isLoggedIn" (click)="handleLoginClicked('more')">
+            <mat-icon>login</mat-icon>
+            <span>More login options...</span>
+          </button>
+        </mat-menu>
         <button mat-button *ngIf="isLoggedIn" mat-icon-button (click)="handleLogoutClicked()"><app-avatar [name]="username" [src]="avatarUrl" ></app-avatar></button>
       </mat-toolbar-row>
     </mat-toolbar>

@@ -1,8 +1,11 @@
 {
   "googleClientId": "483535558510-vhcru5umuiitnjiknlnc8g62s4v6p876.apps.googleusercontent.com",
-  "baseUrl":"http://localhost:4000",
+  "baseUrl": "http://localhost:4000",
   "apiEndpoint": "/api/v1",
   "staticAssets": "http://localhost:4000/static",
-  "locale":"de-DE",
-  "currency":"EUR"
+  "locale": "de-DE",
+  "currency": "EUR",
+  "externalSsoUrl": "https://qwirl.eu/auth/realms/qwirl/protocol/openid-connect/auth",
+  "externalSsoClientId": "piggytracker-dev",
+  "externalSsoRedirectUri": "http://localhost:3000/login"
 }

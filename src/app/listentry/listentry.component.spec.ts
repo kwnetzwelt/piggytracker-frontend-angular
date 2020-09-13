@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { ListentryComponent } from './listentry.component';
+import { RemuneratorPipe } from '../remunerator.pipe';
 
 describe('ListentryComponent', () => {
   let component: ListentryComponent;
@@ -8,9 +10,13 @@ describe('ListentryComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ListentryComponent ]
-    })
-    .compileComponents();
+      declarations: [
+        ListentryComponent,
+        RemuneratorPipe,
+      ], imports: [
+        HttpClientTestingModule,
+      ]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
