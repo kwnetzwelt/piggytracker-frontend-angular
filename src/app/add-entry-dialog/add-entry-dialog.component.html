@@ -2,8 +2,11 @@
 <form class="example-form">
   <mat-form-field class="full-width">
     <mat-label>Date of purchase</mat-label>
-    <input matInput type="date" name="date" [(ngModel)]="data.date">
-    <mat-icon matSuffix>date_range</mat-icon>
+    <input matInput [matDatepicker]="picker" name="date" [(ngModel)]="data.date">
+
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    
   </mat-form-field>
   <mat-form-field class="full-width">
     <mat-label>Spending</mat-label>

@@ -62,6 +62,8 @@ import { CategoryComponent } from './category/category.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { VersionComponent } from './version/version.component';
 import { AddEntryDialogComponent } from './add-entry-dialog/add-entry-dialog.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -110,6 +112,8 @@ import { AddEntryDialogComponent } from './add-entry-dialog/add-entry-dialog.com
     MatExpansionModule,
     MatAutocompleteModule,
     MatMenuModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
 
     // additional
     BottomNavModule,

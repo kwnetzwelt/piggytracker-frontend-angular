@@ -67,14 +67,20 @@ export interface GetEntriesResponse {
   total: number
 }
 
-export interface Entry {
+export class Entry {
   id: string;
-  date: Date,
-  value: number,
-  remunerator: string,
-  category: string,
-  info: string,
-  updatedAt: Date,
-  createdAt: Date,
-  deletedAt: Date
+  date: Date;
+  value: number;
+  remunerator: string;
+  category: string;
+  info: string;
+  updatedAt: Date;
+  createdAt: Date;
+  deletedAt: Date;
+
+  constructor ()
+  {
+    this.date = new Date();
+    this.value = 15.0;
+  }
 }
