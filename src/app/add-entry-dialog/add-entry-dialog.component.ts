@@ -16,7 +16,7 @@ export class AddEntryDialogComponent {
   constructor(@Inject(MAT_BOTTOM_SHEET_DATA) public data: Entry,
     public entrysService: EntriesService,
     public logService: LogService,
-    private bottomSheetRef: MatBottomSheetRef<AddEntryDialogComponent>) {
+    protected bottomSheetRef: MatBottomSheetRef<AddEntryDialogComponent>) {
     if (this.data === null){
       this.data = new Entry();
     }

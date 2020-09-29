@@ -1,4 +1,4 @@
-<div class="mat-title">Add Entry</div>
+<div class="mat-title">Edit Entry</div>
 <form class="example-form">
   <mat-form-field class="full-width">
     <mat-label>Date of purchase</mat-label>
@@ -64,6 +64,7 @@
   </mat-expansion-panel>
 
   <div mat-dialog-actions class="actions">
+    <button mat-raised-button (click)="delete()" color="warn">Delete</button>
     <span fxFlex="grow"></span>
     <button mat-raised-button (click)="cancel()">Cancel</button>
 

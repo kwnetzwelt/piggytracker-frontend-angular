@@ -64,6 +64,7 @@ import { VersionComponent } from './version/version.component';
 import { AddEntryDialogComponent } from './add-entry-dialog/add-entry-dialog.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { EditEntryDialogComponent } from './edit-entry-dialog/edit-entry-dialog.component';
 
 @NgModule({
   declarations: [
@@ -85,6 +86,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     WelcomeComponent,
     VersionComponent,
     AddEntryDialogComponent,
+    EditEntryDialogComponent,
 
   ],
   imports: [

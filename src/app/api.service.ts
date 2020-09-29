@@ -24,6 +24,17 @@ export class ApiService {
     return this.configService.baseUrl + this.configService.apiEndpoint + url;
   }
 
+  public putEntry(data: Entry): Observable<Entry> {
+    return this.httpClient.put<Entry>(
+      this.composeUrl("/bills/" + data._id), new EntryRequest(data),
+      {
+        headers: this.authService.getAuthHeader(),
+      }).pipe(
+        catchError(this.handleError<Entry>('putEntry'))
+      );
+
+  }
+
   public deleteEntry(data: Entry): Observable<Entry> {
     return this.httpClient.delete<Entry>(
       this.composeUrl("/bills/" + data._id),
@@ -103,7 +114,7 @@ export class EntryRequest {
   constructor(data: Entry)
   {
     this._id = data._id;
-    this.date = data.date.toISOString().substr(0,10);
+    this.date = new Date(data.date).toISOString().substr(0,10);
     this.value = parseFloat(data.value.toString());
     this.remunerator = data.remunerator;
     this.category = data.category;
@@ -115,6 +126,17 @@ export class EntryRequest {
 }
 
 export class Entry {
+  public static updateFromData(target: Entry, newdata: Entry): void {
+
+    target.date = new Date(newdata.date);
+    target.value = newdata.value;
+    target.remunerator = newdata.remunerator;
+    target.category = newdata.category;
+    target.info = newdata.info;
+    target.updatedAt = newdata.updatedAt;
+    target.createdAt = newdata.createdAt;
+    target.deletedAt = newdata.deletedAt;
+  }
   _id: string;
   date: Date;
   value: Number;

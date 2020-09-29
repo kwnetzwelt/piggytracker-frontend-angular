@@ -33,6 +33,22 @@ export class EntriesService {
   private onEntryChangedSubject: BehaviorSubject<Entry> = new BehaviorSubject(null);
   onEntryChanged = this.onEntryChangedSubject.asObservable();
 
+
+  private updateEntry(element:Entry): void {
+    const e = this.entries.findIndex((e) => e._id === element._id);
+    Entry.updateFromData(this.entries[e],element);
+    this.onEntryChangedSubject.next(this.entries[e]);
+
+
+    // ensure we have this category in our list
+    if(!this.categories.some(e => e === element.category))
+      this.categories.push(element.category);
+
+    // ensure we have this remunerator in out list
+    if(!this.remunerators.some(e => e === element.remunerator))
+      this.remunerators.push(element.remunerator);
+
+  }
   private removeEntry(element: Entry): void {
     const e = this.entries.findIndex((e) => e._id === element._id);
     this.entries.splice(e,1);
@@ -42,11 +58,11 @@ export class EntriesService {
     this.entries.push(element);
     // ensure we have this category in our list
     if(!this.categories.some(e => e === element.category))
-    this.categories.push(element.category);
+      this.categories.push(element.category);
 
     // ensure we have this remunerator in out list
     if(!this.remunerators.some(e => e === element.remunerator))
-    this.remunerators.push(element.remunerator);
+      this.remunerators.push(element.remunerator);
 
     this.onEntryAddedSubject.next(element);
   }
@@ -86,5 +102,13 @@ export class EntriesService {
         this.addEntry(e);
       }
     });
+  }
+
+  public putEntry(data: Entry) {
+    this.apiService.putEntry(data).subscribe((e) => {
+      if(e) {
+        this.updateEntry(e);
+      }
+    })
   }
 }
