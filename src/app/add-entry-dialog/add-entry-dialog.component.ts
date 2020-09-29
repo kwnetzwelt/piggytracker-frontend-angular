@@ -5,6 +5,7 @@ import { Entry } from '../api.service';
 import { isFormattedError } from '@angular/compiler';
 import { EntriesService } from '../entries.service';
 import { LogService } from '../log.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-add-entry-dialog',
@@ -16,9 +17,11 @@ export class AddEntryDialogComponent {
   constructor(@Inject(MAT_BOTTOM_SHEET_DATA) public data: Entry,
     public entrysService: EntriesService,
     public logService: LogService,
+    public authService: AuthService,
     protected bottomSheetRef: MatBottomSheetRef<AddEntryDialogComponent>) {
     if (this.data === null){
       this.data = new Entry();
+      this.data.remunerator = authService.getUserProfile().fullname;
     }
   }
 

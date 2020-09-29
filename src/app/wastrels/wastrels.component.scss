@@ -1,0 +1,30 @@
+.table {
+  margin: 1em auto;
+  display: table !important;
+}
+.table tr td, .table tr th {
+  vertical-align: middle;
+}
+.mat-column-position {
+
+}
+.mat-column-avatar {
+  width: 56px;
+  height: 56px;
+
+  vertical-align: middle;
+  text-align: center !important;
+  display: table-cell !important;
+}
+.mat-column-name {
+  flex: 0 0 50% !important;
+  width: 50% !important;
+}
+.mat-column-total {
+  flex: 0 0 15% !important;
+  width: 15% !important;
+}
+.mat-column-delta {
+  flex: 0 0 15% !important;
+  width: 15% !important;
+}

@@ -139,7 +139,7 @@ export class Entry {
   }
   _id: string;
   date: Date;
-  value: Number;
+  value: number;
   remunerator: string;
   category: string;
   info: string;

@@ -49,6 +49,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatCardModule } from '@angular/material/card';
+import { MatTableModule } from '@angular/material/table';
 
 // additional
 import { BottomNavModule } from 'ngx-bottom-nav';
@@ -65,6 +67,7 @@ import { AddEntryDialogComponent } from './add-entry-dialog/add-entry-dialog.com
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { EditEntryDialogComponent } from './edit-entry-dialog/edit-entry-dialog.component';
+import { RankingService } from './ranking.service';
 
 @NgModule({
   declarations: [
@@ -116,6 +119,8 @@ import { EditEntryDialogComponent } from './edit-entry-dialog/edit-entry-dialog.
     MatMenuModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatCardModule,
+    MatTableModule,
 
     // additional
     BottomNavModule,
@@ -136,7 +141,7 @@ import { EditEntryDialogComponent } from './edit-entry-dialog/edit-entry-dialog.
         ConfigService
       ],
       multi: true
-    }, AuthService, LogService, EntriesService],
+    }, AuthService, LogService, EntriesService, RankingService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

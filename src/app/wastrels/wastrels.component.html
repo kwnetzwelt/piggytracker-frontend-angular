@@ -1,1 +1,33 @@
-<p>wastrels works!</p>
+
+<mat-table [dataSource]="rankingService.entries" class="table mat-elevation-z8">
+
+  <ng-container matColumnDef="position">
+    <th mat-header-cell *matHeaderCellDef> No. </th>
+    <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="avatar">
+    <th mat-header-cell *matHeaderCellDef>  </th>
+    <td mat-cell *matCellDef="let element">
+      <app-avatar class="column remunerator" [name]="element.name" [src]="element.name | remunerator"
+    fxFlex="nogrow"></app-avatar></td>
+  </ng-container>
+
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="total">
+    <th mat-header-cell *matHeaderCellDef> Total </th>
+    <td mat-cell *matCellDef="let element"> {{element.value | currency:configService.currency:"symbol"}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="delta">
+    <th mat-header-cell *matHeaderCellDef> Delta </th>
+    <td mat-cell *matCellDef="let element"> {{element.delta | currency:configService.currency:"symbol"}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</mat-table>
