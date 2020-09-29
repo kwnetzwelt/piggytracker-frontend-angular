@@ -24,6 +24,29 @@ export class ApiService {
     return this.configService.baseUrl + this.configService.apiEndpoint + url;
   }
 
+  public deleteEntry(data: Entry): Observable<Entry> {
+    return this.httpClient.delete<Entry>(
+      this.composeUrl("/bills/" + data._id),
+      {
+        headers: this.authService.getAuthHeader(),
+      }).pipe(
+        catchError(this.handleError<Entry>('deleteEntry'))
+      );
+
+  }
+
+  public addEntry(data: Entry): Observable<Entry> {
+
+
+    return this.httpClient.post<Entry>(
+      this.composeUrl("/bills"), new EntryRequest(data),
+      {
+        headers: this.authService.getAuthHeader(),
+      }).pipe(
+        catchError(this.handleError<Entry>('addEntry'))
+      );
+
+  }
   public getEntries(perPage: number = 20, page: number = 1): Observable<GetEntriesResponse> {
     return this.httpClient.get<GetEntriesResponse>(
       this.composeUrl("/bills"),
@@ -66,11 +89,35 @@ export interface GetEntriesResponse {
   page: number,
   total: number
 }
+export class EntryRequest {
+
+  _id: string;
+  date: string;
+  value: Number;
+  remunerator: string;
+  category: string;
+  info: string;
+  updatedAt: string;
+  createdAt: string;
+  deletedAt: string;
+  constructor(data: Entry)
+  {
+    this._id = data._id;
+    this.date = data.date.toISOString().substr(0,10);
+    this.value = parseFloat(data.value.toString());
+    this.remunerator = data.remunerator;
+    this.category = data.category;
+    this.info = data.info;
+    this.updatedAt = data.updatedAt?.toISOString().substr(0,10);
+    this.createdAt = data.createdAt?.toISOString().substr(0,10);
+    this.deletedAt = data.deletedAt?.toISOString().substr(0,10);
+  }
+}
 
 export class Entry {
-  id: string;
+  _id: string;
   date: Date;
-  value: number;
+  value: Number;
   remunerator: string;
   category: string;
   info: string;

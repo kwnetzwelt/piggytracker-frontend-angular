@@ -20,7 +20,7 @@ export class EntriesService {
     this.authService.getLoggedIn.subscribe((v) => {
       this.logService.log("logged in! getting entries");
       if(v)
-        this.getEntriesFromServer(this.perPage,1); // fetch each entry individually TODO: User perPage in the future
+      this.getEntriesFromServer(this.perPage,1); // fetch each entry individually TODO: User perPage in the future
     });
   }
 
@@ -33,16 +33,20 @@ export class EntriesService {
   private onEntryChangedSubject: BehaviorSubject<Entry> = new BehaviorSubject(null);
   onEntryChanged = this.onEntryChangedSubject.asObservable();
 
-
+  private removeEntry(element: Entry): void {
+    const e = this.entries.findIndex((e) => e._id === element._id);
+    this.entries.splice(e,1);
+    this.onEntryRemovedSubject.next(element);
+  }
   private addEntry(element: Entry): void {
     this.entries.push(element);
     // ensure we have this category in our list
     if(!this.categories.some(e => e === element.category))
-      this.categories.push(element.category);
+    this.categories.push(element.category);
 
     // ensure we have this remunerator in out list
     if(!this.remunerators.some(e => e === element.remunerator))
-      this.remunerators.push(element.remunerator);
+    this.remunerators.push(element.remunerator);
 
     this.onEntryAddedSubject.next(element);
   }
@@ -64,6 +68,22 @@ export class EntriesService {
       }else
       {
         this.logService.log("no entries received. Error?");
+      }
+    });
+  }
+  public deleteEntry(data: Entry) {
+    this.apiService.deleteEntry(data).subscribe((e) => {
+      if(e){
+        this.removeEntry(e);
+      }
+    });
+  }
+
+  public createEntry(data: Entry) {
+
+    this.apiService.addEntry(data).subscribe((e) => {
+      if(e){
+        this.addEntry(e);
       }
     });
   }

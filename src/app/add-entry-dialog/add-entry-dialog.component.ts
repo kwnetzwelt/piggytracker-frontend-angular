@@ -24,14 +24,18 @@ export class AddEntryDialogComponent {
 
   public delete(): void {
     this.bottomSheetRef.dismiss(0);
+    this.logService.log("delete");
+    this.entrysService.deleteEntry(this.data);
   }
 
   public ok(): void {
     this.bottomSheetRef.dismiss(0);
-    this.logService.log(this.data);
+    this.logService.log("ok");
+    this.entrysService.createEntry(this.data);
   }
   public cancel(): void {
     this.bottomSheetRef.dismiss(0);
+    this.logService.log("cancel");
   }
   ngOnInit(): void {
   }

@@ -6,11 +6,11 @@
 
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
-    
+
   </mat-form-field>
   <mat-form-field class="full-width">
     <mat-label>Spending</mat-label>
-    <input matInput type="currency" name="value" [(ngModel)]="data.value">
+    <input matInput type="currency" name="value" inputmode="numeric" [(ngModel)]="data.value">
     <mat-icon matSuffix>monetization_on</mat-icon>
   </mat-form-field>
 

@@ -33,7 +33,9 @@ export class AuthService {
 
   getAuthHeader(): HttpHeaders {
     console.log(JSON.stringify(this.tokenResponse.token));
-    return new HttpHeaders({ Authorization: 'bearer ' + this.tokenResponse.token });
+    return new HttpHeaders({
+      "Content-Type": "application/json",
+      "Authorization": "Bearer " + this.tokenResponse.token });
   }
 
   logout(): void {
@@ -139,6 +141,7 @@ export class AuthService {
   storeTokenResponse(response: TokenResponse): void {
     if (response) {
       localStorage.setItem('tokenResponse', JSON.stringify(response));
+      this.tokenResponse = response;
     } else {
       localStorage.removeItem('tokenResponse');
     }
