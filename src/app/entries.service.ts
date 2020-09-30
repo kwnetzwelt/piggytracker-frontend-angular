@@ -5,6 +5,7 @@ import { isBuffer } from 'util';
 import { HttpClient } from '@angular/common/http';
 import { ApiService, Entry } from './api.service';
 import { BehaviorSubject } from 'rxjs';
+import { UpdateService } from './update.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,12 +16,22 @@ export class EntriesService {
   public entries: Entry[] = [];
   public categories: string[] = [];
   public remunerators: string[] = [];
+  private firstUpdate = true;
 
-  constructor(private authService: AuthService, private logService: LogService, private apiService: ApiService) {
-    this.authService.getLoggedIn.subscribe((v) => {
-      this.logService.log("logged in! getting entries");
-      if(v)
-      this.getEntriesFromServer(this.perPage,1); // fetch each entry individually TODO: User perPage in the future
+  constructor(private updateService: UpdateService, private logService: LogService, private apiService: ApiService) {
+
+    this.updateService.onUpdate.subscribe((v) => {
+      if(v){
+        if(this.firstUpdate)
+        {
+          this.logService.log("logged in! getting entries");
+          this.getEntriesFromServer(this.perPage,1); // fetch each entry individually TODO: User perPage in the future
+          this.firstUpdate = false;
+        }else
+        {
+          // TODO UPDATE ENTRIES
+        }
+      }
     });
   }
 
@@ -74,6 +85,7 @@ export class EntriesService {
         this.logService.log("Adding entries ...");
 
         e.data.forEach(element => {
+
           this.addEntry(element);
         });
         this.logService.log(this.entries.length);

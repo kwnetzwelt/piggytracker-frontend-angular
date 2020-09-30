@@ -70,8 +70,29 @@ export class ApiService {
 
   }
 
+  public getRemunerators(): Observable<RemuneratorEntriesResponse> {
+    return this.httpClient.get<RemuneratorEntriesResponse> (
+      this.composeUrl("/remunerator"),
+      {
+        headers: this.authService.getAuthHeader()
+      }).pipe(
+        catchError(this.handleError<RemuneratorEntriesResponse>('getRemunerators'))
+      );
+    }
 
 
+  public postRemunerator(data: RemuneratorEntry): Observable<RemuneratorEntry> {
+
+
+    return this.httpClient.post<RemuneratorEntry>(
+      this.composeUrl("/remunerator"), new RemuneratorEntryRequest(data),
+      {
+        headers: this.authService.getAuthHeader(),
+      }).pipe(
+        catchError(this.handleError<RemuneratorEntryRequest>('postRemunerator'))
+      );
+
+  }
 
 
   /**
@@ -93,6 +114,23 @@ export class ApiService {
       return of(result as T);
     };
   }
+}
+
+export class RemuneratorEntryRequest {
+  remunerator:RemuneratorEntry;
+  constructor(entry: RemuneratorEntry)
+  {
+    this.remunerator = entry;
+  }
+}
+
+export interface RemuneratorEntriesResponse {
+  data: RemuneratorEntry[]
+}
+
+export interface RemuneratorEntry {
+  name: string,
+  offset: number
 }
 
 export interface GetEntriesResponse {

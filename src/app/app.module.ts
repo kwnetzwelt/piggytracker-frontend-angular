@@ -51,6 +51,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 // additional
 import { BottomNavModule } from 'ngx-bottom-nav';
@@ -68,6 +69,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { EditEntryDialogComponent } from './edit-entry-dialog/edit-entry-dialog.component';
 import { RankingService } from './ranking.service';
+import { RankingEntrySettingsDialogComponent } from './ranking-entry-settings-dialog/ranking-entry-settings-dialog.component';
+import { UpdateService } from './update.service';
 
 @NgModule({
   declarations: [
@@ -90,7 +93,7 @@ import { RankingService } from './ranking.service';
     VersionComponent,
     AddEntryDialogComponent,
     EditEntryDialogComponent,
-
+    RankingEntrySettingsDialogComponent,
   ],
   imports: [
 
@@ -121,6 +124,7 @@ import { RankingService } from './ranking.service';
     MatNativeDateModule,
     MatCardModule,
     MatTableModule,
+    MatDialogModule,
 
     // additional
     BottomNavModule,
@@ -129,7 +133,8 @@ import { RankingService } from './ranking.service';
   ],
 
   entryComponents: [
-    AddEntryDialogComponent
+    AddEntryDialogComponent,
+    RankingEntrySettingsDialogComponent,
   ],
   providers: [
     { provide: LOCALE_ID, deps: [ConfigService], useFactory: (configService: ConfigService) => configService.locale },
@@ -141,7 +146,7 @@ import { RankingService } from './ranking.service';
         ConfigService
       ],
       multi: true
-    }, AuthService, LogService, EntriesService, RankingService],
+    }, AuthService, LogService, EntriesService, RankingService, UpdateService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

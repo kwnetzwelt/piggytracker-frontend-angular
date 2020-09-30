@@ -1,0 +1,20 @@
+<form class="offset-form">
+<h1 mat-dialog-title>Set Offset</h1>
+
+<mat-dialog-content class="mat-typography">
+  Each remunerator can have their own offset applied to their wastrel value. This way you can weight a remunerator depending on their spending prior to tracking in Piggytracker.
+</mat-dialog-content>
+
+<mat-form-field class="full-width">
+  <mat-label>Offset for {{data.name}}</mat-label>
+  <input matInput type="currency" name="value" inputmode="numeric" [(ngModel)]="data.offset">
+  <mat-icon matSuffix>monetization_on</mat-icon>
+</mat-form-field>
+
+
+  <mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button [mat-dialog-close]="true" cdkFocusInitial (click)="save()">Save</button>
+  </mat-dialog-actions>
+
+</form>

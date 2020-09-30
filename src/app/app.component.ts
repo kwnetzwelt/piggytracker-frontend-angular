@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from './auth.service';
 import { LogService } from './log.service';
 import { Router } from '@angular/router';
+import { UpdateService } from './update.service';
 
 @Component({
   selector: 'app-root',
@@ -36,13 +37,14 @@ export class AppComponent implements OnInit {
 
 
   constructor(
+    private updateService: UpdateService,
     private authService: AuthService,
     private logService: LogService,
     private router: Router,
   ) { }
 
   async ngOnInit() {
-
+    this.updateService.init();
     this.authService.getLoggedIn.subscribe((v) => {
       this.isLoggedIn = v;
       if (v) {
