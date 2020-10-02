@@ -12,19 +12,26 @@
       <mat-toolbar-row>
         <button *ngIf="isLoggedIn" mat-icon-button (click)="sidenav.toggle()"><mat-icon>menu</mat-icon></button>
         <span class="spacer">{{title}}</span>
-        <button mat-button *ngIf="!isLoggedIn" mat-icon-button (click)="handleLoginClicked('g')">Login</button>
-        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="More">
-          <mat-icon>more_vert</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item *ngIf="!isLoggedIn" (click)="handleLoginClicked('more')">
-            <mat-icon>login</mat-icon>
-            <span>More login options...</span>
-          </button>
-        </mat-menu>
-        <button mat-button *ngIf="isLoggedIn" mat-icon-button (click)="handleLogoutClicked()"><app-avatar [name]="username" [src]="avatarUrl" ></app-avatar></button>
+        <button mat-button *ngIf="!isLoggedIn" mat-flat-button (click)="handleLoginClicked()">Login</button>
+        <button mat-button *ngIf="isLoggedIn" mat-icon-button [matMenuTriggerFor]="avatarMenu"><app-avatar [name]="username" [src]="avatarUrl" ></app-avatar></button>
       </mat-toolbar-row>
     </mat-toolbar>
+
+    <mat-menu #avatarMenu="matMenu">
+
+      <button mat-menu-item>
+        <span>{{this.username}}</span>
+      </button>
+      <button mat-menu-item>
+        <span>Settings</span>
+      </button>
+      <button mat-menu-item>
+        <span>Import/Export</span>
+      </button>
+      <button mat-menu-item (click)="handleLogoutClicked()">
+        <span>Logout</span>
+      </button>
+    </mat-menu>
 
     <nav mat-tab-nav-bar mat-align-tabs="center" class="nav">
       <a mat-tab-link

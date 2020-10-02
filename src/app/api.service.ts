@@ -81,10 +81,10 @@ export class ApiService {
     }
 
 
-  public postRemunerator(data: RemuneratorEntry): Observable<RemuneratorEntry> {
+  public postRemunerator(data: RemuneratorEntry): Observable<RemuneratorEntryRequest> {
 
 
-    return this.httpClient.post<RemuneratorEntry>(
+    return this.httpClient.post<RemuneratorEntryRequest>(
       this.composeUrl("/remunerator"), new RemuneratorEntryRequest(data),
       {
         headers: this.authService.getAuthHeader(),

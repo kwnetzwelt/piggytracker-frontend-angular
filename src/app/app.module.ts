@@ -71,6 +71,7 @@ import { EditEntryDialogComponent } from './edit-entry-dialog/edit-entry-dialog.
 import { RankingService } from './ranking.service';
 import { RankingEntrySettingsDialogComponent } from './ranking-entry-settings-dialog/ranking-entry-settings-dialog.component';
 import { UpdateService } from './update.service';
+import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 
 @NgModule({
   declarations: [
@@ -94,6 +95,7 @@ import { UpdateService } from './update.service';
     AddEntryDialogComponent,
     EditEntryDialogComponent,
     RankingEntrySettingsDialogComponent,
+    LoginDialogComponent,
   ],
   imports: [
 

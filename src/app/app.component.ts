@@ -51,21 +51,19 @@ export class AppComponent implements OnInit {
         const profile = this.authService.user.getBasicProfile();
         this.username = profile.getName();
         this.avatarUrl = profile.getImageUrl();
+        this.router.navigate(["/entries"]);
       }
       this.logService.log('app.component ' + v);
     });
     await this.authService.restoreLoginState();
   }
 
-  handleLoginClicked(provider: string) {
-    if (provider === 'g') {
-      this.authService.authenticate(provider);
-    } else {
-      this.router.navigate(['/login']);
-    }
+  handleLoginClicked() {
+    this.router.navigate(['/login']);
   }
 
   handleLogoutClicked() {
     this.authService.logout();
+    this.router.navigate(["/"]);
   }
 }
