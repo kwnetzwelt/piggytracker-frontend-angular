@@ -37,4 +37,4 @@ upload-preview:
     DEPLOY_PATH: $DEPLOY_PATH_PREVIEW
   only:
     refs:
-      - master
+      - dev
