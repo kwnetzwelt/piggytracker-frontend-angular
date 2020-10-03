@@ -24,7 +24,7 @@ export class EntriesComponent implements OnInit {
     {
       if(e)
       {
-        this.entries = [...this.entries, e];
+        this.entries = [...this.entries, e]; // push will not update the view
         this.entries.sort((b,a) => a.date.getTime() - b.date.getTime());
 
       }
