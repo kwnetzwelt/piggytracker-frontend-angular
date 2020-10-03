@@ -15,7 +15,7 @@ export class EntriesComponent implements OnInit {
 
   public entries: Entry[] = [];
   constructor(public entriesService: EntriesService, private bottomSheet: MatBottomSheet) {
-
+    this.entries = [...this.entriesService.entries];
     this.entriesService.onEntryAdded.subscribe((e) => {this.addEntry(e);});
     this.entriesService.onEntryChanged.subscribe((e) => {this.updateEntry(e);});
     this.entriesService.onEntryRemoved.subscribe((e) => {this.deleteEntry(e);});
@@ -24,7 +24,7 @@ export class EntriesComponent implements OnInit {
     {
       if(e)
       {
-        this.entries = [...this.entries, e]; // push will not update the view
+        this.entries = [...this.entriesService.entries]; // push will not update the view
         this.entries.sort((b,a) => a.date.getTime() - b.date.getTime());
 
       }
