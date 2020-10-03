@@ -1,6 +1,6 @@
 {
   "googleClientId": "483535558510-vhcru5umuiitnjiknlnc8g62s4v6p876.apps.googleusercontent.com",
-  "baseUrl": "http://localhost:4000",
+  "baseUrl": "https://api.piggytracker.org",
   "apiEndpoint": "/api/v1",
   "staticAssets": "http://localhost:4000/static",
   "locale": "de-DE",
