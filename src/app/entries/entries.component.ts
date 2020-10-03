@@ -13,14 +13,39 @@ import { EditEntryDialogComponent } from '../edit-entry-dialog/edit-entry-dialog
 })
 export class EntriesComponent implements OnInit {
 
-  public entries: Entry[];
-  constructor(entriesService: EntriesService, private bottomSheet: MatBottomSheet) {
+  public entries: Entry[] = [];
+  constructor(public entriesService: EntriesService, private bottomSheet: MatBottomSheet) {
 
-      this.entries = [...entriesService.entries];
-      entriesService.onEntryAdded.subscribe((e) => this.entries = [...entriesService.entries]);
-      entriesService.onEntryChanged.subscribe((e) => this.entries = [...entriesService.entries]);
-      entriesService.onEntryRemoved.subscribe((e) => this.entries = [...entriesService.entries]);
+    this.entriesService.onEntryAdded.subscribe((e) => {this.addEntry(e);});
+    this.entriesService.onEntryChanged.subscribe((e) => {this.updateEntry(e);});
+    this.entriesService.onEntryRemoved.subscribe((e) => {this.deleteEntry(e);});
+    }
+    addEntry(e: Entry)
+    {
+      if(e)
+      {
+        this.entries = [...this.entries, e];
+        this.entries.sort((b,a) => a.date.getTime() - b.date.getTime());
 
+      }
+    }
+    updateEntry(e: Entry)
+    {
+      if(e)
+      {
+        const id = this.entries.findIndex((f) => f._id === e._id);
+        this.entries[id] = e;
+        this.entries.sort((a,b) =>
+        a.date.getTime() - b.date.getTime());
+      }
+    }
+    deleteEntry(e: Entry)
+    {
+      if(e)
+      {
+        const id = this.entries.findIndex((f) => f._id === e._id);
+        this.entries = this.entries.splice(id,1);
+      }
     }
     openEditDialog(entry: Entry): void {
       let ref = this.bottomSheet.open(EditEntryDialogComponent, { data: entry });
@@ -31,6 +56,8 @@ export class EntriesComponent implements OnInit {
     }
 
     ngOnInit(): void {
+
+
     }
 
 }

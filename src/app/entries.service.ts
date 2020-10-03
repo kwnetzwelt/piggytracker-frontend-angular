@@ -80,13 +80,16 @@ export class EntriesService {
   private getEntriesFromServer(perPage: number, page: number)
   {
     this.apiService.getEntries(perPage,page).subscribe((e) => {
+
       if(e)
       {
         this.logService.log("Adding entries ...");
 
         e.data.forEach(element => {
+          let newEntry = new Entry();
+          Entry.updateFromData(newEntry, element);
 
-          this.addEntry(element);
+          this.addEntry(newEntry);
         });
         this.logService.log(this.entries.length);
         if(e.total > (perPage * page))
