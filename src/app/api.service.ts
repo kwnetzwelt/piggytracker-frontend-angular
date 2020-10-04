@@ -165,7 +165,7 @@ export class EntryRequest {
 
 export class Entry {
   public static updateFromData(target: Entry, newdata: Entry): void {
-
+    target._id = newdata._id;
     target.date = new Date(newdata.date);
     target.value = newdata.value;
     target.remunerator = newdata.remunerator;
