@@ -142,7 +142,7 @@ export class EntryRequest {
 
   _id: string;
   date: string;
-  value: Number;
+  value: number;
   remunerator: string;
   category: string;
   info: string;
