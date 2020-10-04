@@ -44,7 +44,7 @@ export class EntriesComponent implements OnInit {
       if(e)
       {
         const id = this.entries.findIndex((f) => f._id === e._id);
-        this.entries = this.entries.splice(id,1);
+        this.entries.splice(id,1);
       }
     }
     openEditDialog(entry: Entry): void {
