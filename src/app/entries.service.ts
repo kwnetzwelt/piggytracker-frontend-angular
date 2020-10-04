@@ -114,7 +114,9 @@ export class EntriesService {
 
     this.apiService.addEntry(data).subscribe((e) => {
       if(e){
-        this.addEntry(e);
+        let newEntry = new Entry();
+        Entry.updateFromData(newEntry, e);
+        this.addEntry(newEntry);
       }
     });
   }

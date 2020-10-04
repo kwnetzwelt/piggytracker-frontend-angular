@@ -35,7 +35,7 @@ export class EntriesComponent implements OnInit {
       {
         const id = this.entries.findIndex((f) => f._id === e._id);
         this.entries[id] = e;
-        this.entries.sort((a,b) =>
+        this.entries.sort((b,a) =>
         a.date.getTime() - b.date.getTime());
       }
     }
