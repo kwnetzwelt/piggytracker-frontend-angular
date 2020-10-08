@@ -54,7 +54,9 @@ export class TargetsService {
         }
     }
     });
-
+    entriesService.entries.forEach((v,i,a) => {
+      this.onEntryAdded(v);
+    })
   }
 
   private getTargetsFromServer(perPage: number, page: number){
@@ -92,7 +94,7 @@ export class TargetsService {
 
 
   private onEntryAdded(e:Entry): void {
-
+    this.logService.log("added");
     const target:Target = this.getTargetForEntry(e);
 
     // add the value
@@ -112,7 +114,7 @@ export class TargetsService {
   private getTargetForEntry(e:Entry): Target {
 
     // for this entry, convert its date property to an index (Year.Month) we can use to categorize it in our map
-    const n = e.date.getFullYear() + e.date.getMonth() * 0.1;
+    const n = e.date.getFullYear() * 12 + e.date.getMonth();
 
     // find the targetsEntry with the correct index (Year.Month) or create one
     let targetsEntry:TargetsEntry = this.targets.get(n);
