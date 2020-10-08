@@ -185,9 +185,11 @@ export class Entry {
   createdAt: Date;
   deletedAt: Date;
 
-  constructor ()
+  constructor (existing?: Entry)
   {
     this.date = new Date();
     this.value = 15.0;
+    if(existing)
+      Entry.updateFromData(this, existing);
   }
 }

@@ -48,7 +48,8 @@ export class EntriesComponent implements OnInit {
       }
     }
     openEditDialog(entry: Entry): void {
-      let ref = this.bottomSheet.open(EditEntryDialogComponent, { data: entry });
+      let editEntry = new Entry(entry);
+      let ref = this.bottomSheet.open(EditEntryDialogComponent, { data: editEntry });
     }
     openAddDialog(): void {
       let ref = this.bottomSheet.open(AddEntryDialogComponent);
