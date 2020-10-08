@@ -7,6 +7,11 @@ import { ApiService, Entry } from './api.service';
 import { BehaviorSubject } from 'rxjs';
 import { UpdateService } from './update.service';
 
+export interface EntryChange{
+  old: Entry;
+  current: Entry;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -35,30 +40,34 @@ export class EntriesService {
     });
   }
 
+
   private onEntryAddedSubject: BehaviorSubject<Entry> = new BehaviorSubject(null);
   onEntryAdded = this.onEntryAddedSubject.asObservable();
 
   private onEntryRemovedSubject: BehaviorSubject<Entry> = new BehaviorSubject(null);
   onEntryRemoved = this.onEntryRemovedSubject.asObservable();
 
-  private onEntryChangedSubject: BehaviorSubject<Entry> = new BehaviorSubject(null);
+  private onEntryChangedSubject: BehaviorSubject<EntryChange> = new BehaviorSubject(null);
   onEntryChanged = this.onEntryChangedSubject.asObservable();
 
 
   private updateEntry(element:Entry): void {
     const e = this.entries.findIndex((e) => e._id === element._id);
+    const oldEntry = new Entry(this.entries[e]);
     Entry.updateFromData(this.entries[e],element);
-    this.onEntryChangedSubject.next(this.entries[e]);
 
 
     // ensure we have this category in our list
     if(!this.categories.some(e => e === element.category))
-      this.categories.push(element.category);
+    this.categories.push(element.category);
 
-    // ensure we have this remunerator in out list
+    // ensure we have this remunerator in our list
     if(!this.remunerators.some(e => e === element.remunerator))
-      this.remunerators.push(element.remunerator);
+    this.remunerators.push(element.remunerator);
 
+    // notify everyone else
+    let change:EntryChange = {old: oldEntry, current: this.entries[e]};
+    this.onEntryChangedSubject.next(change);
   }
   private removeEntry(element: Entry): void {
     const e = this.entries.findIndex((e) => e._id === element._id);

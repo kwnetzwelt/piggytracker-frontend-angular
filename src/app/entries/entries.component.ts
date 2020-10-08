@@ -17,7 +17,10 @@ export class EntriesComponent implements OnInit {
   constructor(public entriesService: EntriesService, private bottomSheet: MatBottomSheet) {
     this.entries = [...this.entriesService.entries];
     this.entriesService.onEntryAdded.subscribe((e) => {this.addEntry(e);});
-    this.entriesService.onEntryChanged.subscribe((e) => {this.updateEntry(e);});
+    this.entriesService.onEntryChanged.subscribe((e) => {
+      if(e)
+        this.updateEntry(e.current);
+    });
     this.entriesService.onEntryRemoved.subscribe((e) => {this.deleteEntry(e);});
     }
     addEntry(e: Entry)

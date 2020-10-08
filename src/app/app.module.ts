@@ -73,6 +73,7 @@ import { RankingEntrySettingsDialogComponent } from './ranking-entry-settings-di
 import { UpdateService } from './update.service';
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 import { NumberCommaDirective } from './number-comma.directive';
+import { TargetsService } from './targets.service';
 
 @NgModule({
   declarations: [
@@ -150,7 +151,7 @@ import { NumberCommaDirective } from './number-comma.directive';
         ConfigService
       ],
       multi: true
-    }, AuthService, LogService, EntriesService, RankingService, UpdateService],
+    }, AuthService, LogService, EntriesService, TargetsService, RankingService, UpdateService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

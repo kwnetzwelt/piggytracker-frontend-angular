@@ -25,7 +25,7 @@ export class RankingService {
 
   constructor(private updateService: UpdateService, private entriesService: EntriesService, private apiService: ApiService, private logService: LogService) {
     entriesService.onEntryAdded.subscribe((e) => this.onEntryAdded(e));
-    entriesService.onEntryChanged.subscribe((e) => this.onEntryChanged(e));
+    entriesService.onEntryChanged.subscribe((e) => this.onEntryChanged(e.current));
     entriesService.onEntryRemoved.subscribe((e) => this.onEntryRemoved(e));
     updateService.onUpdate.subscribe((e) => this.update());
     this.initEntries();

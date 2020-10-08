@@ -70,6 +70,18 @@ export class ApiService {
 
   }
 
+  public getTargets(perPage: number = 20, page: number = 1): Observable<GetTargetsResponse> {
+    return this.httpClient.get<GetTargetsResponse>(
+      this.composeUrl("/targets"),
+      {
+        headers: this.authService.getAuthHeader(),
+        params: new HttpParams().append("perPage",String(perPage)).append("page",String(page)),
+      }).pipe(
+        catchError(this.handleError<GetTargetsResponse>('getEntries'))
+      );
+
+  }
+
   public getRemunerators(): Observable<RemuneratorEntriesResponse> {
     return this.httpClient.get<RemuneratorEntriesResponse> (
       this.composeUrl("/remunerator"),
@@ -131,6 +143,22 @@ export interface RemuneratorEntriesResponse {
 export interface RemuneratorEntry {
   name: string,
   offset: number
+}
+
+export interface TargetTotal {
+  value: number;
+  category: string;
+}
+export interface TargetEntry {
+  _id: string;
+  tid: number;
+  totals: TargetTotal[];
+}
+
+export interface GetTargetsResponse {
+  data: TargetEntry[],
+  page: number,
+  total: number
 }
 
 export interface GetEntriesResponse {
