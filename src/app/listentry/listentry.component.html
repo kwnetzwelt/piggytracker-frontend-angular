@@ -11,7 +11,7 @@
     {{entry?.value | currency:configService.currency:"symbol"}}
   </div>
 
-  <app-category [entry]="entry" fxFlex class="column category"></app-category>
+  <app-category [category]="entry?.category" fxFlex class="column category"></app-category>
 
   <div class="column info">
     {{ entry?.info }}

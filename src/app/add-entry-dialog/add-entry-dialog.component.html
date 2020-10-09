@@ -18,7 +18,7 @@
     <mat-label>Category</mat-label>
     <mat-select [(ngModel)]="data.category" name="category">
       <mat-select-trigger>
-        <app-category [entry]="data"></app-category>
+        <app-category *ngIf="data?.category" [category]="data.category"></app-category>
       </mat-select-trigger>
       <mat-option *ngFor="let category of entrysService.categories" [value]="category">
         {{category}}

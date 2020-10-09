@@ -8,7 +8,7 @@ import { Entry } from '../api.service';
 })
 export class CategoryComponent implements OnInit {
 
-  @Input() entry: Entry = null;
+  @Input() category: string = "";
   constructor() { }
 
   ngOnInit(): void {

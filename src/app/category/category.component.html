@@ -1,6 +1,6 @@
 <mat-chip-list>
-  <mat-chip *ngIf="entry?.category">
-    <app-avatar [small]="true" [name]="entry.category" [src]="entry.category | category" class="category avatar"></app-avatar>
-    {{ entry.category }}
+  <mat-chip>
+    <app-avatar [small]="true" [name]="this.category? this.category : '?'" [src]="this.category | category" class="category avatar"></app-avatar>
+    {{ this.category }}
   </mat-chip>
 </mat-chip-list>

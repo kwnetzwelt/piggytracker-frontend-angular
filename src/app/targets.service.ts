@@ -29,52 +29,50 @@ export class TargetsEntry
     return new Date(this.year(),this.month());
   }
 
-  public moneySpent(): number{
-    let sum: number = 0;
+  public spentTotalSum: number = 0;
+  public targetTotalSum:number = 0;
+  public percentSpent:number = 0;
+
+  public percentTimePast: number =0;
+  public isInFuture: boolean = false;
+  public recalculate()
+  {
+
+    this.spentTotalSum = 0;
+    this.targetTotalSum = 0;
     this.targets.forEach((value, key, map) => {
       if(isNumber(value.currentValue))
-        sum+=value.currentValue;
+        this.spentTotalSum+=value.currentValue;
+      if(isNumber(value.targetValue))
+        this.targetTotalSum+=value.targetValue;
     });
-    return sum;
+
+    if(this.targetTotalSum > 0)
+      this.percentSpent = this.spentTotalSum / this.targetTotalSum;
+    else
+      this.percentSpent = 0;
+
+      const d = new Date();
+      if(this.year() < d.getFullYear())
+      {
+        this.percentTimePast = 1;
+        this.isInFuture = false;
+      }else if(this.month() < d.getMonth())
+      {
+        this.percentTimePast = 1;
+        this.isInFuture = false;
+      }else if(this.month() === d.getMonth())
+      {
+        this.percentTimePast = (d.getUTCDate() / TargetsEntry.monthDays(d));
+        this.isInFuture = false;
+      }
+      else  {
+        this.percentTimePast = 0;
+        this.isInFuture = true;
+      }
+
   }
 
-  public percentSpent(): number{
-    let sum: number = 0;
-    let target: number= 0;
-    this.targets.forEach((value, key, map) => {
-      if(isNumber(value.currentValue))
-        sum+=value.currentValue;
-      if(isNumber(value.targetValue))
-        target+=value.targetValue;
-    });
-    if(target > 0)
-      return sum/target;
-    return 1;
-  }
-  timePast() {
-      const d = new Date();
-      if(this.year() < d.getFullYear())
-      return 1;
-      if(this.month() < d.getMonth())
-      return 1;
-      if(this.month() === d.getMonth())
-      {
-      return (d.getUTCDate() / TargetsEntry.monthDays(d));
-      }
-      return 0;
-  }
-  isInFuture() {
-      const d = new Date();
-      if(this.year() < d.getFullYear())
-      return false;
-      if(this.month() < d.getMonth())
-      return false;
-      if(this.month() === d.getMonth())
-      {
-          return false;
-      }
-      return true;
-  }
   private static monthDays (date: Date): number {
     var d= new Date(date.getFullYear(), date.getMonth()+1, 0);
     return d.getDate();
@@ -147,13 +145,14 @@ export class TargetsService {
           t.targetValue = v.value;
           targetEntry.targets.set(v.category, t);
         });
-
+        targetEntry.recalculate();
       });
 
       if(r.total > (perPage * page))
       {
         this.getTargetsFromServer(perPage, page+1);
       }else{
+
         this.onTargetsUpdateSubject.next(this.targets);
       }
     });
@@ -162,23 +161,26 @@ export class TargetsService {
 
   private onEntryAdded(e:Entry): void {
     this.logService.log("added");
-    const target:Target = this.getTargetForEntry(e);
+    const targetEntry:[TargetsEntry,Target] = this.getTargetForEntry(e);
 
     // add the value
-    target.currentValue += e.value;
+    targetEntry[1].currentValue += e.value;
+
+    targetEntry[0].recalculate();
   }
   private onEntryChanged(old: Entry, current: Entry): void {
     this.onEntryRemoved(old);
     this.onEntryAdded(current);
   }
   private onEntryRemoved(e:Entry): void {
-    const target:Target = this.getTargetForEntry(e);
+    const targetEntry:[TargetsEntry,Target] = this.getTargetForEntry(e);
 
     // add the value
-    target.currentValue -= e.value;
+    targetEntry[1].currentValue -= e.value;
+    targetEntry[0].recalculate();
   }
 
-  private getTargetForEntry(e:Entry): Target {
+  private getTargetForEntry(e:Entry): [TargetsEntry,Target] {
 
     // for this entry, convert its date property to an index (Year.Month) we can use to categorize it in our map
     const n = e.date.getFullYear() * 12 + e.date.getMonth();
@@ -201,6 +203,6 @@ export class TargetsService {
       target.tid = n;
       targetsEntry.targets.set(e.category, target);
     }
-    return target;
+    return [targetsEntry, target];
   }
 }

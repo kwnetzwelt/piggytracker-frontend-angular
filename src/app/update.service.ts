@@ -7,7 +7,7 @@ import { AuthService } from './auth.service';
 })
 export class UpdateService {
 
-  private updateInterval = interval(1000);
+  private updateInterval = interval(5000);
   private paused = false;
   private loggedIn = false;
   private lastUpdateRun = new Date();
@@ -25,14 +25,17 @@ export class UpdateService {
   init() {
     this.authService.getLoggedIn.subscribe((v) => {
       this.loggedIn = v;
+      this.update();
     });
-    this.updateInterval.subscribe(() => {
-      if(!this.paused && this.loggedIn)
-      {
-        this.onUpdateSubject.next(new Date().getTime() - this.lastUpdateRun.getTime());
-        this.lastUpdateRun = new Date();
-      }
-    });
+    this.updateInterval.subscribe(() => this.update());
 
+  }
+
+  private update() {
+    if(!this.paused && this.loggedIn)
+    {
+      this.onUpdateSubject.next(new Date().getTime() - this.lastUpdateRun.getTime());
+      this.lastUpdateRun = new Date();
+    }
   }
 }

@@ -5,6 +5,12 @@
   .table {
     width: 100%;
   }
+  .table td {
+    text-align: right;
+  }
+  .table td:first-child {
+    text-align: left;
+  }
   .table th {
     font-weight: bold;
     text-align: right;
