@@ -12,6 +12,7 @@ build:
   stage: build
   script:
     - npm ci
+    - npm install @types/node
     - npm run prebuild
     - npx ng build --prod
 
