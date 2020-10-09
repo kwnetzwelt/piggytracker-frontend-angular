@@ -3,13 +3,14 @@ import { ApiService, Entry } from './api.service';
 import { LogService } from './log.service';
 import { EntriesService } from './entries.service';
 import { UpdateService } from './update.service';
-import { getEnabledCategories } from 'trace_events';
+import { BehaviorSubject } from 'rxjs';
+import { isNumber, isFunction } from 'util';
 
 export class Target
 {
   name: string;
-  targetValue: number;
-  currentValue: number;
+  targetValue: number = 0;
+  currentValue: number = 0;
   tid: number;
 }
 
@@ -24,7 +25,65 @@ export class TargetsEntry
     return this.tid % 12;
   }
 
+  public date(): Date{
+    return new Date(this.year(),this.month());
+  }
+
+  public moneySpent(): number{
+    let sum: number = 0;
+    this.targets.forEach((value, key, map) => {
+      if(isNumber(value.currentValue))
+        sum+=value.currentValue;
+    });
+    return sum;
+  }
+
+  public percentSpent(): number{
+    let sum: number = 0;
+    let target: number= 0;
+    this.targets.forEach((value, key, map) => {
+      if(isNumber(value.currentValue))
+        sum+=value.currentValue;
+      if(isNumber(value.targetValue))
+        target+=value.targetValue;
+    });
+    if(target > 0)
+      return sum/target;
+    return 1;
+  }
+  timePast() {
+      const d = new Date();
+      if(this.year() < d.getFullYear())
+      return 1;
+      if(this.month() < d.getMonth())
+      return 1;
+      if(this.month() === d.getMonth())
+      {
+      return (d.getUTCDate() / TargetsEntry.monthDays(d));
+      }
+      return 0;
+  }
+  isInFuture() {
+      const d = new Date();
+      if(this.year() < d.getFullYear())
+      return false;
+      if(this.month() < d.getMonth())
+      return false;
+      if(this.month() === d.getMonth())
+      {
+          return false;
+      }
+      return true;
+  }
+  private static monthDays (date: Date): number {
+    var d= new Date(date.getFullYear(), date.getMonth()+1, 0);
+    return d.getDate();
+  }
+
+
   tid: number;
+
+
   targets: Map<string, Target> = new Map<string, Target>();
 }
 
@@ -37,6 +96,11 @@ export class TargetsService {
   public targets: Map<number, TargetsEntry> = new Map();
   private perPage: number = 24;
   private firstUpdate = true;
+
+
+  private onTargetsUpdateSubject: BehaviorSubject<Map<number, TargetsEntry>> = new BehaviorSubject(undefined);
+  onTargetsUpdate = this.onTargetsUpdateSubject.asObservable();
+
 
   constructor(private updateService: UpdateService, private entriesService: EntriesService, private apiService: ApiService, private logService: LogService) {
     entriesService.onEntryAdded.subscribe((e) => this.onEntryAdded(e));
@@ -56,7 +120,8 @@ export class TargetsService {
     });
     entriesService.entries.forEach((v,i,a) => {
       this.onEntryAdded(v);
-    })
+    });
+    this.onTargetsUpdateSubject.next(this.targets);
   }
 
   private getTargetsFromServer(perPage: number, page: number){
@@ -88,6 +153,8 @@ export class TargetsService {
       if(r.total > (perPage * page))
       {
         this.getTargetsFromServer(perPage, page+1);
+      }else{
+        this.onTargetsUpdateSubject.next(this.targets);
       }
     });
   }
@@ -121,6 +188,7 @@ export class TargetsService {
     if(targetsEntry === undefined)
     {
       targetsEntry = new TargetsEntry();
+      targetsEntry.tid = n;
       this.targets.set(n,targetsEntry);
     }
 
@@ -130,6 +198,7 @@ export class TargetsService {
     {
       target = new Target();
       target.name = e.category;
+      target.tid = n;
       targetsEntry.targets.set(e.category, target);
     }
     return target;

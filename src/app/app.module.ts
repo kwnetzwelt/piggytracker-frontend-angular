@@ -30,6 +30,7 @@ import { ConfigService } from './config.service';
 import { RemuneratorPipe } from './remunerator.pipe';
 import { InitialsPipe } from './initials.pipe';
 import { CategoryPipe } from './category.pipe';
+
 import { StringToColorPipe, StringToForegroundColorPipe } from './stringToColor.pipe';
 
 // material
@@ -52,6 +53,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 // additional
 import { BottomNavModule } from 'ngx-bottom-nav';
@@ -74,6 +76,9 @@ import { UpdateService } from './update.service';
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 import { NumberCommaDirective } from './number-comma.directive';
 import { TargetsService } from './targets.service';
+import { TargetImagePipe } from './targetImage.pipe';
+import { MonthNamePipe } from './month-name.pipe';
+
 
 @NgModule({
   declarations: [
@@ -90,6 +95,7 @@ import { TargetsService } from './targets.service';
     RemuneratorPipe,
     InitialsPipe,
     CategoryPipe,
+    TargetImagePipe,
     StringToColorPipe,
     StringToForegroundColorPipe,
     WelcomeComponent,
@@ -99,6 +105,7 @@ import { TargetsService } from './targets.service';
     RankingEntrySettingsDialogComponent,
     LoginDialogComponent,
     NumberCommaDirective,
+    MonthNamePipe,
   ],
   imports: [
 
@@ -130,7 +137,7 @@ import { TargetsService } from './targets.service';
     MatCardModule,
     MatTableModule,
     MatDialogModule,
-
+    MatProgressBarModule,
     // additional
     BottomNavModule,
     FlexLayoutModule,

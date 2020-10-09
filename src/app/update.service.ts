@@ -7,7 +7,7 @@ import { AuthService } from './auth.service';
 })
 export class UpdateService {
 
-  private updateInterval = interval(5000);
+  private updateInterval = interval(1000);
   private paused = false;
   private loggedIn = false;
   private lastUpdateRun = new Date();

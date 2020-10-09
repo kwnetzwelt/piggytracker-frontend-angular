@@ -8,6 +8,7 @@ import { map, catchError } from 'rxjs/operators';
 })
 export class ConfigService {
 
+  public dateTimeFormatMonthName = {};
   public locale = '';
   public currency = '';
   public baseUrl = '';
@@ -58,6 +59,7 @@ export class ConfigService {
     this.externalSsoUrl = other.externalSsoUrl;
     this.externalSsoClientId = other.externalSsoClientId;
     this.externalSsoRedirectUri = other.externalSsoRedirectUri;
+    this.dateTimeFormatMonthName = other.dateTimeFormatMonthName;
   }
 
   public ssoUrl(): string {
