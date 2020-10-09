@@ -12,7 +12,7 @@ build:
   stage: build
   script:
     - npm ci
-    - ts-node src/git.version.ts
+    - npm prebuild
     - npx ng build --prod
 
 .upload_template: &upload_template
