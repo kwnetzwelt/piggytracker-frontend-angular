@@ -6,6 +6,7 @@ import { isFormattedError } from '@angular/compiler';
 import { EntriesService } from '../entries.service';
 import { LogService } from '../log.service';
 import { AuthService } from '../auth.service';
+import { ConfigService } from '../config.service';
 
 @Component({
   selector: 'app-add-entry-dialog',
@@ -15,6 +16,7 @@ import { AuthService } from '../auth.service';
 export class AddEntryDialogComponent {
 
   constructor(@Inject(MAT_BOTTOM_SHEET_DATA) public data: Entry,
+    public configService: ConfigService,
     public entrysService: EntriesService,
     public logService: LogService,
     public authService: AuthService,
@@ -43,4 +45,7 @@ export class AddEntryDialogComponent {
   ngOnInit(): void {
   }
 
+  public updateValue(event) {
+    this.data.value = event.target.value;
+  }
 }

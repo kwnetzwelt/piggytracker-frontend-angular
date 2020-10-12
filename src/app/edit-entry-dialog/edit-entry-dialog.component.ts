@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AddEntryDialogComponent } from '../add-entry-dialog/add-entry-dialog.component';
+import { ConfigService } from '../config.service';
 
 @Component({
   selector: 'app-edit-entry-dialog',
@@ -9,9 +10,11 @@ import { AddEntryDialogComponent } from '../add-entry-dialog/add-entry-dialog.co
 export class EditEntryDialogComponent extends AddEntryDialogComponent {
 
 
+
   public ok(): void {
     this.bottomSheetRef.dismiss(0);
     this.logService.log("ok");
     this.entrysService.putEntry(this.data);
   }
+
 }

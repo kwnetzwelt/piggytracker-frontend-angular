@@ -6,6 +6,8 @@ import es from '@angular/common/locales/es';
 import fr from '@angular/common/locales/fr';
 import { registerLocaleData } from '@angular/common';
 
+import { LocaleCurrencyInputModule} from 'locale-currency-input';
+
 registerLocaleData(de);
 registerLocaleData(en);
 registerLocaleData(es);
@@ -74,7 +76,6 @@ import { RankingService } from './ranking.service';
 import { RankingEntrySettingsDialogComponent } from './ranking-entry-settings-dialog/ranking-entry-settings-dialog.component';
 import { UpdateService } from './update.service';
 import { LoginDialogComponent } from './login-dialog/login-dialog.component';
-import { NumberCommaDirective } from './number-comma.directive';
 import { TargetsService } from './targets.service';
 import { TargetImagePipe } from './targetImage.pipe';
 import { MonthNamePipe } from './month-name.pipe';
@@ -104,7 +105,6 @@ import { MonthNamePipe } from './month-name.pipe';
     EditEntryDialogComponent,
     RankingEntrySettingsDialogComponent,
     LoginDialogComponent,
-    NumberCommaDirective,
     MonthNamePipe,
   ],
   imports: [
@@ -114,6 +114,7 @@ import { MonthNamePipe } from './month-name.pipe';
     BrowserAnimationsModule,
     AppRoutingModule,
     HttpClientModule,
+    LocaleCurrencyInputModule,
 
     // material
     MatSliderModule,
