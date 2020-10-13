@@ -70,6 +70,17 @@ export class ApiService {
 
   }
 
+  public getUpdates(updatedMillisecondsAgo: number): Observable<GetUpdatesResponse> {
+    return this.httpClient.get<GetUpdatesResponse>(
+      this.composeUrl("/updates"),
+      {
+        headers: this.authService.getAuthHeader(),
+        params: new HttpParams().append("updatedMillisecondsAgo",String(updatedMillisecondsAgo)),
+      }).pipe(
+        catchError(this.handleError<GetUpdatesResponse>("getUpdates"))
+      );
+  }
+
   public getTargets(perPage: number = 20, page: number = 1): Observable<GetTargetsResponse> {
     return this.httpClient.get<GetTargetsResponse>(
       this.composeUrl("/targets"),
@@ -166,6 +177,12 @@ export interface GetEntriesResponse {
   page: number,
   total: number
 }
+
+export interface GetUpdatesResponse {
+  data: Entry[],
+
+}
+
 export class EntryRequest {
 
   _id: string;
@@ -185,9 +202,9 @@ export class EntryRequest {
     this.remunerator = data.remunerator;
     this.category = data.category;
     this.info = data.info;
-    this.updatedAt = data.updatedAt?.toISOString().substr(0,10);
-    this.createdAt = data.createdAt?.toISOString().substr(0,10);
-    this.deletedAt = data.deletedAt?.toISOString().substr(0,10);
+    this.updatedAt = data.updatedAt;
+    this.createdAt = data.createdAt;
+    this.deletedAt = data.deletedAt;
   }
 }
 
@@ -202,6 +219,7 @@ export class Entry {
     target.updatedAt = newdata.updatedAt;
     target.createdAt = newdata.createdAt;
     target.deletedAt = newdata.deletedAt;
+    target.deleted = newdata.deleted;
   }
   _id: string;
   date: Date;
@@ -209,9 +227,10 @@ export class Entry {
   remunerator: string;
   category: string;
   info: string;
-  updatedAt: Date;
-  createdAt: Date;
-  deletedAt: Date;
+  updatedAt: string;
+  createdAt: string;
+  deletedAt: string;
+  deleted: boolean;
 
   constructor (existing?: Entry)
   {

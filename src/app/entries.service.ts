@@ -35,6 +35,24 @@ export class EntriesService {
         }else
         {
           // TODO UPDATE ENTRIES
+          this.apiService.getUpdates(v).subscribe((u) => {
+            u.data.forEach(element => {
+              const e = this.entries.findIndex((e) => e._id === element._id);
+
+              if(e !== -1)
+              {
+                if(element.deleted)
+                  this.removeEntry(element);
+                else
+                  this.updateEntry(element);
+              }else
+              {
+                if(!element.deleted)
+                  this.addEntry(element);
+              }
+
+            });
+          });
         }
       }
     });
@@ -112,7 +130,9 @@ export class EntriesService {
     });
   }
   public deleteEntry(data: Entry) {
+
     this.apiService.deleteEntry(data).subscribe((e) => {
+      this.logService.log(e);
       if(e){
         this.removeEntry(e);
       }

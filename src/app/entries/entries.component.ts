@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { EntriesService } from '../entries.service';
 import { Entry } from '../api.service';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { AddEntryDialogComponent } from '../add-entry-dialog/add-entry-dialog.component';
 import { EditEntryDialogComponent } from '../edit-entry-dialog/edit-entry-dialog.component';
+import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 
 @Component({
   selector: 'app-entries',
@@ -13,6 +14,7 @@ import { EditEntryDialogComponent } from '../edit-entry-dialog/edit-entry-dialog
 })
 export class EntriesComponent implements OnInit {
 
+  @ViewChild(CdkVirtualScrollViewport, {static: false}) viewport: CdkVirtualScrollViewport;
   public entries: Entry[] = [];
   constructor(public entriesService: EntriesService, private bottomSheet: MatBottomSheet) {
     this.entries = [...this.entriesService.entries];
@@ -37,7 +39,7 @@ export class EntriesComponent implements OnInit {
       if(e)
       {
         const id = this.entries.findIndex((f) => f._id === e._id);
-        this.entries[id] = e;
+        Entry.updateFromData(this.entries [id], e);
         this.entries.sort((b,a) =>
         a.date.getTime() - b.date.getTime());
       }
@@ -46,8 +48,10 @@ export class EntriesComponent implements OnInit {
     {
       if(e)
       {
-        const id = this.entries.findIndex((f) => f._id === e._id);
-        this.entries.splice(id,1);
+        this.entries = [...this.entriesService.entries]; // push will not update the view
+
+        this.viewport.setRenderedRange({start: 0, end: this.viewport.getRenderedRange().end + 1});
+        this.viewport.checkViewportSize();
       }
     }
     openEditDialog(entry: Entry): void {

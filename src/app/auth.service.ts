@@ -32,7 +32,7 @@ export class AuthService {
   }
 
   getAuthHeader(): HttpHeaders {
-    console.log(JSON.stringify(this.tokenResponse.token));
+    //console.log(JSON.stringify(this.tokenResponse.token));
     return new HttpHeaders({
       "Content-Type": "application/json",
       "Authorization": "Bearer " + this.tokenResponse.token });
