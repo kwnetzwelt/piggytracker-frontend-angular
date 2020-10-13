@@ -17,7 +17,7 @@ export interface EntryChange{
 })
 export class EntriesService {
 
-  private perPage: number = 20;
+  private perPage: number = 200;
   public entries: Entry[] = [];
   public categories: string[] = [];
   public remunerators: string[] = [];
