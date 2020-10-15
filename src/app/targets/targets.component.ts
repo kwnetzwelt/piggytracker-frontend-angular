@@ -10,6 +10,7 @@ import { ConfigService } from '../config.service';
 export class TargetsComponent implements OnInit {
 
   public targets: TargetsEntry[] = [];
+  public flipDiv:boolean[] = [];
   constructor(targetService:TargetsService, public configService:ConfigService,
     @Inject(LOCALE_ID) public locale: string
     ) {
@@ -17,9 +18,13 @@ export class TargetsComponent implements OnInit {
     targetService.onTargetsUpdate.subscribe((e) => {
 
       this.targets =[...e.values()];
-
+      this.flipDiv = new Array<boolean>(this.targets.length);
     });
 
+  }
+
+  public toggleFlip(index): void {
+    this.flipDiv[index] = !this.flipDiv[index];
   }
 
   ngOnInit(): void {

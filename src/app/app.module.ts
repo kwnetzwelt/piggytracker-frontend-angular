@@ -59,6 +59,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 // additional
 import { BottomNavModule } from 'ngx-bottom-nav';
+import { FlipModule} from 'ngx-flip';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule } from '@angular/forms';
 import { AvatarComponent } from './avatar/avatar.component';
@@ -143,6 +144,7 @@ import { MonthNamePipe } from './month-name.pipe';
     BottomNavModule,
     FlexLayoutModule,
     FormsModule,
+    FlipModule
   ],
 
   entryComponents: [

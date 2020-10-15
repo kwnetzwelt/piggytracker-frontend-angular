@@ -1,44 +1,65 @@
-<mat-card *ngFor="let monthTarget of this.targets" class="card mat-elevation-z8">
-  <mat-card-header>
-    <mat-card-title>{{ monthTarget.date() | monthName}}</mat-card-title>
-  </mat-card-header>
-  <img mat-card-image [src]="monthTarget.month() | targetImage"
-  height="140" class="cardMedia" />
-  <mat-card-content>
-    <table class="table">
-      <tr class="moneyTotal">
-        <th>Money spent:</th>
-        <th>{{ monthTarget.spentTotalSum | currency:this.configService.currency:"symbol"}}</th>
-      </tr>
-      <tr class="percentTotal">
-        <th>Percent spent:</th>
-        <th> {{ monthTarget.percentSpent | percent }}</th>
-      </tr>
-      <tr class="progressTotal">
-        <td colspan="2">
-          <mat-progress-bar mode="determinate" [value]="monthTarget.percentSpent*100">a</mat-progress-bar>
-        </td>
-      </tr>
+<div *ngFor="let monthTarget of this.targets; let i = index">
+  <ngx-flip [flip]="flipDiv[i]">
+    <div front>
+      <mat-card class="card mat-elevation-z8">
+        <mat-card-header>
+          <mat-card-title class="cardTitle">{{ monthTarget.date() | monthName}}</mat-card-title>
+          <div fxFlex></div>
+            <button mat-icon-button class="cardMenu" (click)="toggleFlip(i)">
+              <mat-icon>edit</mat-icon>
+            </button>
+        </mat-card-header>
+        <img mat-card-image [src]="monthTarget.month() | targetImage"
+        height="140" class="cardMedia" />
+        <mat-card-content>
+          <table class="table">
+            <tr class="moneyTotal">
+              <th>Money spent:</th>
+              <th>{{ monthTarget.spentTotalSum | currency:this.configService.currency:"symbol"}}</th>
+            </tr>
+            <tr class="percentTotal">
+              <th>Percent spent:</th>
+              <th> {{ monthTarget.percentSpent | percent }}</th>
+            </tr>
+            <tr class="progressTotal">
+              <td colspan="2">
+                <mat-progress-bar mode="determinate" [value]="monthTarget.percentSpent*100">a</mat-progress-bar>
+              </td>
+            </tr>
 
-      <tr class="percentTotal">
-        <th>Time past:</th>
-        <th>{{ monthTarget.percentTimePast | percent}}</th>
-      </tr>
+            <tr class="percentTotal">
+              <th>Time past:</th>
+              <th>{{ monthTarget.percentTimePast | percent}}</th>
+            </tr>
 
-      <tr class="progressTotal">
-        <td colspan="2">
-          <mat-progress-bar mode="determinate" [value]="monthTarget.percentTimePast *100">a</mat-progress-bar>
-        </td>
-      </tr>
-    </table>
-    <table class="table">
+            <tr class="progressTotal">
+              <td colspan="2">
+                <mat-progress-bar mode="determinate" [value]="monthTarget.percentTimePast *100">a</mat-progress-bar>
+              </td>
+            </tr>
+          </table>
+          <table class="table">
 
-      <tr *ngFor="let t of monthTarget.targets | keyvalue">
-        <td><app-category [category]="t.value.name" small></app-category></td>
-        <td>{{ t.value.currentValue | currency:this.configService.currency:"symbol" }} </td>
-        <td>{{ t.value.targetValue | currency:this.configService.currency:"symbol" }} </td>
-      </tr>
-    </table>
+            <tr *ngFor="let t of monthTarget.targets | keyvalue">
+              <td><app-category [category]="t.value.name" small></app-category></td>
+              <td>{{ t.value.currentValue | currency:this.configService.currency:"symbol" }} </td>
+              <td>{{ t.value.targetValue | currency:this.configService.currency:"symbol" }} </td>
+            </tr>
+          </table>
 
-  </mat-card-content>
-</mat-card>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div back>
+      <mat-card class="card mat-elevation-z8">
+        <mat-card-header>
+          <mat-card-title class="cardTitle">{{ monthTarget.date() | monthName}}</mat-card-title>
+          <div fxFlex></div>
+            <button mat-icon-button class="cardMenu" (click)="toggleFlip(i)">
+              <mat-icon>close</mat-icon>
+            </button>
+        </mat-card-header>
+       </mat-card>
+    </div>
+  </ngx-flip>
+</div>
