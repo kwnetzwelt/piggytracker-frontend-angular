@@ -20,7 +20,7 @@
       <mat-select-trigger>
         <app-category *ngIf="data?.category" [category]="data.category"></app-category>
       </mat-select-trigger>
-      <mat-option *ngFor="let category of entrysService.categories" [value]="category">
+      <mat-option *ngFor="let category of categoriesService.categories" [value]="category">
         {{category}}
       </mat-option>
     </mat-select>

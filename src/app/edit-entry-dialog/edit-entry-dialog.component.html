@@ -20,7 +20,7 @@
       <mat-select-trigger>
         <app-category *ngIf="data?.category" [category]="data.category"></app-category>
       </mat-select-trigger>
-      <mat-option *ngFor="let category of entrysService.categories" [value]="category">
+      <mat-option *ngFor="let category of categoriesService.categories" [value]="category">
         {{category}}
       </mat-option>
     </mat-select>
@@ -65,7 +65,7 @@
 
   <div mat-dialog-actions class="actions">
     <app-delete-button (clickFinal)="delete()"></app-delete-button>
-    <span fxFlex="grow"></span>
+    <span class="spacer"></span>
     <button mat-raised-button (click)="cancel()">Cancel</button>
 
     <button mat-raised-button (click)="ok()" cdkFocusInitial color="primary">Ok</button>

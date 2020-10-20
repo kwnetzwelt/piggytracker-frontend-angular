@@ -5,6 +5,7 @@ import { ConfigService } from './config.service';
 import { Observable, of } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
 import { LogService } from './log.service';
+import { Target, TargetsEntry } from './targets.service';
 
 
 @Injectable({
@@ -93,6 +94,28 @@ export class ApiService {
 
   }
 
+  public putTarget(target:TargetEntry):Observable<TargetEntry> {
+    return this.httpClient.put<TargetEntry>(
+      this.composeUrl("/targets/" + target._id), target,
+      {
+        headers: this.authService.getAuthHeader(),
+      }).pipe(
+        catchError(this.handleError<TargetEntry>('putTargetEntry'))
+      );
+  }
+  public postTarget(target:TargetEntry):Observable<TargetEntryRequest> {
+    let dataToSend = new TargetEntryRequest(target);
+
+    return this.httpClient.post<TargetEntryRequest>(
+      this.composeUrl("/targets"), dataToSend,
+      {
+        headers: this.authService.getAuthHeader(),
+      }).pipe(
+        catchError(this.handleError<TargetEntryRequest>('addTargetEntry'))
+      );
+
+  }
+
   public getRemunerators(): Observable<RemuneratorEntriesResponse> {
     return this.httpClient.get<RemuneratorEntriesResponse> (
       this.composeUrl("/remunerator"),
@@ -176,10 +199,45 @@ export interface TargetTotal {
   value: number;
   category: string;
 }
-export interface TargetEntry {
+export class TargetEntryRequest {
   _id: string;
   tid: number;
   totals: TargetTotal[];
+  constructor(other: TargetEntry)
+  {
+    if(other._id !== undefined)
+      this._id = other._id;
+    this.tid = other.tid;
+    this.setTotals(other.totals);
+  }
+  setTotals (newTotals:TargetTotal[]){
+    var t = [];
+    for (let index = 0; index < newTotals.length; index++) {
+        let cleanedUp = {
+            value:newTotals[index].value,
+            category:newTotals[index].category
+        }
+        t.push(cleanedUp);
+    }
+    this.totals = t;
+  }
+}
+export class TargetEntry {
+  _id: string;
+  tid: number;
+  totals: TargetTotal[];
+
+  setTotals (newTotals:Target[]){
+    var t = [];
+    for (let index = 0; index < newTotals.length; index++) {
+        let cleanedUp = {
+            value:parseFloat(newTotals[index].targetValue.toString()),
+            category:newTotals[index].name
+        }
+        t.push(cleanedUp);
+    }
+    this.totals = t;
+  }
 }
 
 export interface GetTargetsResponse {

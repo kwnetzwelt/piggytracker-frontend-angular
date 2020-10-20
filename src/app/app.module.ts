@@ -83,6 +83,7 @@ import { MonthNamePipe } from './month-name.pipe';
 import { ImportExportDialogComponent } from './import-export-dialog/import-export-dialog.component';
 import { ImportExportService } from './import-export.service';
 import { DeleteButtonComponent } from './delete-button/delete-button.component';
+import { EditTargetsDialogComponent } from './edit-targets-dialog/edit-targets-dialog.component';
 
 
 @NgModule({
@@ -112,6 +113,7 @@ import { DeleteButtonComponent } from './delete-button/delete-button.component';
     MonthNamePipe,
     ImportExportDialogComponent,
     DeleteButtonComponent,
+    EditTargetsDialogComponent,
   ],
   imports: [
 

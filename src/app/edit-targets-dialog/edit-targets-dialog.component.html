@@ -1,0 +1,19 @@
+<div class="mat-title">Edit Targets for {{ data.date() | monthName}}</div>
+<form>
+  <div  *ngFor="let category of categoriesService.categories, let i = index" class="field">
+  <app-category [category]="category" small></app-category>
+  <mat-form-field>
+    <mat-label>{{category}}</mat-label>
+    <input class="input" matInput localeCurrencyInput [allowNegative]="false" [currencyCode]="configService.currency" [value]="getTargetValue(i)"  (blur)="updateValue($event, i)">
+    <mat-icon matSuffix>monetization_on</mat-icon>
+  </mat-form-field>
+</div>
+
+<div mat-dialog-actions class="actions">
+
+  <button mat-raised-button (click)="cancel()">Cancel</button>
+
+  <button mat-raised-button (click)="ok()" cdkFocusInitial color="primary">Ok</button>
+</div>
+
+</form>

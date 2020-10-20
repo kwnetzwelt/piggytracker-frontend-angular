@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ApiService, Entry } from './api.service';
+import { ApiService, Entry, TargetEntry } from './api.service';
 import { LogService } from './log.service';
 import { EntriesService } from './entries.service';
 import { UpdateService } from './update.service';
@@ -12,6 +12,17 @@ export class Target
   targetValue: number = 0;
   currentValue: number = 0;
   tid: number;
+
+  constructor(other: Target = undefined)
+  {
+    if(other !== undefined)
+    {
+      this.name = other.name;
+      this.targetValue = other.targetValue;
+      this.currentValue = other.currentValue;
+      this.tid = other.tid;
+    }
+  }
 }
 
 export class TargetsEntry
@@ -32,6 +43,11 @@ export class TargetsEntry
   public spentTotalSum: number = 0;
   public targetTotalSum:number = 0;
   public percentSpent:number = 0;
+
+  public tid: number;
+  public targets: Map<string, Target> = new Map<string, Target>();
+
+  public _id: string;
 
   public percentTimePast: number =0;
   public isInFuture: boolean = false;
@@ -78,11 +94,6 @@ export class TargetsEntry
     return d.getDate();
   }
 
-
-  tid: number;
-
-
-  targets: Map<string, Target> = new Map<string, Target>();
 }
 
 
@@ -90,7 +101,9 @@ export class TargetsEntry
   providedIn: 'root'
 })
 
+
 export class TargetsService {
+  public categories: string[] = new Array<string>();
   public targets: Map<number, TargetsEntry> = new Map();
   private perPage: number = 24;
   private firstUpdate = true;
@@ -99,6 +112,16 @@ export class TargetsService {
   private onTargetsUpdateSubject: BehaviorSubject<Map<number, TargetsEntry>> = new BehaviorSubject(undefined);
   onTargetsUpdate = this.onTargetsUpdateSubject.asObservable();
 
+  public static transformForSend(targets: Target[], tid: number, id?: string): TargetEntry
+  {
+    const r = new TargetEntry();
+    if(id !== undefined)
+      r._id = id;
+
+    r.tid = tid;
+    r.setTotals(targets);
+    return r;
+  }
 
   constructor(private updateService: UpdateService, private entriesService: EntriesService, private apiService: ApiService, private logService: LogService) {
     entriesService.onEntryAdded.subscribe((e) => this.onEntryAdded(e));
@@ -122,6 +145,14 @@ export class TargetsService {
     this.onTargetsUpdateSubject.next(this.targets);
   }
 
+  private addCategoryIfNotPresent(category: string): void
+  {
+    if(this.categories.indexOf(category) === -1)
+    {
+      this.categories = [...this.categories, category];
+    }
+  }
+
   private getTargetsFromServer(perPage: number, page: number){
     this.apiService.getTargets(perPage, page).subscribe((r) => {
 
@@ -131,10 +162,13 @@ export class TargetsService {
         {
           let newEntry = new TargetsEntry();
           newEntry.tid = value.tid;
+          if(value._id !== undefined)
+            newEntry._id = value._id;
           this.targets.set(value.tid, newEntry);
           targetEntry = newEntry;
         }
         value.totals.forEach((v,i,a) => {
+          this.addCategoryIfNotPresent(v.category);
           let t:Target = targetEntry.targets.get(v.category);
           if(t === undefined)
           {
@@ -145,6 +179,7 @@ export class TargetsService {
           t.targetValue = v.value;
           targetEntry.targets.set(v.category, t);
         });
+        targetEntry._id = value._id;
         targetEntry.recalculate();
       });
 

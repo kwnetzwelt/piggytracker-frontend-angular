@@ -8,6 +8,7 @@ import { LogService } from '../log.service';
 import { AuthService } from '../auth.service';
 import { ConfigService } from '../config.service';
 import { UpdateService } from '../update.service';
+import { CategoriesService } from '../categories.service';
 
 @Component({
   selector: 'app-add-entry-dialog',
@@ -22,6 +23,7 @@ export class AddEntryDialogComponent {
     public logService: LogService,
     public authService: AuthService,
     public updateService: UpdateService,
+    public categoriesService: CategoriesService,
     protected bottomSheetRef: MatBottomSheetRef<AddEntryDialogComponent>) {
     if (this.data === null){
       this.data = new Entry();

@@ -1,5 +1,12 @@
-.full-width {
-  width: 100%;
+.label, .input
+{
+
+  display: flex;
+}
+.field
+{
+  display: flex;
+  justify-content: space-between;
 }
 .actions {
   margin-top: 15px;
@@ -7,15 +14,8 @@
   display: flex;
   justify-content: right;
 }
-
-.spacer {
-  flex: 1 1 auto;
-}
-.actions button:first-child
-{
-  justify-self: left;
-}
 .actions button:last-child
 {
   margin-left: 10px;
 }
+
