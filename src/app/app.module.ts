@@ -80,6 +80,9 @@ import { LoginDialogComponent } from './login-dialog/login-dialog.component';
 import { TargetsService } from './targets.service';
 import { TargetImagePipe } from './targetImage.pipe';
 import { MonthNamePipe } from './month-name.pipe';
+import { ImportExportDialogComponent } from './import-export-dialog/import-export-dialog.component';
+import { ImportExportService } from './import-export.service';
+import { DeleteButtonComponent } from './delete-button/delete-button.component';
 
 
 @NgModule({
@@ -107,6 +110,8 @@ import { MonthNamePipe } from './month-name.pipe';
     RankingEntrySettingsDialogComponent,
     LoginDialogComponent,
     MonthNamePipe,
+    ImportExportDialogComponent,
+    DeleteButtonComponent,
   ],
   imports: [
 
@@ -161,7 +166,7 @@ import { MonthNamePipe } from './month-name.pipe';
         ConfigService
       ],
       multi: true
-    }, AuthService, LogService, EntriesService, TargetsService, RankingService, UpdateService],
+    }, AuthService, LogService, EntriesService, TargetsService, RankingService, UpdateService, ImportExportService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

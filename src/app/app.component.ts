@@ -3,6 +3,8 @@ import { AuthService } from './auth.service';
 import { LogService } from './log.service';
 import { Router } from '@angular/router';
 import { UpdateService } from './update.service';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { ImportExportDialogComponent } from './import-export-dialog/import-export-dialog.component';
 
 @Component({
   selector: 'app-root',
@@ -41,6 +43,7 @@ export class AppComponent implements OnInit {
     private authService: AuthService,
     private logService: LogService,
     private router: Router,
+    private bottomSheet: MatBottomSheet,
   ) { }
 
   async ngOnInit() {
@@ -65,5 +68,10 @@ export class AppComponent implements OnInit {
   handleLogoutClicked() {
     this.authService.logout();
     this.router.navigate(["/"]);
+  }
+
+  hangleImportExportClicked() {
+
+    let ref = this.bottomSheet.open(ImportExportDialogComponent);
   }
 }

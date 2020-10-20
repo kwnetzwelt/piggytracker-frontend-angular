@@ -64,7 +64,7 @@
   </mat-expansion-panel>
 
   <div mat-dialog-actions class="actions">
-    <button mat-raised-button (click)="delete()" color="warn">Delete</button>
+    <app-delete-button (clickFinal)="delete()"></app-delete-button>
     <span fxFlex="grow"></span>
     <button mat-raised-button (click)="cancel()">Cancel</button>
 

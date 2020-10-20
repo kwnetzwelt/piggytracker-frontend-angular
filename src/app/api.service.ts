@@ -117,6 +117,17 @@ export class ApiService {
 
   }
 
+  public export(): Observable<Blob>
+  {
+    return this.httpClient.get (
+      this.composeUrl("/bills/export"),
+    {
+      headers: this.authService.getAuthHeader(),
+      responseType: "blob",
+    }).pipe(
+      catchError(this.handleError<Blob>("export"))
+    );
+  }
 
   /**
    * Handle Http operation that failed.
@@ -137,6 +148,11 @@ export class ApiService {
       return of(result as T);
     };
   }
+}
+
+export interface ExportResponse {
+  body: any;
+  fileName: string
 }
 
 export class RemuneratorEntryRequest {
