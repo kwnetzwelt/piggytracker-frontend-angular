@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CategoriesService } from '../categories.service';
+import { RemuneratorsService } from '../remunerators.service';
 
 @Component({
   selector: 'app-sidenav',
@@ -7,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SidenavComponent implements OnInit {
 
-  constructor() { }
+  constructor(public categoriesService:CategoriesService, public remuneratorsService:RemuneratorsService) { }
 
   ngOnInit(): void {
   }

@@ -11,14 +11,11 @@
     Remunerators
   </div>
   <mat-list role="list" class="section">
-    <mat-list-item role="listitem">
-      <app-avatar name="kw"></app-avatar>
-      <span class="item" fxFlex>Item 1</span>
+    <mat-list-item role="listitem" *ngFor="let name of remuneratorsService.remunerators">
+      <app-avatar [name]="name"></app-avatar>
+      <span class="item" fxFlex>{{name}}</span>
       <button mat-icon-button>
         <mat-icon>more_vert</mat-icon></button>
     </mat-list-item>
-    <mat-list-item role="listitem">Item 2</mat-list-item>
-    <mat-list-item role="listitem">Item 3</mat-list-item>
-    <mat-list-item role="listitem">Item 4</mat-list-item>
   </mat-list>
 </div>
