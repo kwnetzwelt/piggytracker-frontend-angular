@@ -56,6 +56,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatTableModule } from '@angular/material/table';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import {MatListModule} from '@angular/material/list';
 
 // additional
 import { BottomNavModule } from 'ngx-bottom-nav';
@@ -84,6 +85,7 @@ import { ImportExportDialogComponent } from './import-export-dialog/import-expor
 import { ImportExportService } from './import-export.service';
 import { DeleteButtonComponent } from './delete-button/delete-button.component';
 import { EditTargetsDialogComponent } from './edit-targets-dialog/edit-targets-dialog.component';
+import { SidenavComponent } from './sidenav/sidenav.component';
 
 
 @NgModule({
@@ -114,6 +116,7 @@ import { EditTargetsDialogComponent } from './edit-targets-dialog/edit-targets-d
     ImportExportDialogComponent,
     DeleteButtonComponent,
     EditTargetsDialogComponent,
+    SidenavComponent,
   ],
   imports: [
 
@@ -147,11 +150,13 @@ import { EditTargetsDialogComponent } from './edit-targets-dialog/edit-targets-d
     MatTableModule,
     MatDialogModule,
     MatProgressBarModule,
+    MatListModule,
     // additional
     BottomNavModule,
     FlexLayoutModule,
     FormsModule,
-    FlipModule
+    FlipModule,
+    MatListModule,
   ],
 
   entryComponents: [
