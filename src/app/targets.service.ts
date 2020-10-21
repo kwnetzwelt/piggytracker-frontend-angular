@@ -51,6 +51,13 @@ export class TargetsEntry
 
   public percentTimePast: number =0;
   public isInFuture: boolean = false;
+
+  public constructor(tid?: number)
+  {
+    if(tid)
+      this.tid = tid;
+  }
+
   public recalculate()
   {
 

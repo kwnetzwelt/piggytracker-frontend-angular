@@ -24,8 +24,19 @@ export class EditTargetsDialogComponent implements OnInit {
   ngOnInit(): void {
 
     let newTargets:Target[] = new Array<Target>();
-    this.data.targets.forEach((v) => {
-      newTargets.push(new Target(v));
+    this.categoriesService.categories.forEach((v) => {
+      // do we have a target for this category?
+      if(this.data.targets.has(v))
+      {
+        newTargets.push(new Target(this.data.targets.get(v)));
+      }else
+      {
+        const t:Target = new Target();
+        t.name = v;
+        t.tid = this.data.tid;
+        newTargets.push(t);
+      }
+
     });
     this.targets = [...newTargets];
   }
@@ -33,7 +44,7 @@ export class EditTargetsDialogComponent implements OnInit {
 ok(): void
   {
     if(this.data._id !== undefined)
-      this.apiService.putTarget(TargetsService.transformForSend(this.targets,this.data.tid,this.data._id)).subscribe((e) => {});
+      this.apiService.putTarget(TargetsService.transformForSend(this.targets, this.data.tid,this.data._id)).subscribe((e) => {});
     else
       this.apiService.postTarget(TargetsService.transformForSend(this.targets, this.data.tid)).subscribe((e) => {});
 
