@@ -1,11 +1,21 @@
 <div>
+  <div>
+  <button mat-icon-button>
+    <mat-icon>refresh</mat-icon></button>
+    <span fxFlex></span>
+  <button mat-icon-button>
+    <mat-icon>public</mat-icon></button>
+  </div>
   <div class="section-header mat-tab-link">
     Categories
   </div>
   <mat-list role="list" class="section">
-    <mat-list-item role="listitem">Item 1</mat-list-item>
-    <mat-list-item role="listitem">Item 2</mat-list-item>
-    <mat-list-item role="listitem">Item 3</mat-list-item>
+    <mat-list-item role="listitem" *ngFor="let category of categoriesService.categories">
+      <app-avatar [name]="category"></app-avatar>
+      <span class="item" fxFlex>{{category}}</span>
+      <button mat-icon-button>
+        <mat-icon>more_vert</mat-icon></button>
+    </mat-list-item>
   </mat-list>
   <div class="section-header mat-tab-link">
     Remunerators
