@@ -14,4 +14,8 @@ export class SidenavComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  uploadCategoryImage(name: string): void {
+    console.log(name);
+
+  }
 }

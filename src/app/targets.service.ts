@@ -131,7 +131,7 @@ export class TargetsService {
   }
 
   constructor(private updateService: UpdateService, private entriesService: EntriesService, private apiService: ApiService, private logService: LogService) {
-    entriesService.onEntryAdded.subscribe((e) => this.onEntryAdded(e));
+    entriesService.onEntryAdded.subscribe((e) => {if(e) this.onEntryAdded(e)});
     entriesService.onEntryChanged.subscribe((e) => {if(e) this.onEntryChanged(e.old, e.current);});
     entriesService.onEntryRemoved.subscribe((e) => {if(e) this.onEntryRemoved(e)});
     updateService.onUpdate.subscribe((v) => {
@@ -209,7 +209,6 @@ export class TargetsService {
 
 
   private onEntryAdded(e:Entry): void {
-    this.logService.log("added");
     const targetEntry:[TargetsEntry,Target] = this.getTargetForEntry(e);
 
     // add the value
@@ -230,7 +229,6 @@ export class TargetsService {
   }
 
   private getTargetForEntry(e:Entry): [TargetsEntry,Target] {
-
     // for this entry, convert its date property to an index (Year.Month) we can use to categorize it in our map
     const n = e.date.getFullYear() * 12 + e.date.getMonth();
 
@@ -253,5 +251,7 @@ export class TargetsService {
       targetsEntry.targets.set(e.category, target);
     }
     return [targetsEntry, target];
+
+
   }
 }
