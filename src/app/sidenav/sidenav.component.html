@@ -9,33 +9,56 @@
   <div class="section-header mat-tab-link">
     Categories
   </div>
+
+  <mat-menu #categoryMenu="matMenu">
+    <ng-template matMenuContent let-name="name">
+      <button mat-menu-item disabled>
+        <span>Rename</span>
+      </button>
+      <button mat-menu-item (click)="uploadCategoryImage(name)">
+        <span>Change Image</span>
+      </button>
+    </ng-template>
+  </mat-menu>
+  <input #UploadCategoryImage type="file" accept="image/*" multiple hidden (change)="onUploadCategoryImageChange(UploadCategoryImage)"/>
+
   <mat-list role="list" class="section">
-    <mat-list-item role="listitem" *ngFor="let category of categoriesService.categories">
-      <app-avatar [name]="category"></app-avatar>
-      <span class="item" fxFlex>{{category}}</span>
-      <button mat-icon-button [matMenuTriggerFor]="categoryMenu">
+
+
+    <mat-list-item role="listitem" *ngFor="let name of categoriesService.categories">
+      <app-avatar [name]="name" [src]="name | category"></app-avatar>
+      <span class="item" fxFlex>{{name}}</span>
+      <button mat-icon-button [matMenuTriggerFor]="categoryMenu" [matMenuTriggerData]="{name:name}">
         <mat-icon>more_vert</mat-icon></button>
 
-      <mat-menu #categoryMenu="matMenu">
-        <button mat-menu-item disabled>
-          <span>Rename</span>
-        </button>
-        <button mat-menu-item (click)="uploadCategoryImage(category)">
-          <span>Upload Image</span>
-        </button>
-      </mat-menu>
 
     </mat-list-item>
   </mat-list>
   <div class="section-header mat-tab-link">
     Remunerators
   </div>
+
+  <mat-menu #remuneratorMenu="matMenu">
+    <ng-template matMenuContent let-name="name">
+      <button mat-menu-item disabled>
+        <span>Rename</span>
+      </button>
+      <button mat-menu-item (click)="uploadRemuneratorImage(name)">
+        <span>Change Image</span>
+      </button>
+    </ng-template>
+  </mat-menu>
+  <input #UploadRemuneratorImage type="file" accept="image/*" multiple hidden (change)="onUploadRemuneratorImageChange(UploadRemuneratorImage)"/>
+
   <mat-list role="list" class="section">
     <mat-list-item role="listitem" *ngFor="let name of remuneratorsService.remunerators">
-      <app-avatar [name]="name"></app-avatar>
+      <app-avatar [name]="name"  [src]="name | remunerator"></app-avatar>
       <span class="item" fxFlex>{{name}}</span>
-      <button mat-icon-button>
+      <button mat-icon-button [matMenuTriggerFor]="remuneratorMenu" [matMenuTriggerData]="{name:name}">
         <mat-icon>more_vert</mat-icon></button>
-    </mat-list-item>
+
+
+      </mat-list-item>
+
   </mat-list>
 </div>

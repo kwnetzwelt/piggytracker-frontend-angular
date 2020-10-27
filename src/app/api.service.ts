@@ -6,6 +6,9 @@ import { Observable, of } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
 import { LogService } from './log.service';
 import { Target, TargetsEntry } from './targets.service';
+import { RemuneratorPipe } from './remunerator.pipe';
+import { RemuneratorsService } from './remunerators.service';
+import { CategoryPipe } from './category.pipe';
 
 
 @Injectable({
@@ -137,6 +140,45 @@ export class ApiService {
       }).pipe(
         catchError(this.handleError<RemuneratorEntryRequest>('postRemunerator'))
       );
+
+  }
+
+  public uploadCategoryImage(image: File, name: string): Observable<FormData> {
+
+    const data:FormData = new FormData();
+    data.append("category",CategoryPipe.urlify(name));
+    data.append("image", image);
+
+    let headers = this.authService.getAuthHeader();
+    headers = headers.delete("content-type"); // As we are setting formdata we remove this. As is discussed here: https://stackoverflow.com/questions/41878838/how-do-i-set-multipart-in-axios-with-react
+
+    return this.httpClient.post<FormData>(
+      this.composeUrl("/images/category"), data,
+      {
+        headers: headers,
+      }).pipe(
+        catchError(this.handleError<FormData>('uploadCategory'))
+      );
+
+
+  }
+
+  public uploadRemuneratorImage(image: File, name: string): Observable<FormData> {
+    const data:FormData = new FormData();
+    data.append("remunerator", RemuneratorPipe.urlify(name));
+    data.append("image", image);
+
+    let headers = this.authService.getAuthHeader();
+    headers = headers.delete("content-type"); // As we are setting formdata we remove this. As is discussed here: https://stackoverflow.com/questions/41878838/how-do-i-set-multipart-in-axios-with-react
+
+    return this.httpClient.post<FormData>(
+      this.composeUrl("/images/remunerator"), data,
+      {
+        headers: headers,
+      }).pipe(
+        catchError(this.handleError<FormData>('uploadRemunerator'))
+      );
+
 
   }
 

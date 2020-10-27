@@ -31,10 +31,10 @@ export class AuthService {
     return this.tokenResponse?.userProfile;
   }
 
-  getAuthHeader(): HttpHeaders {
+  getAuthHeader(contentType?:string): HttpHeaders {
     //console.log(JSON.stringify(this.tokenResponse.token));
     return new HttpHeaders({
-      "Content-Type": "application/json",
+      "content-type": contentType ?? "application/json",
       "Authorization": "Bearer " + this.tokenResponse.token });
   }
 
