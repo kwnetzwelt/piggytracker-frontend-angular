@@ -194,6 +194,13 @@ export class TargetsService {
       {
         this.getTargetsFromServer(perPage, page+1);
       }else{
+        // we need to make sure, we have all entries, that are present right now in our targets
+        this.targets.forEach(element => {
+          element.targets.forEach(e => e.currentValue = 0);
+        });
+        this.entriesService.entries.forEach(element => {
+          this.onEntryAdded(element);
+        });
 
         this.onTargetsUpdateSubject.next(this.targets);
       }
