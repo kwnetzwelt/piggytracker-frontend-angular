@@ -34,6 +34,7 @@ export class ApiService {
       {
         headers: this.authService.getAuthHeader(),
       }).pipe(
+        map(entry => new Entry(entry)),
         catchError(this.handleError<Entry>('putEntry'))
       );
 
@@ -313,7 +314,7 @@ export class EntryRequest {
   constructor(data: Entry)
   {
     this._id = data._id;
-    this.date = new Date(data.date).toISOString().substr(0,10);
+    this.date = data.date.getFullYear() + "-" + (data.date.getMonth() +1).toString().padStart(2,"0") + "-" + data.date.getDate().toString().padStart(2,"0");
     this.value = parseFloat(data.value.toString());
     this.remunerator = data.remunerator;
     this.category = data.category;
@@ -347,6 +348,7 @@ export class Entry {
   createdAt: string;
   deletedAt: string;
   deleted: boolean;
+
 
   constructor (existing?: Entry)
   {
