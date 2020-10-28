@@ -18,6 +18,10 @@ export class SidenavComponent implements OnInit {
   }
 
 
+  refresh(): void {
+    window.location.reload();
+  }
+
   public OpenAddFilesDialog( element:ElementRef) {
     const e: HTMLElement = element.nativeElement;
     e.click();
@@ -38,7 +42,6 @@ export class SidenavComponent implements OnInit {
       console.log(e);
     });
   }
-
 
 
 

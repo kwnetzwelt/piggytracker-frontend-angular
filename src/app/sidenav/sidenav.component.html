@@ -1,10 +1,14 @@
 <div>
   <div>
-  <button mat-icon-button>
-    <mat-icon>refresh</mat-icon></button>
-    <span fxFlex></span>
-  <button mat-icon-button>
-    <mat-icon>public</mat-icon></button>
+  <button mat-icon-button (click)="refresh()">
+    <mat-icon>refresh</mat-icon>
+  </button>
+  <span fxFlex></span>
+  <a href="http://www.piggytracker.org" target="_blank">
+    <button mat-icon-button>
+      <mat-icon>public</mat-icon>
+    </button>
+  </a>
   </div>
   <div class="section-header mat-tab-link">
     Categories
