@@ -1,3 +1,5 @@
+@import "../../variables.scss";
+
 .addForNextMonthButton {
 
   margin: 1em 1em;
@@ -33,10 +35,18 @@
       background-repeat: no-repeat;
       background-position: center;
     }
+
+.warn {
+  color: $warn;
+  font-weight: bold;
+}
+
 .cardTitle {
   margin-top: 0px;
 }
-
+.table td.total{
+  border-top: 1px solid rgb(180, 180, 180);
+}
 .cardMenu {
   margin-top: -12px;
 }

@@ -20,16 +20,17 @@
     <mat-card-content>
       <table class="table">
         <tr class="moneyTotal">
-          <th>Money spent:</th>
-          <th>{{ monthTarget.spentTotalSum | currency:this.configService.currency:"symbol"}}</th>
+          <th>Money left:</th>
+          <th>{{ (monthTarget.targetTotalSum - monthTarget.spentTotalSum) | currency:this.configService.currency:"symbol"}}</th>
         </tr>
+        
         <tr class="percentTotal">
           <th>Percent spent:</th>
           <th> {{ monthTarget.percentSpent | percent }}</th>
         </tr>
         <tr class="progressTotal">
           <td colspan="2">
-            <mat-progress-bar mode="determinate" [value]="monthTarget.percentSpent*100">a</mat-progress-bar>
+            <mat-progress-bar [color]=" monthTarget.percentSpent > 1 ? 'warn' : 'primary'" mode="determinate" [value]="monthTarget.percentSpent*100">a</mat-progress-bar>
           </td>
         </tr>
 
@@ -48,8 +49,13 @@
 
         <tr *ngFor="let t of monthTarget.targets | keyvalue">
           <td><app-category [category]="t.value.name" small></app-category></td>
-          <td>{{ t.value.currentValue | currency:this.configService.currency:"symbol" }} </td>
+          <td [class]="t.value.currentValue > t.value.targetValue ? 'warn' : ''">{{ t.value.currentValue | currency:this.configService.currency:"symbol" }} </td>
           <td>{{ t.value.targetValue | currency:this.configService.currency:"symbol" }} </td>
+        </tr>
+        <tr>
+          <td></td>
+          <td class="total" [class]="monthTarget.spentTotalSum > monthTarget.targetTotalSum ? 'warn' : ''"><strong>{{monthTarget.spentTotalSum | currency:this.configService.currency:"symbol"}}</strong></td>
+          <td class="total"><strong>{{monthTarget.targetTotalSum | currency:this.configService.currency:"symbol"}}</strong></td>
         </tr>
       </table>
 
