@@ -13,6 +13,7 @@
   vertical-align: middle;
   text-align: center !important;
   display: table-cell !important;
+  padding-right: 1em;
 }
 
 .mat-column-name {
@@ -22,8 +23,16 @@
 .mat-column-total {
   flex: 0 0 15% !important;
   width: 15% !important;
+  text-align: right;
 }
 .mat-column-delta {
   flex: 0 0 15% !important;
   width: 15% !important;
+  text-align: right;
+}
+
+.mat-column-spending {
+  flex: 0 0 15% !important;
+  width: 15% !important;
+  text-align: right;
 }

@@ -102,6 +102,7 @@ export class AuthService {
   stage3(result: TokenResponse) {
     this.storeTokenResponse(result);
     this.logService.log('store: ' + result.token);
+    this.logService.log(result);
     this.setLoggedIn(true);
   }
 

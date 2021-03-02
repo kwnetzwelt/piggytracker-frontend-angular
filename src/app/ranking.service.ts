@@ -13,6 +13,7 @@ export interface RankingEntry
   value: number;
   delta: number;
   offset: number;
+  total: number;
 }
 
 
@@ -25,7 +26,11 @@ export class RankingService {
 
   constructor(private updateService: UpdateService, private entriesService: EntriesService, private apiService: ApiService, private logService: LogService) {
     entriesService.onEntryAdded.subscribe((e) => this.onEntryAdded(e));
-    entriesService.onEntryChanged.subscribe((e) => this.onEntryChanged(e.current));
+    entriesService.onEntryChanged.subscribe((e) => {
+      if(e !== null) {
+        this.onEntryChanged(e.current)
+      }
+    });
     entriesService.onEntryRemoved.subscribe((e) => this.onEntryRemoved(e));
     updateService.onUpdate.subscribe((e) => this.update());
     this.initEntries();
@@ -66,20 +71,21 @@ export class RankingService {
     });
     this.entries = [];
     for (let index = 0; index < names.length; index++) {
-      this.entries.push({name: names[index], value: values[index]} as RankingEntry);
+      this.entries.push({name: names[index], value: values[index], offset: 0} as RankingEntry);
     }
     this.recalculate();
   }
   private recalculate() {
     this.entries=    this.entries.sort((a,b) => {
-      if(a.value < b.value) return 1;
-      if(a.value > b.value) return -1;
+      if((a.value + a.offset) < (b.value + b.offset)) return 1;
+      if((a.value + a.offset) > (b.value + b.offset)) return -1;
       return 0;
     });
     for (let index = 0; index < this.entries.length; index++) {
       if(index+1 < this.entries.length)
-        this.entries[index].delta = this.entries[index].value + this.entries[index].offset - this.entries[index+1].value;
+        this.entries[index].delta = this.entries[index].value + this.entries[index].offset - (this.entries[index+1].value + this.entries[index+1].offset);
       this.entries[index].position = index +1;
+      this.entries[index].total = this.entries[index].value + this.entries[index].offset;
     }
     this.logService.log(this.entries);
    }

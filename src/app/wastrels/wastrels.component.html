@@ -18,9 +18,14 @@
     <td mat-cell *matCellDef="let element"> {{element.name}} </td>
   </ng-container>
 
+  <ng-container matColumnDef="spending">
+    <th mat-header-cell *matHeaderCellDef> Spending </th>
+    <td mat-cell *matCellDef="let element"> {{element.value | currency:configService.currency:"symbol"}} </td>
+  </ng-container>
+
   <ng-container matColumnDef="total">
     <th mat-header-cell *matHeaderCellDef> Total </th>
-    <td mat-cell *matCellDef="let element"> {{element.value | currency:configService.currency:"symbol"}} </td>
+    <td mat-cell *matCellDef="let element"> {{element.total | currency:configService.currency:"symbol"}} </td>
   </ng-container>
 
   <ng-container matColumnDef="delta">

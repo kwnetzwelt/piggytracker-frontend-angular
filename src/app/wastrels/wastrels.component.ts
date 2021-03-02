@@ -14,7 +14,7 @@ export class WastrelsComponent implements OnInit {
 
   constructor(public dialog: MatDialog, public rankingService: RankingService, public configService: ConfigService) { }
 
-  displayedColumns: string[] = ['avatar','name','total','delta','menu'];
+  displayedColumns: string[] = ['avatar','name','spending','total','delta','menu'];
   ngOnInit(): void {
   }
 
