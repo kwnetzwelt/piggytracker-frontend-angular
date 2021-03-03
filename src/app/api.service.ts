@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { AuthService } from './auth.service';
+import { AuthService, UserProfile, UserProfileInterface } from './auth.service';
 import { ConfigService } from './config.service';
 import { Observable, of } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
@@ -144,6 +144,37 @@ export class ApiService {
 
   }
 
+  public getInvite(): Observable<GetInviteResponse> {
+    return this.httpClient.get<GetInviteResponse>(
+      this.composeUrl("/invites"),
+      {
+        headers: this.authService.getAuthHeader()
+      }).pipe(
+        catchError(this.handleError<GetInviteResponse>("getInvite"))
+      );
+  }
+
+  public deleteInvite(): Observable<DeleteInviteResponse> {
+    return this.httpClient.delete<DeleteInviteResponse>(
+      this.composeUrl("/invites"),
+      {
+        headers: this.authService.getAuthHeader()
+      }).pipe(
+        catchError(this.handleError<DeleteInviteResponse>("deleteInvite"))
+      );
+    
+  }
+
+  public postInvite(code: string): Observable<PostInviteResponse> {
+    return this.httpClient.post<PostInviteResponse>(
+      this.composeUrl("/invites"), new PostInviteRequest(code),
+      {
+        headers: this.authService.getAuthHeader(),
+      }).pipe(
+        catchError(this.handleError<PostInviteResponse>('postInvite'))
+      );
+  }
+
   public uploadCategoryImage(image: File, name: string): Observable<FormData> {
 
     const data:FormData = new FormData();
@@ -160,8 +191,6 @@ export class ApiService {
       }).pipe(
         catchError(this.handleError<FormData>('uploadCategory'))
       );
-
-
   }
 
   public uploadRemuneratorImage(image: File, name: string): Observable<FormData> {
@@ -325,6 +354,28 @@ export class EntryRequest {
   }
 }
 
+export class GetInviteResponse {
+  expires: Date;
+  fromUser: string;
+  code: string;
+}
+
+export class DeleteInviteResponse extends UserProfile {
+  
+}
+
+export class PostInviteRequest {
+  code: string;
+  constructor(code?: string) 
+  {
+    this.code = code;
+  }
+}
+
+export class PostInviteResponse extends UserProfile {
+  
+}
+
 export class Entry {
   public static updateFromData(target: Entry, newdata: Entry): void {
     target._id = newdata._id;
@@ -357,4 +408,7 @@ export class Entry {
     if(existing)
       Entry.updateFromData(this, existing);
   }
+
+
+
 }

@@ -9,11 +9,14 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthService {
+  
 
   private gapiSetup = false; // marks if the gapi library has been loaded
   private authInstance: gapi.auth2.GoogleAuth;
   private tokenResponse: TokenResponse;
   public user: gapi.auth2.GoogleUser;
+
+  private userProfile: UserProfile;
 
   private loggedInSubject: BehaviorSubject<boolean> = new BehaviorSubject(false);
   getLoggedIn = this.loggedInSubject.asObservable();
@@ -25,10 +28,24 @@ export class AuthService {
     private http: HttpClient,
     private logService: LogService,
     private configService: ConfigService
-  ) { }
+  ) {
+    this.userProfile = new UserProfile();
+
+  }
 
   getUserProfile(): UserProfile {
-    return this.tokenResponse?.userProfile;
+    return this.userProfile;
+  }
+
+  updateUserProfile(newProfile: UserProfileInterface) {
+    this.userProfile.fullname = newProfile.fullname;
+    this.userProfile.username = newProfile.username;
+    this.userProfile.groupId = newProfile.groupId;
+    this.userProfile.groupName = newProfile.groupName;
+    this.userProfile.avatarUrl = newProfile.avatarUrl;
+    this.userProfile.id = newProfile.id;
+    this.userProfile.groupId = newProfile.groupId;
+    this.userProfile.groupName = newProfile.groupName;
   }
 
   getAuthHeader(contentType?:string): HttpHeaders {
@@ -57,6 +74,7 @@ export class AuthService {
         this.stage2();
       } else {
         this.logService.log('restore: ' + this.tokenResponse);
+        this.updateUserProfile(this.tokenResponse.userProfile as UserProfileInterface);
         this.setLoggedIn(true);
       }
     } else {
@@ -103,6 +121,7 @@ export class AuthService {
     this.storeTokenResponse(result);
     this.logService.log('store: ' + result.token);
     this.logService.log(result);
+    this.updateUserProfile(result.userProfile);
     this.setLoggedIn(true);
   }
 
@@ -182,7 +201,16 @@ export class AuthService {
   }
 }
 
-export interface UserProfile {
+export class UserProfile implements UserProfileInterface {
+  fullname: string;
+  username: string;
+  groupId: string;
+  groupName: string;
+  avatarUrl: string;
+  id: string;
+}
+
+export interface UserProfileInterface {
   fullname: string;
   username: string;
   groupId: string;
@@ -194,5 +222,5 @@ export interface UserProfile {
 export interface TokenResponse {
   message: string,
   token: string,
-  userProfile: UserProfile,
+  userProfile: UserProfileInterface,
 }

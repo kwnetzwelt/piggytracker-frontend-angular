@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { UpdateService } from './update.service';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { ImportExportDialogComponent } from './import-export-dialog/import-export-dialog.component';
+import { SettingsDialogComponent } from './settings-dialog/settings-dialog.component';
 
 @Component({
   selector: 'app-root',
@@ -73,5 +74,8 @@ export class AppComponent implements OnInit {
   hangleImportExportClicked() {
 
     let ref = this.bottomSheet.open(ImportExportDialogComponent);
+  }
+  handleSettingsClicked() {
+    let ref = this.bottomSheet.open(SettingsDialogComponent);
   }
 }

@@ -86,6 +86,8 @@ import { ImportExportService } from './import-export.service';
 import { DeleteButtonComponent } from './delete-button/delete-button.component';
 import { EditTargetsDialogComponent } from './edit-targets-dialog/edit-targets-dialog.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
+import { UsergroupComponent } from './usergroup/usergroup.component';
+import { SettingsDialogComponent } from './settings-dialog/settings-dialog.component';
 
 
 @NgModule({
@@ -117,6 +119,8 @@ import { SidenavComponent } from './sidenav/sidenav.component';
     DeleteButtonComponent,
     EditTargetsDialogComponent,
     SidenavComponent,
+    UsergroupComponent,
+    SettingsDialogComponent,
   ],
   imports: [
 

@@ -1,5 +1,9 @@
 # PiggytrackerFrontendAngular
 
+## Prerequisites
+
+Install Angular CLI
+
 ## Configuration
 
 please fill with your values: src/assets/config.json

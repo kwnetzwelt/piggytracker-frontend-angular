@@ -1,0 +1,32 @@
+<mat-card>
+    <mat-card-title>Collaboration</mat-card-title>
+    <mat-card-content>
+    <p small *ngIf="!invitesService.isInGroup">
+        You can create a group by generating an invite code with <mat-icon>cached</mat-icon>. 
+        Hand this code to another user, who might then enter it into their code-field and hit <mat-icon>save</mat-icon>. 
+    </p>
+    <p *ngIf="invitesService.isInGroup">You are part of a group already. To leave hit the <mat-icon>delete</mat-icon> button.</p>
+    
+    <mat-form-field appearance="fill">
+      <mat-label>Invite code</mat-label>
+      <input matInput placeholder="abcdefg" [value]="invitesService.groupName" disabled *ngIf="invitesService.isInGroup">
+      <input matInput placeholder="abcdefg" [value]="inviteCode" (input)="inviteCode = $event.target.value" (ngModelChange)="onChange($event)" *ngIf="!invitesService.isInGroup">
+      <mat-hint *ngIf="invitesService.isInGroup">You are already in a group</mat-hint>
+      
+    </mat-form-field>
+
+    <button mat-icon-button class="action_button" aria-label="Example icon button with a vertical three dot icon" *ngIf="canGenerate" (click)="generateClicked()">
+        <mat-icon>cached</mat-icon>
+    </button>
+
+    <button mat-icon-button class="action_button" aria-label="Example icon button with a vertical three dot icon" *ngIf="canJoin" (click)="joinClicked">
+        <mat-icon>save</mat-icon>
+    </button>
+    <button mat-icon-button class="action_button" aria-label="Example icon button with a vertical three dot icon" *ngIf="canLeave" (click)="leaveClicked">
+        <mat-icon>delete</mat-icon>
+    </button>
+
+</mat-card-content>
+<mat-card-actions>
+</mat-card-actions>
+</mat-card>
