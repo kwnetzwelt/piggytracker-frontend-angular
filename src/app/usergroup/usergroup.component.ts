@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { InvitesService } from '../invites.service';
-import { UpdateService } from '../update.service';
 
 @Component({
   selector: 'app-usergroup',
@@ -19,21 +19,15 @@ export class UsergroupComponent implements OnInit {
     this.update();
   }
 
-  public canJoin: boolean;
-  public canLeave: boolean;
-  public canGenerate: boolean;
-  public inviteCode: string;
+  public inviteCode: FormControl = new FormControl();
 
   private update(): void {
-    this.canJoin = this.invitesService.inviteCode !== "" && !this.invitesService.isInGroup;
-    this.canLeave = this.invitesService.isInGroup;
-    this.canGenerate = this.invitesService.inviteCode == "" && !this.invitesService.isInGroup;
-    this.inviteCode = this.invitesService.inviteCode;
+    this.inviteCode.setValue(this.invitesService.inviteCode);
   }
 
   public onChange(event): void 
   {
-    this.invitesService.inviteCode = this.inviteCode;
+    this.invitesService.inviteCode = this.inviteCode.value;
     this.update();
   }
 

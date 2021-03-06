@@ -9,6 +9,7 @@ import { Target, TargetsEntry } from './targets.service';
 import { RemuneratorPipe } from './remunerator.pipe';
 import { RemuneratorsService } from './remunerators.service';
 import { CategoryPipe } from './category.pipe';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 
 @Injectable({
@@ -21,6 +22,7 @@ export class ApiService {
     private authService: AuthService,
     private configService: ConfigService,
     private logService: LogService,
+    private snackBar: MatSnackBar
     ) { }
 
   private composeUrl(url: string): string
@@ -189,7 +191,7 @@ export class ApiService {
       {
         headers: headers,
       }).pipe(
-        catchError(this.handleError<FormData>('uploadCategory'))
+        catchError(this.handleError<FormData>('uploadCategory'),)
       );
   }
 
@@ -238,6 +240,8 @@ export class ApiService {
 
       // TODO: better job of transforming error for user consumption
       this.logService.log(`${operation} failed: ${error.message}`);
+
+      this.snackBar.open(`${operation} failed: ${error.status} ${error.statusText}`,"Dismiss",{duration: 2000});
 
       // Let the app keep running by returning an empty result.
       return of(result as T);

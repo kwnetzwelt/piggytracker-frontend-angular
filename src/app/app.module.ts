@@ -62,7 +62,7 @@ import {MatListModule} from '@angular/material/list';
 import { BottomNavModule } from 'ngx-bottom-nav';
 import { FlipModule} from 'ngx-flip';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AvatarComponent } from './avatar/avatar.component';
 import { EntriesService } from './entries.service';
 import { ListentryComponent } from './listentry/listentry.component';
@@ -88,6 +88,7 @@ import { EditTargetsDialogComponent } from './edit-targets-dialog/edit-targets-d
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { UsergroupComponent } from './usergroup/usergroup.component';
 import { SettingsDialogComponent } from './settings-dialog/settings-dialog.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 
 @NgModule({
@@ -144,6 +145,8 @@ import { SettingsDialogComponent } from './settings-dialog/settings-dialog.compo
     MatBottomSheetModule,
     MatInputModule,
     MatFormFieldModule,
+    ReactiveFormsModule,
+    MatSnackBarModule,
     MatSelectModule,
     MatExpansionModule,
     MatAutocompleteModule,

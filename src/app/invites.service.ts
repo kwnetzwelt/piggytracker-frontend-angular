@@ -48,6 +48,7 @@ export class InvitesService {
 
   public joinGroup() {
     this.apiService.postInvite(this.inviteCode).subscribe((r) => {
+      
       this.authService.updateUserProfile(r);
       this.update();
     });
