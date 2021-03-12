@@ -5,7 +5,7 @@
         You can create a group by generating an invite code. 
         Hand this code to another user, who might then enter it into their code-field and join. 
     </p>
-    <p *ngIf="invitesService.isInGroup">You are part of a group already. To leave hit the <mat-icon>delete</mat-icon> button.</p>
+    <p *ngIf="invitesService.isInGroup">You are part of a group already. To leave hit the </p>
     
     
     <mat-form-field appearance="fill">
@@ -15,13 +15,13 @@
       <mat-hint *ngIf="invitesService.isInGroup">You are already in a group</mat-hint>
     </mat-form-field>
 
-    <button mat-stroked-button class="action_button" aria-label="Example icon button with a vertical three dot icon" *ngIf="(inviteCode.value === undefined || inviteCode.value == null || inviteCode.value.length <= 0)" (click)="generateClicked()">
+    <button mat-stroked-button class="action_button" aria-label="Generate" *ngIf="!invitesService.isInGroup && (inviteCode.value === undefined || inviteCode.value == null || inviteCode.value.length <= 0)" (click)="generateClicked()">
         Generate
     </button>
-    <button mat-stroked-button class="action_button" aria-label="Example icon button with a vertical three dot icon" *ngIf="!(inviteCode.value === undefined || inviteCode.value == null || inviteCode.value.length <= 0)" (click)="joinClicked()">
+    <button mat-stroked-button class="action_button" aria-label="Join" *ngIf="!(inviteCode.value === undefined || inviteCode.value == null || inviteCode.value.length <= 0)" (click)="joinClicked()">
         Join
     </button>
-    <button mat-stroked-button class="action_button" aria-label="Example icon button with a vertical three dot icon" *ngIf="invitesService.isInGroup" (click)="leaveClicked()">
+    <button mat-stroked-button class="action_button" aria-label="Leave" *ngIf="invitesService.isInGroup" (click)="leaveClicked()">
         Leave
     </button>
 </mat-card-content>
