@@ -47,7 +47,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatFormFieldControl, MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -89,6 +89,7 @@ import { SidenavComponent } from './sidenav/sidenav.component';
 import { UsergroupComponent } from './usergroup/usergroup.component';
 import { SettingsDialogComponent } from './settings-dialog/settings-dialog.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { StatsComponent } from './stats/stats.component';
 
 
 @NgModule({
@@ -122,6 +123,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     SidenavComponent,
     UsergroupComponent,
     SettingsDialogComponent,
+    StatsComponent,
   ],
   imports: [
 
@@ -145,6 +147,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatBottomSheetModule,
     MatInputModule,
     MatFormFieldModule,
+    MatDatepickerModule,
     ReactiveFormsModule,
     MatSnackBarModule,
     MatSelectModule,

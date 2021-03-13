@@ -12,7 +12,6 @@
       <mat-label>Invite code</mat-label>
       <input matInput placeholder="abcdefg" [value]="invitesService.groupName" disabled *ngIf="invitesService.isInGroup">
       <input matInput placeholder="abcdefg" [formControl]="inviteCode" *ngIf="!invitesService.isInGroup">
-      <mat-hint *ngIf="invitesService.isInGroup">You are already in a group</mat-hint>
     </mat-form-field>
 
     <button mat-stroked-button class="action_button" aria-label="Generate" *ngIf="!invitesService.isInGroup && (inviteCode.value === undefined || inviteCode.value == null || inviteCode.value.length <= 0)" (click)="generateClicked()">

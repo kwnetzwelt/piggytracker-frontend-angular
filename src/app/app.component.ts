@@ -33,9 +33,14 @@ export class AppComponent implements OnInit {
     },
     {
       routerLink: '/ranking',
-      label: 'Stats',
+      label: 'Ranking',
       icon: 'monetization_on'
     },
+    {
+      routerLink: '/stats',
+      label: 'Stats',
+      icon: 'monetization_on'
+    }
   ];
 
 

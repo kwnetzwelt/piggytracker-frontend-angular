@@ -6,12 +6,14 @@ import { TargetsComponent } from './targets/targets.component';
 import { WastrelsComponent } from './wastrels/wastrels.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { AuthGuardGuard } from './auth-guard.guard';
+import { StatsComponent } from './stats/stats.component';
 
 const routes: Routes = [
   {path: 'login', component: LoginComponent },
   {path: 'entries', component: EntriesComponent, canActivate: [AuthGuardGuard]},
   {path: 'targets', component: TargetsComponent, canActivate: [AuthGuardGuard]},
   {path: 'ranking', component: WastrelsComponent, canActivate: [AuthGuardGuard]},
+  {path: 'stats', component: StatsComponent, canActivate: [AuthGuardGuard]},
   {path: '', component: WelcomeComponent}
 ];
 

@@ -176,10 +176,6 @@ export class AuthService {
     return this.authInstance.isSignedIn.get();
   }
 
-  async getSsoInitializationUrl() {
-    this.http.get('http://localhost:4000/auth/sso').subscribe(console.log);
-  }
-
   /**
    * Handle Http operation that failed.
    * Let the app continue.
