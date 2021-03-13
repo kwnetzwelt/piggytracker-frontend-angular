@@ -60,7 +60,7 @@
                 {
                   "type": "anyComponentStyle",
                   "maximumWarning": "6kb",
-                  "maximumError": "64kb"
+                  "maximumError": "86kb"
                 }
               ],
               "serviceWorker": true,
