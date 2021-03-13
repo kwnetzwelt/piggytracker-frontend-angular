@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { GoogleAuthButtonComponent } from './google-auth-button.component';
 
@@ -6,7 +6,7 @@ describe('GoogleAuthButtonComponent', () => {
   let component: GoogleAuthButtonComponent;
   let fixture: ComponentFixture<GoogleAuthButtonComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ GoogleAuthButtonComponent ]
     })

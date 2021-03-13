@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { AddEntryDialogComponent } from './add-entry-dialog.component';
@@ -8,7 +8,7 @@ describe('AddEntryDialogComponent', () => {
   let component: AddEntryDialogComponent;
   let fixture: ComponentFixture<AddEntryDialogComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [
         AddEntryDialogComponent,
