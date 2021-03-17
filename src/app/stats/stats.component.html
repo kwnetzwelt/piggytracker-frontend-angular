@@ -1,1 +1,31 @@
-<p>coming soon</p>
+
+<mat-expansion-panel hideToggle class="filter-panel">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      <span>Filter Options</span>
+      <mat-icon aria-hidden="false" aria-label="Example home icon">filter_alt</mat-icon>
+    </mat-panel-title>
+    
+  </mat-expansion-panel-header>
+  
+
+  <mat-form-field appearance="fill" class="filter-field">
+    <mat-label>Enter a date range</mat-label>
+    <mat-date-range-input [rangePicker]="rangePicker">
+      <input matStartDate placeholder="Start date" [value]="selectedStartDate">
+      <input matEndDate placeholder="End date"  [value]="selectedEndDate">
+    </mat-date-range-input>
+    <mat-datepicker-toggle matSuffix [for]="rangePicker"></mat-datepicker-toggle>
+    <mat-date-range-picker #rangePicker>
+      <mat-date-range-picker-actions>
+        <button mat-button matDateRangePickerCancel>Cancel</button>
+        <button mat-raised-button color="primary" matDateRangePickerApply>Apply</button>
+      </mat-date-range-picker-actions>
+    </mat-date-range-picker>
+  </mat-form-field>
+<br />
+  <button mat-button (click)="lastYearClicked()">Last Year</button>
+  <button mat-button (click)="thisYearClicked()">This Year</button>
+  <button mat-button (click)="lastMonthClicked()">Last Month</button>
+  <button mat-button (click)="thisMonthClicked()">This Month</button>
+</mat-expansion-panel>

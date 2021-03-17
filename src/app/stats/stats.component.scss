@@ -1,0 +1,28 @@
+.filter-panel
+{
+    margin: 1em auto;
+    display: table !important;
+}
+.filter-field{
+    width: 100%;
+}
+
+.filter-panel mat-panel-title
+{
+    line-height: 24px;
+    display: flex;
+    margin: 0;
+}
+.filter-panel mat-icon
+{
+    flex-grow: 1;
+    text-align: right;
+}
+
+
+.add-entry-button {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+  }
+  
