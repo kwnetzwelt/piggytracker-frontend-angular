@@ -12,14 +12,14 @@
   <mat-form-field appearance="fill" class="filter-field">
     <mat-label>Enter a date range</mat-label>
     <mat-date-range-input [rangePicker]="rangePicker">
-      <input matStartDate placeholder="Start date" [value]="selectedStartDate">
-      <input matEndDate placeholder="End date"  [value]="selectedEndDate">
+      <input matStartDate placeholder="Start date" (dateChange)="changeStartDate($event)">
+      <input matEndDate placeholder="End date" (dateChange)="changeEndDate($event)">
     </mat-date-range-input>
     <mat-datepicker-toggle matSuffix [for]="rangePicker"></mat-datepicker-toggle>
     <mat-date-range-picker #rangePicker>
       <mat-date-range-picker-actions>
         <button mat-button matDateRangePickerCancel>Cancel</button>
-        <button mat-raised-button color="primary" matDateRangePickerApply>Apply</button>
+        <button mat-raised-button color="primary" matDateRangePickerApply (click)="setFilterDate()">Apply</button>
       </mat-date-range-picker-actions>
     </mat-date-range-picker>
   </mat-form-field>

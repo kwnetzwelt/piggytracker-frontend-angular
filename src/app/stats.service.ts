@@ -36,7 +36,7 @@ export class StatsService {
     }, 100);
   }
 
-  private update(): any{
+  public update(): any{
     this.clear();
 
     this.entriesService.entries.forEach((e) => {
