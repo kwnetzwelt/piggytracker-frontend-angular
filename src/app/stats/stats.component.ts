@@ -12,7 +12,8 @@ export class StatsComponent implements OnInit {
   public selectedStartDate:Date;
   public selectedEndDate:Date;
 
-  displayedColumns: string[] = ['avatar','name','min','max','average'];
+  columnsPerUser1: string[] = ['avatar','name','min','max','average'];
+  columnsPerUser2: string[] = ['avatar','name','total','count'];
   
   constructor(public statsService:StatsService, public configService:ConfigService) { }
 

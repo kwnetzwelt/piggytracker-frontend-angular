@@ -48,10 +48,10 @@
   .mat-column-name {
     flex-grow: 20;
   }
-  th.mat-column-min, th.mat-column-max, th.mat-column-average {
+  th.mat-column-min, th.mat-column-max, th.mat-column-average, th.mat-column-total, th.mat-column-count {
       text-align: center;
   }
-  .mat-column-min, .mat-column-max, .mat-column-average {
+  .mat-column-min, .mat-column-max, .mat-column-average , .mat-column-total , .mat-column-count{
     flex-grow: 10;
     text-align: right;
     padding-left: .5em;

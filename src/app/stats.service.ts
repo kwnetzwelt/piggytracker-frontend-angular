@@ -158,6 +158,8 @@ export class StatsContainer
   public min:number;
   public max:number;
   public average:number;
+  public total:number;
+  public count:number;
   public values:number[] = [];
 
   public clear(): void
@@ -176,13 +178,15 @@ export class StatsContainer
   {
     this.min = Math.min.apply(Math, this.values);
     this.max = Math.max.apply(Math, this.values);
+    this.average = 0;
+    this.total = 0;
+    this.count = this.values.length;
     if(this.values.length > 0)
     {
-      this.average = 0;
       for (let i = 0; i < this.values.length; i++) {
-        this.average += this.values[i];
+        this.total += this.values[i];
       }
-      this.average = this.average / this.values.length;
+      this.average = this.total / this.values.length;
     }
   }
 }
