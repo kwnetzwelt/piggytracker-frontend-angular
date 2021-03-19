@@ -17,22 +17,17 @@
 }
 
 .mat-column-name {
-  flex: 0 0 35% !important;
-  width: 35% !important;
+  flex-grow: 20;
 }
-.mat-column-total {
-  flex: 0 0 15% !important;
-  width: 15% !important;
-  text-align: right;
-}
-.mat-column-delta {
-  flex: 0 0 15% !important;
-  width: 15% !important;
+.mat-column-total ,
+.mat-column-delta ,
+.mat-column-spending {
+  flex-grow: 10;
+  padding-left: .5em;
   text-align: right;
 }
 
-.mat-column-spending {
-  flex: 0 0 15% !important;
-  width: 15% !important;
-  text-align: right;
+
+th.mat-column-spending, th.mat-column-total, th.mat-column-delta {
+  text-align: center;
 }

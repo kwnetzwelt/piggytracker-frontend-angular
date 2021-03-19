@@ -1,5 +1,5 @@
 
-<mat-expansion-panel hideToggle class="filter-panel">
+<mat-expansion-panel hideToggle class="filter-panel mat-elevation-z1">
   <mat-expansion-panel-header>
     <mat-panel-title>
       <span>Filter Options</span>
@@ -23,11 +23,42 @@
       </mat-date-range-picker-actions>
     </mat-date-range-picker>
   </mat-form-field>
-<br />
-  <button mat-button (click)="lastYearClicked()">Last Year</button>
-  <button mat-button (click)="thisYearClicked()">This Year</button>
-  <button mat-button (click)="lastMonthClicked()">Last Month</button>
-  <button mat-button (click)="thisMonthClicked()">This Month</button>
+
 </mat-expansion-panel>
 
-Coming soon
+<mat-table [dataSource]="statsService.perUserStats.containers" class="table">
+
+
+  <ng-container matColumnDef="avatar">
+    <th mat-header-cell *matHeaderCellDef>  </th>
+    <td mat-cell *matCellDef="let element">
+      <app-avatar [small]="true" class="column remunerator" [name]="element.name" [src]="element.name | remunerator"
+    fxFlex="nogrow"></app-avatar></td>
+  </ng-container>
+
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Name </th>
+    <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="min">
+    <th mat-header-cell *matHeaderCellDef> Min </th>
+    <td mat-cell *matCellDef="let element"> {{element.min | currency:configService.currency:"symbol"}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="max">
+    <th mat-header-cell *matHeaderCellDef> Max </th>
+    <td mat-cell *matCellDef="let element"> {{element.max | currency:configService.currency:"symbol"}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="average">
+    <th mat-header-cell *matHeaderCellDef> Average </th>
+    <td mat-cell *matCellDef="let element"> {{element.average | currency:configService.currency:"symbol"}} </td>
+  </ng-container>
+
+
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</mat-table>
+

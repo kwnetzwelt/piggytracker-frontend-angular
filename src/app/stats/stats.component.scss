@@ -1,3 +1,4 @@
+@import '~@angular/material/theming';
 .filter-panel
 {
     margin: 1em auto;
@@ -26,3 +27,33 @@
     right: 15px;
   }
   
+.table 
+{
+    margin: 1em auto;
+    display: table !important;
+    @include mat-elevation(8);
+}
+
+.table tr td, .table tr th {
+    vertical-align: middle;
+  }
+.mat-column-avatar {
+
+    vertical-align: middle;
+    text-align: center !important;
+    display: table-cell !important;
+    padding-right: 1em;
+  }
+  
+  .mat-column-name {
+    flex-grow: 20;
+  }
+  th.mat-column-min, th.mat-column-max, th.mat-column-average {
+      text-align: center;
+  }
+  .mat-column-min, .mat-column-max, .mat-column-average {
+    flex-grow: 10;
+    text-align: right;
+    padding-left: .5em;
+    
+  }
