@@ -96,3 +96,43 @@
   <tr mat-row *matRowDef="let row; columns: columnsPerUser2;"></tr>
 </mat-table>
 
+<div> 
+  
+<mat-card class="card mat-elevation-z8 card">
+  <mat-card-header>
+    
+  <mat-card-title>
+    Entries grouped by Remunerator
+  </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <canvas baseChart
+        [data]="statsService.perUser.data"
+        [labels]="statsService.perUser.labels"
+        [chartType]="statsService.perUser.type"
+        [options]="statsService.perUser.options"
+        [colors]="statsService.perUser.colors"
+        (chartClick)="perUserChartClicked($event)">
+      </canvas>
+  </mat-card-content>
+</mat-card>
+<mat-card class="card mat-elevation-z8 card">
+  <mat-card-header>
+    
+  <mat-card-title class="cardTitle">
+    Entries grouped by Category
+  </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <canvas baseChart
+
+        [data]="statsService.perCategory.data"
+        [labels]="statsService.perCategory.labels"
+        [chartType]="statsService.perCategory.type"
+        [colors]="statsService.perCategory.colors"
+        (chartClick)="perCategoryChartClicked($event)">
+      </canvas>
+  </mat-card-content>
+</mat-card>
+
+</div>

@@ -90,6 +90,7 @@ import { UsergroupComponent } from './usergroup/usergroup.component';
 import { SettingsDialogComponent } from './settings-dialog/settings-dialog.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { StatsComponent } from './stats/stats.component';
+import { ChartsModule } from 'ng2-charts';
 
 
 @NgModule({
@@ -126,7 +127,7 @@ import { StatsComponent } from './stats/stats.component';
     StatsComponent,
   ],
   imports: [
-
+    ChartsModule,
     BrowserModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     BrowserAnimationsModule,

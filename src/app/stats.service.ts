@@ -1,7 +1,12 @@
+import { CurrencyPipe } from '@angular/common';
 import { Injectable } from '@angular/core';
+import { ChartOptions, ChartType } from 'chart.js';
+import { Color, Label, MultiDataSet } from 'ng2-charts';
 import { Entry } from './api.service';
+import { ConfigService } from './config.service';
 import { EntriesService } from './entries.service';
 import { LogService } from './log.service';
+import { StringToColorPipe } from './stringToColor.pipe';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +20,10 @@ export class StatsService {
   public perUserStats:StatsCollection = new StatsCollection(this.addPerUserEntry);
   public perCategoryStats:StatsCollection = new StatsCollection(this.addPerCategoryEntry);
 
-  constructor(private logService: LogService, private entriesService:EntriesService) 
+  public perUser:ChartConfiguration = new ChartConfiguration(this.configService);
+  public perCategory:ChartConfiguration = new ChartConfiguration(this.configService);
+
+  constructor(private logService: LogService, private entriesService:EntriesService, private configService:ConfigService) 
   { 
     
     // when something changes, we will just recalculate everything, no matter what happened. 
@@ -49,6 +57,9 @@ export class StatsService {
 
     this.perUserStats.calculate();
     this.perCategoryStats.calculate();
+
+    this.perUser.update(this.perUserStats);
+    this.perCategory.update(this.perCategoryStats);
   }
 
   private clear(): void{
@@ -102,7 +113,7 @@ export class StatsService {
     
     if(targetContainer === null)
     {
-      targetContainer = new StatsContainer(e.remunerator);
+      targetContainer = new StatsContainer(e.category);
       s.containers.push(targetContainer);
     }
 
@@ -189,4 +200,51 @@ export class StatsContainer
       this.average = this.total / this.values.length;
     }
   }
+}
+
+export class ChartConfiguration
+{
+
+  constructor(private configService:ConfigService) {}
+
+  public update(statsCollection: StatsCollection) {
+    
+    let colorise:StringToColorPipe = new StringToColorPipe();
+    let newLabels:Label[] = [];
+    let newData:MultiDataSet = [[]];
+    let newcolors:string[] = [];
+    
+    let format = new Intl.NumberFormat(this.configService.locale, { style:  'currency', currency: this.configService.currency });
+    
+    statsCollection.containers.map(v => {
+      newLabels.push(v.name + " (" + format.format(v.total) + ")");
+      newData[0].push(v.total);
+      newcolors.push(colorise.transform(v.name));
+    })
+    
+    console.log(newcolors);
+
+    this.labels = newLabels;
+    this.data = newData;
+    this.colors = [{backgroundColor:[...newcolors]}] as Color[];
+  }
+  public labels: Label[] = [];
+  public colors: Color[] = [];
+  public data: MultiDataSet = [
+    []
+  ];
+  public type: ChartType = 'doughnut';
+  public options:ChartOptions = {
+    legend: {
+      position: 'right',
+      align: 'start',
+      labels: {
+        fontFamily: "Roboto",
+        fontSize: 14
+      }
+    }
+
+  }
+
+  
 }

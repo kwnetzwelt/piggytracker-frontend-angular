@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MatDateRangePickerInput } from '@angular/material/datepicker/date-range-picker';
+import { ChartType } from 'chart.js';
+import { Label, MultiDataSet } from 'ng2-charts';
 import { ConfigService } from '../config.service';
 import { StatsService } from '../stats.service';
 
@@ -10,6 +12,9 @@ import { StatsService } from '../stats.service';
   styleUrls: ['./stats.component.scss']
 })
 export class StatsComponent implements OnInit {
+
+  
+  
 
   public selectedStartDate:Date;
   public selectedEndDate:Date;
@@ -34,6 +39,16 @@ export class StatsComponent implements OnInit {
   changeEndDate(event: MatDatepickerInputEvent<Date, unknown>): any {
     this.selectedEndDate = event.value;
     this.setFilterDate();
+  }
+
+  perUserChartClicked(e:any): any {
+    console.log(e);
+    console.log(e.active[0]._datasetIndex + " " + e.active[0]._index);
+  }
+
+  perCategoryChartClicked(e:any): any {
+    console.log(e);
+    console.log(e.active[0]._datasetIndex + " " + e.active[0]._index);
   }
 
   ngOnInit(): void {

@@ -1,9 +1,11 @@
 @import '~@angular/material/theming';
+
 .filter-panel
 {
-    margin: 1em auto;
-    display: table !important;
+    margin: 1em 1em;
+    display: block !important;
 }
+
 .filter-field{
     width: 100%;
 }
@@ -56,4 +58,10 @@
     text-align: right;
     padding-left: .5em;
     
+  }
+
+  
+  .card {
+    margin: 1em 1em;
+    display: block !important;
   }
