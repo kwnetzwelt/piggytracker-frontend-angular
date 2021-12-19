@@ -1,13 +1,13 @@
 // Import material theming functions
-@import '~@angular/material/theming';
+@use '@angular/material' as mat;
 
-$piggytracker-app-primary: mat-palette($mat-light-blue);
-$piggytracker-app-accent:  mat-palette($mat-pink, A200, A100, A400);
+$piggytracker-app-primary: mat.define-palette(mat.$light-blue-palette);
+$piggytracker-app-accent:  mat.define-palette(mat.$pink-palette, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
-$piggytracker-app-warn:    mat-palette($mat-red);
+$piggytracker-app-warn:    mat.define-palette(mat.$red-palette);
 
 // Create your Sass color vars (will be available in all the project)
-$primary: mat-color($piggytracker-app-primary);
-$accent: mat-color($piggytracker-app-accent);
-$warn: mat-color($piggytracker-app-warn);
+$primary: mat.get-color-from-palette($piggytracker-app-primary);
+$accent: mat.get-color-from-palette($piggytracker-app-accent);
+$warn: mat.get-color-from-palette($piggytracker-app-warn);

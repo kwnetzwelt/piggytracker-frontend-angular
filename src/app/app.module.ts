@@ -42,7 +42,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatChipsModule } from '@angular/material/chips/';
+import { MatChipsModule } from '@angular/material/chips';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
@@ -94,97 +94,92 @@ import { ChartsModule } from 'ng2-charts';
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    EntriesComponent,
-    TargetsComponent,
-    WastrelsComponent,
-    GoogleAuthButtonComponent,
-    AvatarComponent,
-    ListentryComponent,
-    RemuneratorComponent,
-    CategoryComponent,
-    RemuneratorPipe,
-    InitialsPipe,
-    CategoryPipe,
-    TargetImagePipe,
-    StringToColorPipe,
-    StringToForegroundColorPipe,
-    WelcomeComponent,
-    VersionComponent,
-    AddEntryDialogComponent,
-    EditEntryDialogComponent,
-    RankingEntrySettingsDialogComponent,
-    LoginDialogComponent,
-    MonthNamePipe,
-    ImportExportDialogComponent,
-    DeleteButtonComponent,
-    EditTargetsDialogComponent,
-    SidenavComponent,
-    UsergroupComponent,
-    SettingsDialogComponent,
-    StatsComponent,
-  ],
-  imports: [
-    ChartsModule,
-    BrowserModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    HttpClientModule,
-    LocaleCurrencyInputModule,
-
-    // material
-    MatSliderModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatIconModule,
-    ScrollingModule,
-    MatDividerModule,
-    MatChipsModule,
-    MatSidenavModule,
-    MatTabsModule,
-    MatBottomSheetModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatDatepickerModule,
-    ReactiveFormsModule,
-    MatSnackBarModule,
-    MatSelectModule,
-    MatExpansionModule,
-    MatAutocompleteModule,
-    MatMenuModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatCardModule,
-    MatTableModule,
-    MatDialogModule,
-    MatProgressBarModule,
-    MatListModule,
-    // additional
-    BottomNavModule,
-    FlexLayoutModule,
-    FormsModule,
-    FlipModule,
-    MatListModule,
-  ],
-
-  entryComponents: [
-    AddEntryDialogComponent,
-    RankingEntrySettingsDialogComponent,
-  ],
-  providers: [
-    { provide: LOCALE_ID, deps: [ConfigService], useFactory: (configService: ConfigService) => configService.locale },
-    {
-      provide: APP_INITIALIZER,
-      useFactory: ConfigService.load,
-      deps: [
-        HttpClient,
-        ConfigService
-      ],
-      multi: true
-    }, AuthService, LogService, EntriesService, TargetsService, RankingService, UpdateService, ImportExportService],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        LoginComponent,
+        EntriesComponent,
+        TargetsComponent,
+        WastrelsComponent,
+        GoogleAuthButtonComponent,
+        AvatarComponent,
+        ListentryComponent,
+        RemuneratorComponent,
+        CategoryComponent,
+        RemuneratorPipe,
+        InitialsPipe,
+        CategoryPipe,
+        TargetImagePipe,
+        StringToColorPipe,
+        StringToForegroundColorPipe,
+        WelcomeComponent,
+        VersionComponent,
+        AddEntryDialogComponent,
+        EditEntryDialogComponent,
+        RankingEntrySettingsDialogComponent,
+        LoginDialogComponent,
+        MonthNamePipe,
+        ImportExportDialogComponent,
+        DeleteButtonComponent,
+        EditTargetsDialogComponent,
+        SidenavComponent,
+        UsergroupComponent,
+        SettingsDialogComponent,
+        StatsComponent,
+    ],
+    imports: [
+        ChartsModule,
+        BrowserModule,
+        ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        HttpClientModule,
+        LocaleCurrencyInputModule,
+        // material
+        MatSliderModule,
+        MatToolbarModule,
+        MatButtonModule,
+        MatIconModule,
+        ScrollingModule,
+        MatDividerModule,
+        MatChipsModule,
+        MatSidenavModule,
+        MatTabsModule,
+        MatBottomSheetModule,
+        MatInputModule,
+        MatFormFieldModule,
+        MatDatepickerModule,
+        ReactiveFormsModule,
+        MatSnackBarModule,
+        MatSelectModule,
+        MatExpansionModule,
+        MatAutocompleteModule,
+        MatMenuModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatCardModule,
+        MatTableModule,
+        MatDialogModule,
+        MatProgressBarModule,
+        MatListModule,
+        // additional
+        BottomNavModule,
+        FlexLayoutModule,
+        FormsModule,
+        FlipModule,
+        MatListModule,
+    ],
+    providers: [
+        { provide: LOCALE_ID, deps: [ConfigService], useFactory: (configService: ConfigService) => configService.locale },
+        {
+            provide: APP_INITIALIZER,
+            useFactory: ConfigService.load,
+            deps: [
+                HttpClient,
+                ConfigService
+            ],
+            multi: true
+        }, AuthService, LogService, EntriesService, TargetsService, RankingService, UpdateService, ImportExportService
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

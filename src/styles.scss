@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
@@ -6,13 +7,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 //@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 
 
-@import '~@angular/material/theming';
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
 // Be sure that you only ever include this mixin once!
-@include mat-core();
+@include mat.core();
 
 @import 'variables.scss';
 
@@ -26,12 +26,12 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 //$piggytracker-app-warn:    mat-palette($mat-red);
 
 // Create the theme object (a Sass map containing all of the palettes).
-$piggytracker-app-theme: mat-light-theme($piggytracker-app-primary, $piggytracker-app-accent, $piggytracker-app-warn);
+$piggytracker-app-theme: mat.define-light-theme($piggytracker-app-primary, $piggytracker-app-accent, $piggytracker-app-warn);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
-@include angular-material-theme($piggytracker-app-theme);
+@include mat.all-component-themes($piggytracker-app-theme);
 
 .flex-container {
   display:flex;

@@ -1,4 +1,4 @@
-@import '~@angular/material/theming';
+@use '@angular/material' as mat;
 
 .filter-panel
 {
@@ -33,7 +33,7 @@
 {
     margin: 1em auto;
     display: table !important;
-    @include mat-elevation(8);
+    @include mat.elevation(8);
 }
 
 .table tr td, .table tr th {

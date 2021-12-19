@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 
 import { MatBottomSheetRef, MAT_BOTTOM_SHEET_DATA } from '@angular/material/bottom-sheet';
 import { Entry } from '../api.service';
-import { isFormattedError } from '@angular/compiler';
+//import { isFormattedError } from '@angular/compiler';
 import { EntriesService } from '../entries.service';
 import { LogService } from '../log.service';
 import { AuthService } from '../auth.service';
