@@ -88,7 +88,7 @@ export class AuthService {
         this.logService.log("initiated");
         this.gapiSetup = true;
         this.authInstance = auth;
-        this.restoreLoginState();
+        this.authInstance.signIn().then( () => this.restoreLoginState());
       });
   }
 
