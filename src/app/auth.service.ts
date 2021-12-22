@@ -30,7 +30,7 @@ export class AuthService {
     private configService: ConfigService
   ) {
     this.userProfile = new UserProfile();
-
+    this.restoreLoginState();
   }
 
   getUserProfile(): UserProfile {
@@ -64,8 +64,8 @@ export class AuthService {
     return this.http.post<any>(this.configService.baseUrl + '/login', { username, password })
   }
 
-  async restoreLoginState() {
-    if (await this.checkIfUserAuthenticated()) {
+  restoreLoginState() {
+    if (this.checkIfUserAuthenticated()) {
       this.logService.log('User Authentication restored. ');
       this.user = this.authInstance.currentUser.get();
       this.tokenResponse = this.restoreTokenResponse();
@@ -82,26 +82,26 @@ export class AuthService {
     }
   }
 
-  async initGoogleAuth(): Promise<void> {
-    //  Create a new Promise where the resolve
-    // function is the callback passed to gapi.load
-    this.logService.log("initGoogleAuth");
-    const pload = new Promise((resolve) => {
-      this.logService.log("gapi.load");
-      gapi.load('auth2', resolve);
-    });
+  gapiInit():void {
+    this.logService.log("gapi.auth2.init");
+    gapi.auth2
+      .init({ client_id: this.configService.googleClientId })
+      .then(auth => {
+        this.logService.log("authenticated");
+        this.gapiSetup = true;
+        this.authInstance = auth;
+        this.restoreLoginState();
+      });
+  }
 
-    // When the first promise resolves, it means we have gapi
-    // loaded and that we can call gapi.init
-    return pload.then(async () => {
-      this.logService.log("gapi.auth2.init");
-      await gapi.auth2
-        .init({ client_id: this.configService.googleClientId })
-        .then(auth => {
-          this.gapiSetup = true;
-          this.authInstance = auth;
-        });
+  initGoogleAuth(){
+    this.logService.log("initGoogleAuth");
+    
+    gapi.load('auth2', {
+      callback: () => {this.gapiInit();}, 
+      onerror: () => {this.logService.log("error")}
     });
+    
   }
 
   stage2() {
@@ -170,13 +170,16 @@ export class AuthService {
     }
   }
 
-  async checkIfUserAuthenticated(): Promise<boolean> {
+  checkIfUserAuthenticated():boolean {
     // Initialize gapi if not done yet
     if (!this.gapiSetup) {
-      await this.initGoogleAuth();
+      this.initGoogleAuth();
+      return false;
     }
-
-    return this.authInstance.isSignedIn.get();
+    else
+    {
+      return this.authInstance.isSignedIn.get();
+    }
   }
 
   /**

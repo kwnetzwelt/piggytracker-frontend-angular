@@ -64,7 +64,7 @@ export class AppComponent implements OnInit {
       }
       this.logService.log('app.component ' + v);
     });
-    await this.authService.restoreLoginState();
+    
   }
 
   handleLoginClicked() {
