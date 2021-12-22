@@ -85,13 +85,16 @@ export class AuthService {
   async initGoogleAuth(): Promise<void> {
     //  Create a new Promise where the resolve
     // function is the callback passed to gapi.load
+    this.logService.log("initGoogleAuth");
     const pload = new Promise((resolve) => {
+      this.logService.log("gapi.load");
       gapi.load('auth2', resolve);
     });
 
     // When the first promise resolves, it means we have gapi
     // loaded and that we can call gapi.init
     return pload.then(async () => {
+      this.logService.log("gapi.auth2.init");
       await gapi.auth2
         .init({ client_id: this.configService.googleClientId })
         .then(auth => {
