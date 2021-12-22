@@ -87,9 +87,10 @@ export class AuthService {
     gapi.auth2
       .init({ client_id: this.configService.googleClientId })
       .then(auth => {
-        this.logService.log("authenticated");
+        this.logService.log("initiated");
         this.gapiSetup = true;
         this.authInstance = auth;
+        this.logService.log(JSON.stringify(auth));
         this.restoreLoginState();
       });
   }
