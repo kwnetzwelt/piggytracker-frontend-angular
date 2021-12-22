@@ -30,7 +30,6 @@ export class AuthService {
     private configService: ConfigService
   ) {
     this.userProfile = new UserProfile();
-    this.restoreLoginState();
   }
 
   getUserProfile(): UserProfile {
@@ -49,7 +48,6 @@ export class AuthService {
   }
 
   getAuthHeader(contentType?:string): HttpHeaders {
-    //console.log(JSON.stringify(this.tokenResponse.token));
     return new HttpHeaders({
       "content-type": contentType ?? "application/json",
       "Authorization": "Bearer " + this.tokenResponse.token });
@@ -90,7 +88,6 @@ export class AuthService {
         this.logService.log("initiated");
         this.gapiSetup = true;
         this.authInstance = auth;
-        this.logService.log(JSON.stringify(auth));
         this.restoreLoginState();
       });
   }

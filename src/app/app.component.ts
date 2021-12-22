@@ -67,6 +67,11 @@ export class AppComponent implements OnInit {
     
   }
 
+  ngAfterViewInit() {
+
+    this.authService.restoreLoginState();
+  }
+
   handleLoginClicked() {
     this.router.navigate(['/login']);
   }
